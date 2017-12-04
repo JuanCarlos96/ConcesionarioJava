@@ -1,0 +1,1 @@
+Todas estas librerías se han sacado de la versión de instalación de JasperReports v.6.2
