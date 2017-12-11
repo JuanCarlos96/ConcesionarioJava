@@ -1,6 +1,7 @@
 package concesionariojava;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 public class Main extends javax.swing.JFrame {
 
@@ -149,30 +150,32 @@ public class Main extends javax.swing.JFrame {
         btnAceptarRevisionModificar = new javax.swing.JButton();
         modificarVenta = new javax.swing.JDialog();
         jLabel69 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txtFechaVentaModificar = new javax.swing.JTextField();
         jLabel70 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        txtDniVentaModificar = new javax.swing.JTextField();
         jLabel71 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
+        txtBastidorVentaModificar = new javax.swing.JTextField();
         jLabel72 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        txtPrecioVentaModificar = new javax.swing.JTextField();
+        btnCalendarioVentaModificar = new javax.swing.JButton();
+        btnBuscarCliente = new javax.swing.JButton();
+        btnBuscarCoche = new javax.swing.JButton();
         jLabel73 = new javax.swing.JLabel();
-        jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
+        btnCancelarVentaModificar = new javax.swing.JButton();
+        btnAceptarVentaModificar = new javax.swing.JButton();
         modificarCliente = new javax.swing.JDialog();
         jLabel74 = new javax.swing.JLabel();
         jLabel75 = new javax.swing.JLabel();
-        txtNombreVentaNueva1 = new javax.swing.JTextField();
-        txtApellidosVentaNueva1 = new javax.swing.JTextField();
+        txtNombreClienteModificar = new javax.swing.JTextField();
+        txtApellidosClienteModificar = new javax.swing.JTextField();
         jLabel76 = new javax.swing.JLabel();
-        txtDniVentaNueva1 = new javax.swing.JTextField();
+        txtDniClienteModificar = new javax.swing.JTextField();
         jLabel77 = new javax.swing.JLabel();
-        txtTelefonoVentaNueva1 = new javax.swing.JTextField();
+        txtTelefonoClienteModificar = new javax.swing.JTextField();
         jLabel78 = new javax.swing.JLabel();
-        txtDireccionVentaNueva1 = new javax.swing.JTextField();
+        txtDireccionClienteModificar = new javax.swing.JTextField();
+        btnCancelarClienteModificar = new javax.swing.JButton();
+        btnAceptarClienteModificar = new javax.swing.JButton();
         acercaDe = new javax.swing.JDialog();
         jLabel79 = new javax.swing.JLabel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
@@ -284,6 +287,11 @@ public class Main extends javax.swing.JFrame {
         jLabel52.setText("IMAGEN");
 
         btnImagenCocheNuevo.setText("Seleccionar imagen");
+        btnImagenCocheNuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnImagenCocheNuevoActionPerformed(evt);
+            }
+        });
 
         pImagenCocheNuevo2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -299,6 +307,11 @@ public class Main extends javax.swing.JFrame {
         );
 
         btnCancelarCocheNuevo.setText("Cancelar");
+        btnCancelarCocheNuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarCocheNuevoActionPerformed(evt);
+            }
+        });
 
         btnAceptarCocheNuevo.setText("Aceptar");
 
@@ -420,6 +433,11 @@ public class Main extends javax.swing.JFrame {
         jLabel61.setText("IMAGEN");
 
         btnImagenCocheModificar.setText("Seleccionar imagen");
+        btnImagenCocheModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnImagenCocheModificarActionPerformed(evt);
+            }
+        });
 
         pImagenCocheNuevo3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -435,6 +453,11 @@ public class Main extends javax.swing.JFrame {
         );
 
         btnCancelarCocheModificar.setText("Cancelar");
+        btnCancelarCocheModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarCocheModificarActionPerformed(evt);
+            }
+        });
 
         btnAceptarCocheModificar.setText("Aceptar");
 
@@ -618,6 +641,7 @@ public class Main extends javax.swing.JFrame {
         buscarClienteVentaModificar.setTitle("Seleccionar cliente");
         buscarClienteVentaModificar.setModal(true);
         buscarClienteVentaModificar.setResizable(false);
+        buscarClienteVentaModificar.setSize(new java.awt.Dimension(426, 270));
 
         cbBuscarClienteVentaModificar.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -637,6 +661,11 @@ public class Main extends javax.swing.JFrame {
         jScrollPane6.setViewportView(jTable2);
 
         btnCargarClienteVentaModificar.setText("Cargar cliente");
+        btnCargarClienteVentaModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCargarClienteVentaModificarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout buscarClienteVentaModificarLayout = new javax.swing.GroupLayout(buscarClienteVentaModificar.getContentPane());
         buscarClienteVentaModificar.getContentPane().setLayout(buscarClienteVentaModificarLayout);
@@ -678,6 +707,7 @@ public class Main extends javax.swing.JFrame {
         buscarCocheVentaModificar.setTitle("Seleccionar coche");
         buscarCocheVentaModificar.setModal(true);
         buscarCocheVentaModificar.setResizable(false);
+        buscarCocheVentaModificar.setSize(new java.awt.Dimension(426, 270));
 
         cbBuscarCocheVentaModificar.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -697,6 +727,11 @@ public class Main extends javax.swing.JFrame {
         jScrollPane7.setViewportView(jTable3);
 
         btnCargarCocheVentaModificar.setText("Cargar coche");
+        btnCargarCocheVentaModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCargarCocheVentaModificarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout buscarCocheVentaModificarLayout = new javax.swing.GroupLayout(buscarCocheVentaModificar.getContentPane());
         buscarCocheVentaModificar.getContentPane().setLayout(buscarCocheVentaModificarLayout);
@@ -768,6 +803,11 @@ public class Main extends javax.swing.JFrame {
         jLabel40.setText("€");
 
         btnCancelarVentaNueva.setText("Cancelar");
+        btnCancelarVentaNueva.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarVentaNuevaActionPerformed(evt);
+            }
+        });
 
         btnAceptarVentaNueva.setText("Aceptar");
 
@@ -918,6 +958,11 @@ public class Main extends javax.swing.JFrame {
         chkAceiteRevisionNueva.setText("CAMBIO DE ACEITE");
 
         btnCancelarRevisionNueva.setText("Cancelar");
+        btnCancelarRevisionNueva.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarRevisionNuevaActionPerformed(evt);
+            }
+        });
 
         btnAceptarRevisionNueva.setText("Aceptar");
 
@@ -1024,6 +1069,11 @@ public class Main extends javax.swing.JFrame {
         chkAceiteRevisionModificar.setText("CAMBIO DE ACEITE");
 
         btnCancelarRevisionModificar.setText("Cancelar");
+        btnCancelarRevisionModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarRevisionModificarActionPerformed(evt);
+            }
+        });
 
         btnAceptarRevisionModificar.setText("Aceptar");
 
@@ -1107,6 +1157,9 @@ public class Main extends javax.swing.JFrame {
         );
 
         modificarVenta.setTitle("Modificar venta");
+        modificarVenta.setModal(true);
+        modificarVenta.setResizable(false);
+        modificarVenta.setSize(new java.awt.Dimension(270, 332));
 
         jLabel69.setText("FECHA");
 
@@ -1116,17 +1169,37 @@ public class Main extends javax.swing.JFrame {
 
         jLabel72.setText("PRECIO");
 
-        jButton1.setText("Abrir calendario");
+        btnCalendarioVentaModificar.setText("Abrir calendario");
+        btnCalendarioVentaModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCalendarioVentaModificarActionPerformed(evt);
+            }
+        });
 
-        jButton3.setText("Buscar cliente");
+        btnBuscarCliente.setText("Buscar cliente");
+        btnBuscarCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarClienteActionPerformed(evt);
+            }
+        });
 
-        jButton4.setText("Buscar coche");
+        btnBuscarCoche.setText("Buscar coche");
+        btnBuscarCoche.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarCocheActionPerformed(evt);
+            }
+        });
 
         jLabel73.setText("€");
 
-        jButton5.setText("Cancelar");
+        btnCancelarVentaModificar.setText("Cancelar");
+        btnCancelarVentaModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarVentaModificarActionPerformed(evt);
+            }
+        });
 
-        jButton6.setText("Aceptar");
+        btnAceptarVentaModificar.setText("Aceptar");
 
         javax.swing.GroupLayout modificarVentaLayout = new javax.swing.GroupLayout(modificarVenta.getContentPane());
         modificarVenta.getContentPane().setLayout(modificarVentaLayout);
@@ -1136,10 +1209,10 @@ public class Main extends javax.swing.JFrame {
                 .addGroup(modificarVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(modificarVentaLayout.createSequentialGroup()
                         .addGroup(modificarVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtPrecioVentaModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(modificarVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(modificarVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtBastidorVentaModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(modificarVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addGroup(modificarVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                             .addGroup(modificarVentaLayout.createSequentialGroup()
@@ -1147,13 +1220,13 @@ public class Main extends javax.swing.JFrame {
                                                 .addComponent(jLabel69))
                                             .addGroup(modificarVentaLayout.createSequentialGroup()
                                                 .addContainerGap()
-                                                .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE))
+                                                .addComponent(txtFechaVentaModificar, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE))
                                             .addGroup(modificarVentaLayout.createSequentialGroup()
                                                 .addContainerGap()
                                                 .addComponent(jLabel70))
                                             .addGroup(modificarVentaLayout.createSequentialGroup()
                                                 .addContainerGap()
-                                                .addComponent(jTextField2)))
+                                                .addComponent(txtDniVentaModificar)))
                                         .addGroup(modificarVentaLayout.createSequentialGroup()
                                             .addContainerGap()
                                             .addComponent(jLabel71))))
@@ -1163,15 +1236,15 @@ public class Main extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(modificarVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(modificarVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(btnCalendarioVentaModificar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnBuscarCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnBuscarCoche, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addComponent(jLabel73)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, modificarVentaLayout.createSequentialGroup()
                         .addGap(47, 47, 47)
-                        .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnAceptarVentaModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
-                        .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnCancelarVentaModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(8, 8, 8))
         );
         modificarVentaLayout.setVerticalGroup(
@@ -1181,34 +1254,37 @@ public class Main extends javax.swing.JFrame {
                 .addComponent(jLabel69)
                 .addGap(8, 8, 8)
                 .addGroup(modificarVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
+                    .addComponent(txtFechaVentaModificar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCalendarioVentaModificar))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel70)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(modificarVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton3))
+                    .addComponent(txtDniVentaModificar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnBuscarCliente))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel71)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(modificarVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton4))
+                    .addComponent(txtBastidorVentaModificar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnBuscarCoche))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel72)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(modificarVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtPrecioVentaModificar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel73))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(modificarVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton5)
-                    .addComponent(jButton6))
+                    .addComponent(btnCancelarVentaModificar)
+                    .addComponent(btnAceptarVentaModificar))
                 .addGap(8, 8, 8))
         );
 
         modificarCliente.setTitle("Modificar cliente");
+        modificarCliente.setModal(true);
+        modificarCliente.setResizable(false);
+        modificarCliente.setSize(new java.awt.Dimension(328, 266));
 
         jLabel74.setText("NOMBRE");
 
@@ -1220,31 +1296,47 @@ public class Main extends javax.swing.JFrame {
 
         jLabel78.setText("DIRECCIÓN");
 
+        btnCancelarClienteModificar.setText("Cancelar");
+        btnCancelarClienteModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarClienteModificarActionPerformed(evt);
+            }
+        });
+
+        btnAceptarClienteModificar.setText("Aceptar");
+
         javax.swing.GroupLayout modificarClienteLayout = new javax.swing.GroupLayout(modificarCliente.getContentPane());
         modificarCliente.getContentPane().setLayout(modificarClienteLayout);
         modificarClienteLayout.setHorizontalGroup(
             modificarClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(modificarClienteLayout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(8, 8, 8)
                 .addGroup(modificarClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel78)
                     .addGroup(modificarClienteLayout.createSequentialGroup()
-                        .addGroup(modificarClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel74)
-                            .addComponent(txtNombreVentaNueva1)
-                            .addComponent(jLabel76)
-                            .addComponent(txtDniVentaNueva1, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(37, 37, 37)
-                        .addGroup(modificarClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtTelefonoVentaNueva1)
-                            .addComponent(txtApellidosVentaNueva1)
+                        .addComponent(jLabel78)
+                        .addContainerGap(263, Short.MAX_VALUE))
+                    .addGroup(modificarClienteLayout.createSequentialGroup()
+                        .addGroup(modificarClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(txtDireccionClienteModificar)
                             .addGroup(modificarClienteLayout.createSequentialGroup()
-                                .addGroup(modificarClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(modificarClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jLabel74)
+                                    .addComponent(jLabel76)
+                                    .addComponent(txtDniClienteModificar, javax.swing.GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE)
+                                    .addComponent(txtNombreClienteModificar))
+                                .addGap(37, 37, 37)
+                                .addGroup(modificarClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jLabel75)
-                                    .addComponent(jLabel77))
-                                .addGap(0, 0, Short.MAX_VALUE))))
-                    .addComponent(txtDireccionVentaNueva1, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addGap(79, 79, 79))
+                                    .addComponent(jLabel77)
+                                    .addComponent(txtApellidosClienteModificar, javax.swing.GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE)
+                                    .addComponent(txtTelefonoClienteModificar))))
+                        .addGap(8, 8, 8))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, modificarClienteLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnAceptarClienteModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(8, 8, 8)
+                .addComponent(btnCancelarClienteModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(8, 8, 8))
         );
         modificarClienteLayout.setVerticalGroup(
             modificarClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1255,26 +1347,31 @@ public class Main extends javax.swing.JFrame {
                     .addComponent(jLabel75))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(modificarClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtNombreVentaNueva1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtApellidosVentaNueva1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtNombreClienteModificar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtApellidosClienteModificar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(modificarClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel76)
                     .addComponent(jLabel77))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(modificarClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtDniVentaNueva1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtTelefonoVentaNueva1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtDniClienteModificar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtTelefonoClienteModificar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel78)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtDireccionVentaNueva1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(133, Short.MAX_VALUE))
+                .addComponent(txtDireccionClienteModificar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(modificarClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnCancelarClienteModificar)
+                    .addComponent(btnAceptarClienteModificar))
+                .addGap(8, 8, 8))
         );
 
         acercaDe.setTitle("Acerca de Concesionario");
         acercaDe.setModal(true);
         acercaDe.setResizable(false);
+        acercaDe.setSize(new java.awt.Dimension(232, 132));
 
         jLabel79.setText("<html>\n<p>Concesionario 1.1.4</p>\n<p>Juan Carlos Expósito Romero</p>\n<p>Desarrollo de Interfaces 2DAM</p>\n</html>");
 
@@ -1283,16 +1380,16 @@ public class Main extends javax.swing.JFrame {
         acercaDeLayout.setHorizontalGroup(
             acercaDeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(acercaDeLayout.createSequentialGroup()
-                .addGap(81, 81, 81)
+                .addGap(30, 30, 30)
                 .addComponent(jLabel79, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(81, Short.MAX_VALUE))
+                .addGap(30, 30, 30))
         );
         acercaDeLayout.setVerticalGroup(
             acercaDeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(acercaDeLayout.createSequentialGroup()
-                .addGap(55, 55, 55)
+                .addGap(25, 25, 25)
                 .addComponent(jLabel79, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(55, Short.MAX_VALUE))
+                .addGap(25, 25, 25))
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -1361,6 +1458,11 @@ public class Main extends javax.swing.JFrame {
         });
 
         btnCocheBorrar.setText("ELIMINAR");
+        btnCocheBorrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCocheBorrarActionPerformed(evt);
+            }
+        });
 
         btnCocheModificar.setText("MODIFICAR");
         btnCocheModificar.addActionListener(new java.awt.event.ActionListener() {
@@ -1418,7 +1520,7 @@ public class Main extends javax.swing.JFrame {
                                         .addComponent(txtBuscarMain, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(btnBuscarMain))
-                                    .addComponent(btnReiniciarBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(btnReiniciarBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(0, 60, Short.MAX_VALUE)))))
                 .addGap(8, 8, 8))
         );
@@ -1436,10 +1538,10 @@ public class Main extends javax.swing.JFrame {
                             .addComponent(cbMotorMain, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(cbBuscarMain, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtBuscarMain, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnBuscarMain))
-                        .addGap(12, 12, 12)
-                        .addComponent(btnReiniciarBusqueda))
+                            .addComponent(btnBuscarMain)))
                     .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(9, 9, 9)
+                .addComponent(btnReiniciarBusqueda)
                 .addGap(12, 12, 12)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(12, 12, 12)
@@ -1512,6 +1614,11 @@ public class Main extends javax.swing.JFrame {
         );
 
         btnRevisionBorrar.setText("ELIMINAR");
+        btnRevisionBorrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRevisionBorrarActionPerformed(evt);
+            }
+        });
 
         btnRevisionModificar.setText("MODIFICAR");
         btnRevisionModificar.addActionListener(new java.awt.event.ActionListener() {
@@ -1673,8 +1780,18 @@ public class Main extends javax.swing.JFrame {
         lblPrecioVentaMain.setText("1500.0");
 
         btnVentaBorrar.setText("ELIMINAR");
+        btnVentaBorrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVentaBorrarActionPerformed(evt);
+            }
+        });
 
         btnVentaModificar.setText("MODIFICAR");
+        btnVentaModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVentaModificarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout ventasLayout = new javax.swing.GroupLayout(ventas);
         ventas.setLayout(ventasLayout);
@@ -1778,8 +1895,18 @@ public class Main extends javax.swing.JFrame {
         lblDireccionClienteMain.setText("Poro 3, Torrecampo, Córdoba");
 
         btnClienteBorrar.setText("ELIMINAR");
+        btnClienteBorrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnClienteBorrarActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("MODIFICAR");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout clientesLayout = new javax.swing.GroupLayout(clientes);
         clientes.setLayout(clientesLayout);
@@ -1860,8 +1987,14 @@ public class Main extends javax.swing.JFrame {
         reiniciarbd.setToolTipText("");
         archivo.add(reiniciarbd);
 
+        salir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/toolbarButtonGraphics/general/Stop24.gif"))); // NOI18N
         salir.setText("Salir");
         salir.setToolTipText("");
+        salir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                salirActionPerformed(evt);
+            }
+        });
         archivo.add(salir);
 
         menu.add(archivo);
@@ -1869,10 +2002,17 @@ public class Main extends javax.swing.JFrame {
         ayuda.setText("Ayuda");
         ayuda.setToolTipText("");
 
+        acercade.setIcon(new javax.swing.ImageIcon(getClass().getResource("/toolbarButtonGraphics/general/About24.gif"))); // NOI18N
         acercade.setText("Acerca de");
         acercade.setToolTipText("");
+        acercade.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                acercadeActionPerformed(evt);
+            }
+        });
         ayuda.add(acercade);
 
+        manual.setIcon(new javax.swing.ImageIcon(getClass().getResource("/toolbarButtonGraphics/general/Help24.gif"))); // NOI18N
         manual.setText("Manual");
         manual.setToolTipText("");
         ayuda.add(manual);
@@ -1932,6 +2072,109 @@ public class Main extends javax.swing.JFrame {
         aniadirVenta.setVisible(true);
     }//GEN-LAST:event_btnCargarClienteVentaNuevaActionPerformed
 
+    private void btnVentaModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVentaModificarActionPerformed
+        String[] options = new String[2];
+        options[0] = "Cliente";
+        options[1] = "Coche";
+        int respuesta = JOptionPane.showOptionDialog(null, "¿Qué desea modificar?", "Modificar venta", 0, JOptionPane.QUESTION_MESSAGE, null, options, null);
+        //System.out.println(respuesta);
+        if(respuesta==0){
+            modificarVenta.setLocationRelativeTo(null);
+            modificarVenta.setVisible(true);
+        }else{
+            modificarVenta.setLocationRelativeTo(null);
+            modificarVenta.setVisible(true);
+        }
+    }//GEN-LAST:event_btnVentaModificarActionPerformed
+
+    private void btnBuscarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarClienteActionPerformed
+        buscarClienteVentaModificar.setLocationRelativeTo(null);
+        buscarClienteVentaModificar.setVisible(true);
+    }//GEN-LAST:event_btnBuscarClienteActionPerformed
+
+    private void btnBuscarCocheActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarCocheActionPerformed
+        buscarCocheVentaModificar.setLocationRelativeTo(null);
+        buscarCocheVentaModificar.setVisible(true);
+    }//GEN-LAST:event_btnBuscarCocheActionPerformed
+
+    private void btnCargarClienteVentaModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCargarClienteVentaModificarActionPerformed
+        buscarClienteVentaModificar.setVisible(false);
+    }//GEN-LAST:event_btnCargarClienteVentaModificarActionPerformed
+
+    private void btnCargarCocheVentaModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCargarCocheVentaModificarActionPerformed
+        buscarCocheVentaModificar.setVisible(false);
+    }//GEN-LAST:event_btnCargarCocheVentaModificarActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        modificarCliente.setLocationRelativeTo(null);
+        modificarCliente.setVisible(true);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void acercadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_acercadeActionPerformed
+        acercaDe.setLocationRelativeTo(null);
+        acercaDe.setVisible(true);
+    }//GEN-LAST:event_acercadeActionPerformed
+
+    private void btnCancelarCocheNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarCocheNuevoActionPerformed
+        aniadirCoche.setVisible(false);
+    }//GEN-LAST:event_btnCancelarCocheNuevoActionPerformed
+
+    private void btnCancelarCocheModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarCocheModificarActionPerformed
+        modificarCoche.setVisible(false);
+    }//GEN-LAST:event_btnCancelarCocheModificarActionPerformed
+
+    private void btnImagenCocheNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImagenCocheNuevoActionPerformed
+        JOptionPane.showMessageDialog(null, "Abre el JFileChooser");
+    }//GEN-LAST:event_btnImagenCocheNuevoActionPerformed
+
+    private void btnImagenCocheModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImagenCocheModificarActionPerformed
+        JOptionPane.showMessageDialog(null, "Abre el JFileChooser");
+    }//GEN-LAST:event_btnImagenCocheModificarActionPerformed
+
+    private void btnCancelarVentaNuevaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarVentaNuevaActionPerformed
+        aniadirVenta.setVisible(false);
+    }//GEN-LAST:event_btnCancelarVentaNuevaActionPerformed
+
+    private void btnCancelarRevisionNuevaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarRevisionNuevaActionPerformed
+        aniadirRevision.setVisible(false);
+    }//GEN-LAST:event_btnCancelarRevisionNuevaActionPerformed
+
+    private void btnCancelarRevisionModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarRevisionModificarActionPerformed
+        modificarRevision.setVisible(false);
+    }//GEN-LAST:event_btnCancelarRevisionModificarActionPerformed
+
+    private void btnCancelarVentaModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarVentaModificarActionPerformed
+        modificarVenta.setVisible(false);
+    }//GEN-LAST:event_btnCancelarVentaModificarActionPerformed
+
+    private void btnCalendarioVentaModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalendarioVentaModificarActionPerformed
+        JOptionPane.showMessageDialog(null, "Abre el JCalendar");
+    }//GEN-LAST:event_btnCalendarioVentaModificarActionPerformed
+
+    private void btnCancelarClienteModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarClienteModificarActionPerformed
+        modificarCliente.setVisible(false);
+    }//GEN-LAST:event_btnCancelarClienteModificarActionPerformed
+
+    private void salirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salirActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_salirActionPerformed
+
+    private void btnCocheBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCocheBorrarActionPerformed
+        JOptionPane.showConfirmDialog(null, "¿Desea eliminar el coche seleccionado?", "Eliminar coche", JOptionPane.OK_CANCEL_OPTION);
+    }//GEN-LAST:event_btnCocheBorrarActionPerformed
+
+    private void btnRevisionBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRevisionBorrarActionPerformed
+        JOptionPane.showConfirmDialog(null, "¿Desea eliminar la revisión seleccionada?", "Eliminar revision", JOptionPane.OK_CANCEL_OPTION);
+    }//GEN-LAST:event_btnRevisionBorrarActionPerformed
+
+    private void btnVentaBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVentaBorrarActionPerformed
+        JOptionPane.showConfirmDialog(null, "¿Desea eliminar la venta seleccionada?", "Eliminar venta", JOptionPane.OK_CANCEL_OPTION);
+    }//GEN-LAST:event_btnVentaBorrarActionPerformed
+
+    private void btnClienteBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClienteBorrarActionPerformed
+        JOptionPane.showConfirmDialog(null, "¿Desea eliminar el cliente seleccionado?", "Eliminar cliente", JOptionPane.OK_CANCEL_OPTION);
+    }//GEN-LAST:event_btnClienteBorrarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1977,19 +2220,26 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JDialog aniadirVenta;
     private javax.swing.JMenu archivo;
     private javax.swing.JMenu ayuda;
+    private javax.swing.JButton btnAceptarClienteModificar;
     private javax.swing.JButton btnAceptarCocheModificar;
     private javax.swing.JButton btnAceptarCocheNuevo;
     private javax.swing.JButton btnAceptarRevisionModificar;
     private javax.swing.JButton btnAceptarRevisionNueva;
+    private javax.swing.JButton btnAceptarVentaModificar;
     private javax.swing.JButton btnAceptarVentaNueva;
+    private javax.swing.JButton btnBuscarCliente;
     private javax.swing.JButton btnBuscarClienteVentaModificar;
     private javax.swing.JButton btnBuscarClienteVentaNueva;
+    private javax.swing.JButton btnBuscarCoche;
     private javax.swing.JButton btnBuscarCocheVentaModificar;
     private javax.swing.JButton btnBuscarMain;
+    private javax.swing.JButton btnCalendarioVentaModificar;
+    private javax.swing.JButton btnCancelarClienteModificar;
     private javax.swing.JButton btnCancelarCocheModificar;
     private javax.swing.JButton btnCancelarCocheNuevo;
     private javax.swing.JButton btnCancelarRevisionModificar;
     private javax.swing.JButton btnCancelarRevisionNueva;
+    private javax.swing.JButton btnCancelarVentaModificar;
     private javax.swing.JButton btnCancelarVentaNueva;
     private javax.swing.JButton btnCargarClienteVentaModificar;
     private javax.swing.JButton btnCargarClienteVentaNueva;
@@ -2025,12 +2275,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JCheckBox chkFrenosRevisionNueva;
     private javax.swing.JPanel clientes;
     private javax.swing.JPanel coches;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -2123,10 +2368,6 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
     private javax.swing.JTable jTable3;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
     private javax.swing.JLabel lblAceiteRevisionMain;
     private javax.swing.JLabel lblApellidosClienteMain;
     private javax.swing.JLabel lblApellidosVentaMain;
@@ -2174,10 +2415,11 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JMenuItem salir;
     private javax.swing.JTable tablaMain;
     private javax.swing.JTable tablaVentas;
+    private javax.swing.JTextField txtApellidosClienteModificar;
     private javax.swing.JTextField txtApellidosVentaNueva;
-    private javax.swing.JTextField txtApellidosVentaNueva1;
     private javax.swing.JTextField txtBastidorCocheModificar;
     private javax.swing.JTextField txtBastidorCocheNuevo;
+    private javax.swing.JTextField txtBastidorVentaModificar;
     private javax.swing.JTextField txtBastidorVentaNueva;
     private javax.swing.JTextField txtBuscarClienteVentaModificar;
     private javax.swing.JTextField txtBuscarClienteVentaNueva;
@@ -2187,10 +2429,12 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JTextField txtCVCocheNuevo;
     private javax.swing.JTextField txtColorCocheModificar;
     private javax.swing.JTextField txtColorCocheNuevo;
+    private javax.swing.JTextField txtDireccionClienteModificar;
     private javax.swing.JTextField txtDireccionVentaNueva;
-    private javax.swing.JTextField txtDireccionVentaNueva1;
+    private javax.swing.JTextField txtDniClienteModificar;
+    private javax.swing.JTextField txtDniVentaModificar;
     private javax.swing.JTextField txtDniVentaNueva;
-    private javax.swing.JTextField txtDniVentaNueva1;
+    private javax.swing.JTextField txtFechaVentaModificar;
     private javax.swing.JTextField txtMarcaCocheModificar;
     private javax.swing.JTextField txtMarcaCocheNuevo;
     private javax.swing.JTextField txtMarcaVentaNueva;
@@ -2199,12 +2443,13 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JTextField txtModeloVentaNueva;
     private javax.swing.JTextField txtMotorCocheModificar;
     private javax.swing.JTextField txtMotorCocheNuevo;
+    private javax.swing.JTextField txtNombreClienteModificar;
     private javax.swing.JTextField txtNombreVentaNueva;
-    private javax.swing.JTextField txtNombreVentaNueva1;
     private javax.swing.JTextField txtPrecioCocheModificar;
     private javax.swing.JTextField txtPrecioCocheNuevo;
+    private javax.swing.JTextField txtPrecioVentaModificar;
+    private javax.swing.JTextField txtTelefonoClienteModificar;
     private javax.swing.JTextField txtTelefonoVentaNueva;
-    private javax.swing.JTextField txtTelefonoVentaNueva1;
     private javax.swing.JTextField txtTipoCocheModificar;
     private javax.swing.JTextField txtTipoCocheNuevo;
     private javax.swing.JPanel ventas;

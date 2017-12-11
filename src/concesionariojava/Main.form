@@ -201,6 +201,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Seleccionar imagen"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnImagenCocheNuevoActionPerformed"/>
+          </Events>
         </Component>
         <Container class="javax.swing.JPanel" name="pImagenCocheNuevo2">
           <Properties>
@@ -228,6 +231,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Cancelar"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCancelarCocheNuevoActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnAceptarCocheNuevo">
           <Properties>
@@ -432,6 +438,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Seleccionar imagen"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnImagenCocheModificarActionPerformed"/>
+          </Events>
         </Component>
         <Container class="javax.swing.JPanel" name="pImagenCocheNuevo3">
           <Properties>
@@ -459,6 +468,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Cancelar"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCancelarCocheModificarActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnAceptarCocheModificar">
           <Properties>
@@ -625,6 +637,9 @@
         <Property name="title" type="java.lang.String" value="Seleccionar cliente"/>
         <Property name="modal" type="boolean" value="true"/>
         <Property name="resizable" type="boolean" value="false"/>
+        <Property name="size" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[426, 270]"/>
+        </Property>
       </Properties>
 
       <Layout>
@@ -741,6 +756,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Cargar cliente"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCargarClienteVentaModificarActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
@@ -749,6 +767,9 @@
         <Property name="title" type="java.lang.String" value="Seleccionar coche"/>
         <Property name="modal" type="boolean" value="true"/>
         <Property name="resizable" type="boolean" value="false"/>
+        <Property name="size" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[426, 270]"/>
+        </Property>
       </Properties>
 
       <Layout>
@@ -865,6 +886,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Cargar coche"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCargarCocheVentaModificarActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
@@ -1126,6 +1150,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Cancelar"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCancelarVentaNuevaActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnAceptarVentaNueva">
           <Properties>
@@ -1302,6 +1329,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Cancelar"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCancelarRevisionNuevaActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnAceptarRevisionNueva">
           <Properties>
@@ -1478,6 +1508,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Cancelar"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCancelarRevisionModificarActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnAceptarRevisionModificar">
           <Properties>
@@ -1489,6 +1522,11 @@
     <Container class="javax.swing.JDialog" name="modificarVenta">
       <Properties>
         <Property name="title" type="java.lang.String" value="Modificar venta"/>
+        <Property name="modal" type="boolean" value="true"/>
+        <Property name="resizable" type="boolean" value="false"/>
+        <Property name="size" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[270, 332]"/>
+        </Property>
       </Properties>
 
       <Layout>
@@ -1498,10 +1536,10 @@
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="1" attributes="0">
-                              <Component id="jTextField4" alignment="1" min="-2" pref="120" max="-2" attributes="0"/>
+                              <Component id="txtPrecioVentaModificar" alignment="1" min="-2" pref="120" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="103" alignment="0" groupAlignment="1" attributes="0">
-                                      <Component id="jTextField3" alignment="1" min="-2" pref="120" max="-2" attributes="0"/>
+                                      <Component id="txtBastidorVentaModificar" alignment="1" min="-2" pref="120" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                               <Group type="102" attributes="0">
@@ -1510,7 +1548,7 @@
                                               </Group>
                                               <Group type="102" alignment="0" attributes="0">
                                                   <EmptySpace max="-2" attributes="0"/>
-                                                  <Component id="jTextField1" pref="120" max="32767" attributes="0"/>
+                                                  <Component id="txtFechaVentaModificar" pref="120" max="32767" attributes="0"/>
                                               </Group>
                                               <Group type="102" alignment="0" attributes="0">
                                                   <EmptySpace max="-2" attributes="0"/>
@@ -1518,7 +1556,7 @@
                                               </Group>
                                               <Group type="102" alignment="0" attributes="0">
                                                   <EmptySpace max="-2" attributes="0"/>
-                                                  <Component id="jTextField2" max="32767" attributes="0"/>
+                                                  <Component id="txtDniVentaModificar" max="32767" attributes="0"/>
                                               </Group>
                                           </Group>
                                           <Group type="102" attributes="0">
@@ -1536,18 +1574,18 @@
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="jButton1" max="32767" attributes="0"/>
-                                  <Component id="jButton3" max="32767" attributes="0"/>
-                                  <Component id="jButton4" max="32767" attributes="0"/>
+                                  <Component id="btnCalendarioVentaModificar" max="32767" attributes="0"/>
+                                  <Component id="btnBuscarCliente" max="32767" attributes="0"/>
+                                  <Component id="btnBuscarCoche" max="32767" attributes="0"/>
                               </Group>
                               <Component id="jLabel73" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
                           <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
-                          <Component id="jButton6" min="-2" pref="100" max="-2" attributes="0"/>
+                          <Component id="btnAceptarVentaModificar" min="-2" pref="100" max="-2" attributes="0"/>
                           <EmptySpace pref="8" max="32767" attributes="0"/>
-                          <Component id="jButton5" min="-2" pref="100" max="-2" attributes="0"/>
+                          <Component id="btnCancelarVentaModificar" min="-2" pref="100" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace min="8" pref="8" max="-2" attributes="0"/>
@@ -1561,34 +1599,34 @@
                   <Component id="jLabel69" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jTextField1" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jButton1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtFechaVentaModificar" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnCalendarioVentaModificar" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="jLabel70" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jTextField2" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jButton3" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtDniVentaModificar" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnBuscarCliente" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="jLabel71" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jTextField3" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jButton4" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtBastidorVentaModificar" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnBuscarCoche" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="jLabel72" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jTextField4" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtPrecioVentaModificar" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel73" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jButton5" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jButton6" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnCancelarVentaModificar" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnAceptarVentaModificar" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
               </Group>
@@ -1601,55 +1639,67 @@
             <Property name="text" type="java.lang.String" value="FECHA"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="jTextField1">
+        <Component class="javax.swing.JTextField" name="txtFechaVentaModificar">
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel70">
           <Properties>
             <Property name="text" type="java.lang.String" value="DNI"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="jTextField2">
+        <Component class="javax.swing.JTextField" name="txtDniVentaModificar">
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel71">
           <Properties>
             <Property name="text" type="java.lang.String" value="N&#xba; BASTIDOR"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="jTextField3">
+        <Component class="javax.swing.JTextField" name="txtBastidorVentaModificar">
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel72">
           <Properties>
             <Property name="text" type="java.lang.String" value="PRECIO"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="jTextField4">
+        <Component class="javax.swing.JTextField" name="txtPrecioVentaModificar">
         </Component>
-        <Component class="javax.swing.JButton" name="jButton1">
+        <Component class="javax.swing.JButton" name="btnCalendarioVentaModificar">
           <Properties>
             <Property name="text" type="java.lang.String" value="Abrir calendario"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCalendarioVentaModificarActionPerformed"/>
+          </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="jButton3">
+        <Component class="javax.swing.JButton" name="btnBuscarCliente">
           <Properties>
             <Property name="text" type="java.lang.String" value="Buscar cliente"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBuscarClienteActionPerformed"/>
+          </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="jButton4">
+        <Component class="javax.swing.JButton" name="btnBuscarCoche">
           <Properties>
             <Property name="text" type="java.lang.String" value="Buscar coche"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBuscarCocheActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel73">
           <Properties>
             <Property name="text" type="java.lang.String" value="&#x20ac;"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="jButton5">
+        <Component class="javax.swing.JButton" name="btnCancelarVentaModificar">
           <Properties>
             <Property name="text" type="java.lang.String" value="Cancelar"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCancelarVentaModificarActionPerformed"/>
+          </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="jButton6">
+        <Component class="javax.swing.JButton" name="btnAceptarVentaModificar">
           <Properties>
             <Property name="text" type="java.lang.String" value="Aceptar"/>
           </Properties>
@@ -1659,38 +1709,52 @@
     <Container class="javax.swing.JDialog" name="modificarCliente">
       <Properties>
         <Property name="title" type="java.lang.String" value="Modificar cliente"/>
+        <Property name="modal" type="boolean" value="true"/>
+        <Property name="resizable" type="boolean" value="false"/>
+        <Property name="size" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[328, 266]"/>
+        </Property>
       </Properties>
 
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jLabel78" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Group type="102" alignment="0" attributes="0">
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="jLabel74" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="txtNombreVentaNueva1" alignment="0" max="32767" attributes="0"/>
-                              <Component id="jLabel76" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="txtDniVentaNueva1" alignment="0" min="-2" pref="135" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="txtTelefonoVentaNueva1" alignment="0" max="32767" attributes="0"/>
-                              <Component id="txtApellidosVentaNueva1" alignment="0" max="32767" attributes="0"/>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" attributes="0">
+                          <Component id="jLabel78" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace pref="263" max="32767" attributes="0"/>
+                      </Group>
+                      <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                              <Component id="txtDireccionClienteModificar" max="32767" attributes="0"/>
+                              <Group type="102" attributes="0">
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Component id="jLabel74" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabel76" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="txtDniClienteModificar" alignment="0" pref="135" max="32767" attributes="0"/>
+                                      <Component id="txtNombreClienteModificar" alignment="0" max="32767" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                       <Component id="jLabel75" alignment="0" min="-2" max="-2" attributes="0"/>
                                       <Component id="jLabel77" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="txtApellidosClienteModificar" alignment="0" pref="135" max="32767" attributes="0"/>
+                                      <Component id="txtTelefonoClienteModificar" max="32767" attributes="0"/>
                                   </Group>
-                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                               </Group>
                           </Group>
+                          <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
                       </Group>
-                      <Component id="txtDireccionVentaNueva1" alignment="1" max="32767" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="79" max="-2" attributes="0"/>
+              </Group>
+              <Group type="102" alignment="1" attributes="0">
+                  <EmptySpace max="32767" attributes="0"/>
+                  <Component id="btnAceptarClienteModificar" min="-2" pref="100" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
+                  <Component id="btnCancelarClienteModificar" min="-2" pref="100" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -1704,8 +1768,8 @@
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="txtNombreVentaNueva1" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="txtApellidosVentaNueva1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtNombreClienteModificar" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtApellidosClienteModificar" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
@@ -1714,14 +1778,19 @@
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="txtDniVentaNueva1" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="txtTelefonoVentaNueva1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtDniClienteModificar" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtTelefonoClienteModificar" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="jLabel78" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="txtDireccionVentaNueva1" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="133" max="32767" attributes="0"/>
+                  <Component id="txtDireccionClienteModificar" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="btnCancelarClienteModificar" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnAceptarClienteModificar" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -1737,30 +1806,43 @@
             <Property name="text" type="java.lang.String" value="APELLIDOS"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="txtNombreVentaNueva1">
+        <Component class="javax.swing.JTextField" name="txtNombreClienteModificar">
         </Component>
-        <Component class="javax.swing.JTextField" name="txtApellidosVentaNueva1">
+        <Component class="javax.swing.JTextField" name="txtApellidosClienteModificar">
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel76">
           <Properties>
             <Property name="text" type="java.lang.String" value="DNI"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="txtDniVentaNueva1">
+        <Component class="javax.swing.JTextField" name="txtDniClienteModificar">
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel77">
           <Properties>
             <Property name="text" type="java.lang.String" value="TEL&#xc9;FONO"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="txtTelefonoVentaNueva1">
+        <Component class="javax.swing.JTextField" name="txtTelefonoClienteModificar">
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel78">
           <Properties>
             <Property name="text" type="java.lang.String" value="DIRECCI&#xd3;N"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="txtDireccionVentaNueva1">
+        <Component class="javax.swing.JTextField" name="txtDireccionClienteModificar">
+        </Component>
+        <Component class="javax.swing.JButton" name="btnCancelarClienteModificar">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Cancelar"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCancelarClienteModificarActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="btnAceptarClienteModificar">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Aceptar"/>
+          </Properties>
         </Component>
       </SubComponents>
     </Container>
@@ -1769,24 +1851,27 @@
         <Property name="title" type="java.lang.String" value="Acerca de Concesionario"/>
         <Property name="modal" type="boolean" value="true"/>
         <Property name="resizable" type="boolean" value="false"/>
+        <Property name="size" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[232, 132]"/>
+        </Property>
       </Properties>
 
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="81" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
                   <Component id="jLabel79" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="81" max="32767" attributes="0"/>
+                  <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="55" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
                   <Component id="jLabel79" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="55" max="32767" attributes="0"/>
+                  <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -1817,9 +1902,15 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="salir">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/toolbarButtonGraphics/general/Stop24.gif"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Salir"/>
                 <Property name="toolTipText" type="java.lang.String" value=""/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="salirActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>
@@ -1831,12 +1922,21 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="acercade">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/toolbarButtonGraphics/general/About24.gif"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Acerca de"/>
                 <Property name="toolTipText" type="java.lang.String" value=""/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="acercadeActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="manual">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/toolbarButtonGraphics/general/Help24.gif"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Manual"/>
                 <Property name="toolTipText" type="java.lang.String" value=""/>
               </Properties>
@@ -1939,7 +2039,7 @@
                                               <EmptySpace max="-2" attributes="0"/>
                                               <Component id="btnBuscarMain" min="-2" max="-2" attributes="0"/>
                                           </Group>
-                                          <Component id="btnReiniciarBusqueda" alignment="0" min="-2" pref="135" max="-2" attributes="0"/>
+                                          <Component id="btnReiniciarBusqueda" alignment="0" min="-2" pref="145" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace min="0" pref="60" max="32767" attributes="0"/>
                                   </Group>
@@ -1966,11 +2066,11 @@
                                   <Component id="txtBuscarMain" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="btnBuscarMain" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
-                              <Component id="btnReiniciarBusqueda" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Component id="jSeparator1" alignment="0" min="-2" pref="30" max="-2" attributes="0"/>
                       </Group>
+                      <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
+                      <Component id="btnReiniciarBusqueda" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                       <Component id="jScrollPane1" min="-2" pref="179" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
@@ -2135,6 +2235,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="ELIMINAR"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCocheBorrarActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="btnCocheModificar">
               <Properties>
@@ -2442,6 +2545,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="ELIMINAR"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRevisionBorrarActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="btnRevisionModificar">
               <Properties>
@@ -2649,11 +2755,17 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="ELIMINAR"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnVentaBorrarActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="btnVentaModificar">
               <Properties>
                 <Property name="text" type="java.lang.String" value="MODIFICAR"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnVentaModificarActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
@@ -2838,11 +2950,17 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="ELIMINAR"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnClienteBorrarActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="jButton2">
               <Properties>
                 <Property name="text" type="java.lang.String" value="MODIFICAR"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton2ActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
