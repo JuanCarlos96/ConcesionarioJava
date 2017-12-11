@@ -5,61 +5,70 @@
     <Container class="javax.swing.JDialog" name="aniadirCoche">
       <Properties>
         <Property name="title" type="java.lang.String" value="A&#xf1;adir coche"/>
+        <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+          <Color id="Cursor Por defecto"/>
+        </Property>
         <Property name="modal" type="boolean" value="true"/>
         <Property name="resizable" type="boolean" value="false"/>
+        <Property name="size" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[535, 350]"/>
+        </Property>
       </Properties>
 
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace min="8" pref="8" max="-2" attributes="0"/>
+              <Group type="102" attributes="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
+                      <Group type="102" alignment="1" attributes="0">
+                          <EmptySpace min="8" pref="8" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jLabel45" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabel46" alignment="0" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace max="32767" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jLabel44" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabel47" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                                  <Component id="txtColorCocheNuevo" alignment="1" pref="130" max="32767" attributes="0"/>
-                                  <Component id="txtMotorCocheNuevo" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="txtModeloCocheNuevo" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="txtBastidorCocheNuevo" alignment="0" max="32767" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="jLabel45" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabel46" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace max="32767" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="jLabel44" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabel47" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                                          <Component id="txtColorCocheNuevo" alignment="1" pref="130" max="32767" attributes="0"/>
+                                          <Component id="txtMotorCocheNuevo" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="txtModeloCocheNuevo" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="txtBastidorCocheNuevo" alignment="0" max="32767" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                                  <EmptySpace min="0" pref="32" max="32767" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace min="0" pref="32" max="32767" attributes="0"/>
+                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                              <Component id="txtCVCocheNuevo" alignment="0" pref="130" max="32767" attributes="0"/>
+                              <Component id="txtTipoCocheNuevo" alignment="0" max="32767" attributes="0"/>
+                              <Component id="jLabel48" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel49" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel50" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel51" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtMarcaCocheNuevo" alignment="0" max="32767" attributes="0"/>
+                              <Component id="txtPrecioCocheNuevo" alignment="1" max="32767" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="jLabel52" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnImagenCocheNuevo" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="pImagenCocheNuevo2" alignment="0" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <Group type="102" alignment="1" attributes="0">
+                          <EmptySpace max="32767" attributes="0"/>
+                          <Component id="btnAceptarCocheNuevo" min="-2" pref="100" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
+                          <Component id="btnCancelarCocheNuevo" min="-2" pref="100" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                      <Component id="txtCVCocheNuevo" alignment="0" pref="130" max="32767" attributes="0"/>
-                      <Component id="txtTipoCocheNuevo" alignment="0" max="32767" attributes="0"/>
-                      <Component id="jLabel48" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabel49" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabel50" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabel51" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="txtMarcaCocheNuevo" alignment="0" max="32767" attributes="0"/>
-                      <Component id="txtPrecioCocheNuevo" alignment="1" max="32767" attributes="0"/>
-                  </Group>
-                  <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jLabel52" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="btnImagenCocheNuevo" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="pImagenCocheNuevo2" alignment="0" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
-              </Group>
-              <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace max="32767" attributes="0"/>
-                  <Component id="btnAceptarCocheNuevo" min="-2" pref="100" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
-                  <Component id="btnCancelarCocheNuevo" min="-2" pref="100" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
+                  <EmptySpace min="8" pref="8" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -232,59 +241,65 @@
         <Property name="title" type="java.lang.String" value="Modificar coche"/>
         <Property name="modal" type="boolean" value="true"/>
         <Property name="resizable" type="boolean" value="false"/>
+        <Property name="size" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[535, 350]"/>
+        </Property>
       </Properties>
 
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace min="8" pref="8" max="-2" attributes="0"/>
+              <Group type="102" attributes="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
+                      <Group type="102" alignment="1" attributes="0">
+                          <EmptySpace min="8" pref="8" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jLabel54" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabel55" alignment="0" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace max="32767" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jLabel53" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabel56" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                                  <Component id="txtColorCocheModificar" alignment="1" pref="130" max="32767" attributes="0"/>
-                                  <Component id="txtMotorCocheModificar" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="txtModeloCocheModificar" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="txtBastidorCocheModificar" alignment="0" max="32767" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="jLabel54" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabel55" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace max="32767" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="jLabel53" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabel56" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                                          <Component id="txtColorCocheModificar" alignment="1" pref="130" max="32767" attributes="0"/>
+                                          <Component id="txtMotorCocheModificar" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="txtModeloCocheModificar" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="txtBastidorCocheModificar" alignment="0" max="32767" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                                  <EmptySpace min="0" pref="32" max="32767" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace min="0" pref="32" max="32767" attributes="0"/>
+                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                              <Component id="txtCVCocheModificar" alignment="0" pref="130" max="32767" attributes="0"/>
+                              <Component id="txtTipoCocheModificar" alignment="0" max="32767" attributes="0"/>
+                              <Component id="jLabel57" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel58" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel59" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel60" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtMarcaCocheModificar" alignment="0" max="32767" attributes="0"/>
+                              <Component id="txtPrecioCocheModificar" alignment="1" max="32767" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="jLabel61" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnImagenCocheModificar" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="pImagenCocheNuevo3" alignment="0" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <Group type="102" alignment="1" attributes="0">
+                          <EmptySpace max="32767" attributes="0"/>
+                          <Component id="btnAceptarCocheModificar" min="-2" pref="100" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
+                          <Component id="btnCancelarCocheModificar" min="-2" pref="100" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                      <Component id="txtCVCocheModificar" alignment="0" pref="130" max="32767" attributes="0"/>
-                      <Component id="txtTipoCocheModificar" alignment="0" max="32767" attributes="0"/>
-                      <Component id="jLabel57" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabel58" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabel59" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabel60" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="txtMarcaCocheModificar" alignment="0" max="32767" attributes="0"/>
-                      <Component id="txtPrecioCocheModificar" alignment="1" max="32767" attributes="0"/>
-                  </Group>
-                  <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jLabel61" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="btnImagenCocheModificar" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="pImagenCocheNuevo3" alignment="0" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
-              </Group>
-              <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace max="32767" attributes="0"/>
-                  <Component id="btnAceptarCocheModificar" min="-2" pref="100" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
-                  <Component id="btnCancelarCocheModificar" min="-2" pref="100" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
+                  <EmptySpace min="8" pref="8" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -457,6 +472,9 @@
         <Property name="title" type="java.lang.String" value="Seleccionar cliente"/>
         <Property name="modal" type="boolean" value="true"/>
         <Property name="resizable" type="boolean" value="false"/>
+        <Property name="size" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[426, 270]"/>
+        </Property>
       </Properties>
 
       <Layout>
@@ -473,7 +491,7 @@
                   <Component id="txtBuscarClienteVentaNueva" min="-2" pref="90" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
                   <Component id="btnBuscarClienteVentaNueva" min="-2" pref="90" max="-2" attributes="0"/>
-                  <EmptySpace min="8" pref="10" max="32767" attributes="0"/>
+                  <EmptySpace min="8" pref="15" max="32767" attributes="0"/>
               </Group>
               <Group type="102" attributes="0">
                   <Group type="103" groupAlignment="0" attributes="0">
@@ -519,6 +537,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Nuevo cliente"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnNuevoClienteActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JSeparator" name="jSeparator2">
           <Properties>
@@ -593,6 +614,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Cargar cliente"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCargarClienteVentaNuevaActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
@@ -848,7 +872,9 @@
       <Properties>
         <Property name="title" type="java.lang.String" value="A&#xf1;adir venta"/>
         <Property name="modal" type="boolean" value="true"/>
-        <Property name="resizable" type="boolean" value="false"/>
+        <Property name="size" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[358, 528]"/>
+        </Property>
       </Properties>
 
       <Layout>
@@ -1113,41 +1139,39 @@
         <Property name="title" type="java.lang.String" value="A&#xf1;adir revisi&#xf3;n"/>
         <Property name="modal" type="boolean" value="true"/>
         <Property name="resizable" type="boolean" value="false"/>
+        <Property name="size" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[332, 296]"/>
+        </Property>
       </Properties>
 
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace min="-2" pref="72" max="-2" attributes="0"/>
-                  <Component id="btnAceptarRevisionNueva" min="-2" pref="100" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
+                  <Component id="btnAceptarRevisionNueva" min="-2" pref="100" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
                   <Component id="btnCancelarRevisionNueva" min="-2" pref="100" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
               </Group>
               <Group type="102" attributes="0">
+                  <EmptySpace min="8" pref="8" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
                                   <Component id="jLabel23" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="lblNumeroRevisionNueva" min="-2" pref="30" max="-2" attributes="0"/>
                               </Group>
+                              <Component id="jLabel43" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="jLabel43" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                              <Component id="lblMarcaRevisionNueva" max="32767" attributes="0"/>
-                                              <Component id="jLabel62" min="-2" max="-2" attributes="0"/>
-                                              <Component id="jLabel67" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              <Component id="lblBastidorRevisionNueva" alignment="0" pref="80" max="32767" attributes="0"/>
-                                          </Group>
-                                      </Group>
+                                  <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Component id="lblMarcaRevisionNueva" max="32767" attributes="0"/>
+                                      <Component id="jLabel62" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabel67" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="lblBastidorRevisionNueva" alignment="0" pref="80" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
@@ -1163,18 +1187,13 @@
                           </Group>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="chkFrenosRevisionNueva" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Component id="chkFiltroRevisionNueva" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <Component id="chkAceiteRevisionNueva" alignment="0" min="-2" max="-2" attributes="0"/>
-                          </Group>
+                          <Component id="chkFrenosRevisionNueva" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Component id="chkFiltroRevisionNueva" min="-2" max="-2" attributes="0"/>
                       </Group>
+                      <Component id="chkAceiteRevisionNueva" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
+                  <EmptySpace min="6" pref="36" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -1296,15 +1315,18 @@
         <Property name="title" type="java.lang.String" value="Modificar revisi&#xf3;n"/>
         <Property name="modal" type="boolean" value="true"/>
         <Property name="resizable" type="boolean" value="false"/>
+        <Property name="size" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[332, 296]"/>
+        </Property>
       </Properties>
 
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace min="-2" pref="72" max="-2" attributes="0"/>
-                  <Component id="btnAceptarRevisionModificar" min="-2" pref="100" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
+                  <Component id="btnAceptarRevisionModificar" min="-2" pref="100" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
                   <Component id="btnCancelarRevisionModificar" min="-2" pref="100" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
               </Group>
@@ -1347,7 +1369,7 @@
                       </Group>
                       <Component id="chkAceiteRevisionModificar" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
+                  <EmptySpace min="6" pref="52" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -1742,6 +1764,41 @@
         </Component>
       </SubComponents>
     </Container>
+    <Container class="javax.swing.JDialog" name="acercaDe">
+      <Properties>
+        <Property name="title" type="java.lang.String" value="Acerca de Concesionario"/>
+        <Property name="modal" type="boolean" value="true"/>
+        <Property name="resizable" type="boolean" value="false"/>
+      </Properties>
+
+      <Layout>
+        <DimensionLayout dim="0">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace min="-2" pref="81" max="-2" attributes="0"/>
+                  <Component id="jLabel79" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace pref="81" max="32767" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+        <DimensionLayout dim="1">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace min="-2" pref="55" max="-2" attributes="0"/>
+                  <Component id="jLabel79" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace pref="55" max="32767" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+      </Layout>
+      <SubComponents>
+        <Component class="javax.swing.JLabel" name="jLabel79">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="&lt;html&gt;&#xa;&lt;p&gt;Concesionario 1.1.4&lt;/p&gt;&#xa;&lt;p&gt;Juan Carlos Exp&#xf3;sito Romero&lt;/p&gt;&#xa;&lt;p&gt;Desarrollo de Interfaces 2DAM&lt;/p&gt;&#xa;&lt;/html&gt;"/>
+          </Properties>
+        </Component>
+      </SubComponents>
+    </Container>
     <Menu class="javax.swing.JMenuBar" name="menu">
       <SubComponents>
         <Menu class="javax.swing.JMenu" name="archivo">
@@ -1751,6 +1808,9 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="reiniciarbd">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/toolbarButtonGraphics/general/Refresh24.gif"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Reiniciar BBDD"/>
                 <Property name="toolTipText" type="java.lang.String" value=""/>
               </Properties>
@@ -2059,11 +2119,17 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="VENTA"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnVentaNuevaActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="btnRevisionNueva">
               <Properties>
                 <Property name="text" type="java.lang.String" value="REVISI&#xd3;N"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRevisionNuevaActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="btnCocheBorrar">
               <Properties>
@@ -2074,11 +2140,17 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="MODIFICAR"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCocheModificarActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="btnCocheNuevo">
               <Properties>
                 <Property name="text" type="java.lang.String" value="NUEVO"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCocheNuevoActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
@@ -2375,6 +2447,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="MODIFICAR"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRevisionModificarActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>

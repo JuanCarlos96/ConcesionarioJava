@@ -1,5 +1,7 @@
 package concesionariojava;
 
+import javax.swing.JFrame;
+
 public class Main extends javax.swing.JFrame {
 
     /**
@@ -171,6 +173,8 @@ public class Main extends javax.swing.JFrame {
         txtTelefonoVentaNueva1 = new javax.swing.JTextField();
         jLabel78 = new javax.swing.JLabel();
         txtDireccionVentaNueva1 = new javax.swing.JTextField();
+        acercaDe = new javax.swing.JDialog();
+        jLabel79 = new javax.swing.JLabel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         coches = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -256,8 +260,10 @@ public class Main extends javax.swing.JFrame {
         manual = new javax.swing.JMenuItem();
 
         aniadirCoche.setTitle("Añadir coche");
+        aniadirCoche.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         aniadirCoche.setModal(true);
         aniadirCoche.setResizable(false);
+        aniadirCoche.setSize(new java.awt.Dimension(535, 350));
 
         jLabel44.setText("Nº BASTIDOR");
 
@@ -300,44 +306,45 @@ public class Main extends javax.swing.JFrame {
         aniadirCoche.getContentPane().setLayout(aniadirCocheLayout);
         aniadirCocheLayout.setHorizontalGroup(
             aniadirCocheLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, aniadirCocheLayout.createSequentialGroup()
-                .addGap(8, 8, 8)
+            .addGroup(aniadirCocheLayout.createSequentialGroup()
                 .addGroup(aniadirCocheLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(aniadirCocheLayout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, aniadirCocheLayout.createSequentialGroup()
+                        .addGap(8, 8, 8)
                         .addGroup(aniadirCocheLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel45)
-                            .addComponent(jLabel46))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(aniadirCocheLayout.createSequentialGroup()
+                            .addGroup(aniadirCocheLayout.createSequentialGroup()
+                                .addGroup(aniadirCocheLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel45)
+                                    .addComponent(jLabel46))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(aniadirCocheLayout.createSequentialGroup()
+                                .addGroup(aniadirCocheLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel44)
+                                    .addComponent(jLabel47)
+                                    .addGroup(aniadirCocheLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(txtColorCocheNuevo, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
+                                        .addComponent(txtMotorCocheNuevo, javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(txtModeloCocheNuevo, javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(txtBastidorCocheNuevo, javax.swing.GroupLayout.Alignment.LEADING)))
+                                .addGap(0, 32, Short.MAX_VALUE)))
+                        .addGroup(aniadirCocheLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(txtCVCocheNuevo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
+                            .addComponent(txtTipoCocheNuevo, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel48, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel49, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel50, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel51, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtMarcaCocheNuevo, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtPrecioCocheNuevo))
+                        .addGap(32, 32, 32)
                         .addGroup(aniadirCocheLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel44)
-                            .addComponent(jLabel47)
-                            .addGroup(aniadirCocheLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(txtColorCocheNuevo, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
-                                .addComponent(txtMotorCocheNuevo, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(txtModeloCocheNuevo, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(txtBastidorCocheNuevo, javax.swing.GroupLayout.Alignment.LEADING)))
-                        .addGap(0, 32, Short.MAX_VALUE)))
-                .addGroup(aniadirCocheLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(txtCVCocheNuevo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
-                    .addComponent(txtTipoCocheNuevo, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel48, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel49, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel50, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel51, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtMarcaCocheNuevo, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtPrecioCocheNuevo))
-                .addGap(32, 32, 32)
-                .addGroup(aniadirCocheLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel52)
-                    .addComponent(btnImagenCocheNuevo)
-                    .addComponent(pImagenCocheNuevo2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(8, 8, 8))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, aniadirCocheLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnAceptarCocheNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(8, 8, 8)
-                .addComponent(btnCancelarCocheNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel52)
+                            .addComponent(btnImagenCocheNuevo)
+                            .addComponent(pImagenCocheNuevo2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, aniadirCocheLayout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnAceptarCocheNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(8, 8, 8)
+                        .addComponent(btnCancelarCocheNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(8, 8, 8))
         );
         aniadirCocheLayout.setVerticalGroup(
@@ -392,6 +399,7 @@ public class Main extends javax.swing.JFrame {
         modificarCoche.setTitle("Modificar coche");
         modificarCoche.setModal(true);
         modificarCoche.setResizable(false);
+        modificarCoche.setSize(new java.awt.Dimension(535, 350));
 
         jLabel53.setText("Nº BASTIDOR");
 
@@ -434,44 +442,45 @@ public class Main extends javax.swing.JFrame {
         modificarCoche.getContentPane().setLayout(modificarCocheLayout);
         modificarCocheLayout.setHorizontalGroup(
             modificarCocheLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, modificarCocheLayout.createSequentialGroup()
-                .addGap(8, 8, 8)
+            .addGroup(modificarCocheLayout.createSequentialGroup()
                 .addGroup(modificarCocheLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(modificarCocheLayout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, modificarCocheLayout.createSequentialGroup()
+                        .addGap(8, 8, 8)
                         .addGroup(modificarCocheLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel54)
-                            .addComponent(jLabel55))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(modificarCocheLayout.createSequentialGroup()
+                            .addGroup(modificarCocheLayout.createSequentialGroup()
+                                .addGroup(modificarCocheLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel54)
+                                    .addComponent(jLabel55))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(modificarCocheLayout.createSequentialGroup()
+                                .addGroup(modificarCocheLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel53)
+                                    .addComponent(jLabel56)
+                                    .addGroup(modificarCocheLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(txtColorCocheModificar, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
+                                        .addComponent(txtMotorCocheModificar, javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(txtModeloCocheModificar, javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(txtBastidorCocheModificar, javax.swing.GroupLayout.Alignment.LEADING)))
+                                .addGap(0, 32, Short.MAX_VALUE)))
+                        .addGroup(modificarCocheLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(txtCVCocheModificar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
+                            .addComponent(txtTipoCocheModificar, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel57, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel58, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel59, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel60, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtMarcaCocheModificar, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtPrecioCocheModificar))
+                        .addGap(32, 32, 32)
                         .addGroup(modificarCocheLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel53)
-                            .addComponent(jLabel56)
-                            .addGroup(modificarCocheLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(txtColorCocheModificar, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
-                                .addComponent(txtMotorCocheModificar, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(txtModeloCocheModificar, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(txtBastidorCocheModificar, javax.swing.GroupLayout.Alignment.LEADING)))
-                        .addGap(0, 32, Short.MAX_VALUE)))
-                .addGroup(modificarCocheLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(txtCVCocheModificar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
-                    .addComponent(txtTipoCocheModificar, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel57, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel58, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel59, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel60, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtMarcaCocheModificar, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtPrecioCocheModificar))
-                .addGap(32, 32, 32)
-                .addGroup(modificarCocheLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel61)
-                    .addComponent(btnImagenCocheModificar)
-                    .addComponent(pImagenCocheNuevo3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(8, 8, 8))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, modificarCocheLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnAceptarCocheModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(8, 8, 8)
-                .addComponent(btnCancelarCocheModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel61)
+                            .addComponent(btnImagenCocheModificar)
+                            .addComponent(pImagenCocheNuevo3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, modificarCocheLayout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnAceptarCocheModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(8, 8, 8)
+                        .addComponent(btnCancelarCocheModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(8, 8, 8))
         );
         modificarCocheLayout.setVerticalGroup(
@@ -526,8 +535,14 @@ public class Main extends javax.swing.JFrame {
         buscarClienteVentaNueva.setTitle("Seleccionar cliente");
         buscarClienteVentaNueva.setModal(true);
         buscarClienteVentaNueva.setResizable(false);
+        buscarClienteVentaNueva.setSize(new java.awt.Dimension(426, 270));
 
         btnNuevoCliente.setText("Nuevo cliente");
+        btnNuevoCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNuevoClienteActionPerformed(evt);
+            }
+        });
 
         jSeparator2.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
@@ -549,6 +564,11 @@ public class Main extends javax.swing.JFrame {
         jScrollPane4.setViewportView(jTable1);
 
         btnCargarClienteVentaNueva.setText("Cargar cliente");
+        btnCargarClienteVentaNueva.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCargarClienteVentaNuevaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout buscarClienteVentaNuevaLayout = new javax.swing.GroupLayout(buscarClienteVentaNueva.getContentPane());
         buscarClienteVentaNueva.getContentPane().setLayout(buscarClienteVentaNuevaLayout);
@@ -565,7 +585,7 @@ public class Main extends javax.swing.JFrame {
                 .addComponent(txtBuscarClienteVentaNueva, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(8, 8, 8)
                 .addComponent(btnBuscarClienteVentaNueva, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(8, 10, Short.MAX_VALUE))
+                .addGap(8, 15, Short.MAX_VALUE))
             .addGroup(buscarClienteVentaNuevaLayout.createSequentialGroup()
                 .addGroup(buscarClienteVentaNuevaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(buscarClienteVentaNuevaLayout.createSequentialGroup()
@@ -717,7 +737,7 @@ public class Main extends javax.swing.JFrame {
 
         aniadirVenta.setTitle("Añadir venta");
         aniadirVenta.setModal(true);
-        aniadirVenta.setResizable(false);
+        aniadirVenta.setSize(new java.awt.Dimension(358, 528));
 
         jLabel16.setText("Fecha:");
 
@@ -877,6 +897,7 @@ public class Main extends javax.swing.JFrame {
         aniadirRevision.setTitle("Añadir revisión");
         aniadirRevision.setModal(true);
         aniadirRevision.setResizable(false);
+        aniadirRevision.setSize(new java.awt.Dimension(332, 296));
 
         jLabel23.setText("Nº REVISIÓN:");
 
@@ -905,31 +926,28 @@ public class Main extends javax.swing.JFrame {
         aniadirRevisionLayout.setHorizontalGroup(
             aniadirRevisionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, aniadirRevisionLayout.createSequentialGroup()
-                .addGap(72, 72, 72)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnAceptarRevisionNueva, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(8, 8, 8)
                 .addComponent(btnCancelarRevisionNueva, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(8, 8, 8))
             .addGroup(aniadirRevisionLayout.createSequentialGroup()
+                .addGap(8, 8, 8)
                 .addGroup(aniadirRevisionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(aniadirRevisionLayout.createSequentialGroup()
                         .addGroup(aniadirRevisionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(aniadirRevisionLayout.createSequentialGroup()
-                                .addGap(8, 8, 8)
                                 .addComponent(jLabel23)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(lblNumeroRevisionNueva, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel43)
                             .addGroup(aniadirRevisionLayout.createSequentialGroup()
-                                .addGap(8, 8, 8)
-                                .addGroup(aniadirRevisionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel43)
-                                    .addGroup(aniadirRevisionLayout.createSequentialGroup()
-                                        .addGap(10, 10, 10)
-                                        .addGroup(aniadirRevisionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(lblMarcaRevisionNueva, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(jLabel62)
-                                            .addComponent(jLabel67)
-                                            .addComponent(lblBastidorRevisionNueva, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE))))))
+                                .addGap(10, 10, 10)
+                                .addGroup(aniadirRevisionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(lblMarcaRevisionNueva, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel62)
+                                    .addComponent(jLabel67)
+                                    .addComponent(lblBastidorRevisionNueva, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE))))
                         .addGap(8, 8, 8)
                         .addGroup(aniadirRevisionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(aniadirRevisionLayout.createSequentialGroup()
@@ -939,14 +957,11 @@ public class Main extends javax.swing.JFrame {
                             .addComponent(jLabel64)
                             .addComponent(lblModeloRevisionNueva, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(aniadirRevisionLayout.createSequentialGroup()
-                        .addGap(8, 8, 8)
-                        .addGroup(aniadirRevisionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(aniadirRevisionLayout.createSequentialGroup()
-                                .addComponent(chkFrenosRevisionNueva)
-                                .addGap(18, 18, 18)
-                                .addComponent(chkFiltroRevisionNueva))
-                            .addComponent(chkAceiteRevisionNueva))))
-                .addGap(6, 6, 6))
+                        .addComponent(chkFrenosRevisionNueva)
+                        .addGap(18, 18, 18)
+                        .addComponent(chkFiltroRevisionNueva))
+                    .addComponent(chkAceiteRevisionNueva))
+                .addGap(6, 36, Short.MAX_VALUE))
         );
         aniadirRevisionLayout.setVerticalGroup(
             aniadirRevisionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -988,6 +1003,7 @@ public class Main extends javax.swing.JFrame {
         modificarRevision.setTitle("Modificar revisión");
         modificarRevision.setModal(true);
         modificarRevision.setResizable(false);
+        modificarRevision.setSize(new java.awt.Dimension(332, 296));
 
         jLabel39.setText("Nº REVISIÓN:");
 
@@ -1016,9 +1032,9 @@ public class Main extends javax.swing.JFrame {
         modificarRevisionLayout.setHorizontalGroup(
             modificarRevisionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, modificarRevisionLayout.createSequentialGroup()
-                .addGap(72, 72, 72)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnAceptarRevisionModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(8, 8, 8)
                 .addComponent(btnCancelarRevisionModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(8, 8, 8))
             .addGroup(modificarRevisionLayout.createSequentialGroup()
@@ -1051,7 +1067,7 @@ public class Main extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(chkFiltroRevisionModificar))
                     .addComponent(chkAceiteRevisionModificar))
-                .addGap(6, 6, 6))
+                .addGap(6, 52, Short.MAX_VALUE))
         );
         modificarRevisionLayout.setVerticalGroup(
             modificarRevisionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1256,6 +1272,29 @@ public class Main extends javax.swing.JFrame {
                 .addContainerGap(133, Short.MAX_VALUE))
         );
 
+        acercaDe.setTitle("Acerca de Concesionario");
+        acercaDe.setModal(true);
+        acercaDe.setResizable(false);
+
+        jLabel79.setText("<html>\n<p>Concesionario 1.1.4</p>\n<p>Juan Carlos Expósito Romero</p>\n<p>Desarrollo de Interfaces 2DAM</p>\n</html>");
+
+        javax.swing.GroupLayout acercaDeLayout = new javax.swing.GroupLayout(acercaDe.getContentPane());
+        acercaDe.getContentPane().setLayout(acercaDeLayout);
+        acercaDeLayout.setHorizontalGroup(
+            acercaDeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(acercaDeLayout.createSequentialGroup()
+                .addGap(81, 81, 81)
+                .addComponent(jLabel79, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(81, Short.MAX_VALUE))
+        );
+        acercaDeLayout.setVerticalGroup(
+            acercaDeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(acercaDeLayout.createSequentialGroup()
+                .addGap(55, 55, 55)
+                .addComponent(jLabel79, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(55, Short.MAX_VALUE))
+        );
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Concesionario");
         setResizable(false);
@@ -1308,14 +1347,34 @@ public class Main extends javax.swing.JFrame {
         }
 
         btnVentaNueva.setText("VENTA");
+        btnVentaNueva.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVentaNuevaActionPerformed(evt);
+            }
+        });
 
         btnRevisionNueva.setText("REVISIÓN");
+        btnRevisionNueva.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRevisionNuevaActionPerformed(evt);
+            }
+        });
 
         btnCocheBorrar.setText("ELIMINAR");
 
         btnCocheModificar.setText("MODIFICAR");
+        btnCocheModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCocheModificarActionPerformed(evt);
+            }
+        });
 
         btnCocheNuevo.setText("NUEVO");
+        btnCocheNuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCocheNuevoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout cochesLayout = new javax.swing.GroupLayout(coches);
         coches.setLayout(cochesLayout);
@@ -1455,6 +1514,11 @@ public class Main extends javax.swing.JFrame {
         btnRevisionBorrar.setText("ELIMINAR");
 
         btnRevisionModificar.setText("MODIFICAR");
+        btnRevisionModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRevisionModificarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout revisionesLayout = new javax.swing.GroupLayout(revisiones);
         revisiones.setLayout(revisionesLayout);
@@ -1791,6 +1855,7 @@ public class Main extends javax.swing.JFrame {
 
         archivo.setText("Archivo");
 
+        reiniciarbd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/toolbarButtonGraphics/general/Refresh24.gif"))); // NOI18N
         reiniciarbd.setText("Reiniciar BBDD");
         reiniciarbd.setToolTipText("");
         archivo.add(reiniciarbd);
@@ -1830,6 +1895,43 @@ public class Main extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnCocheNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCocheNuevoActionPerformed
+        aniadirCoche.setLocationRelativeTo(null);
+        aniadirCoche.setVisible(true);
+    }//GEN-LAST:event_btnCocheNuevoActionPerformed
+
+    private void btnCocheModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCocheModificarActionPerformed
+        modificarCoche.setLocationRelativeTo(null);
+        modificarCoche.setVisible(true);
+    }//GEN-LAST:event_btnCocheModificarActionPerformed
+
+    private void btnVentaNuevaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVentaNuevaActionPerformed
+        buscarClienteVentaNueva.setLocationRelativeTo(null);
+        buscarClienteVentaNueva.setVisible(true);
+    }//GEN-LAST:event_btnVentaNuevaActionPerformed
+
+    private void btnRevisionNuevaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRevisionNuevaActionPerformed
+        aniadirRevision.setLocationRelativeTo(null);
+        aniadirRevision.setVisible(true);
+    }//GEN-LAST:event_btnRevisionNuevaActionPerformed
+
+    private void btnRevisionModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRevisionModificarActionPerformed
+        modificarRevision.setLocationRelativeTo(null);
+        modificarRevision.setVisible(true);
+    }//GEN-LAST:event_btnRevisionModificarActionPerformed
+
+    private void btnNuevoClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoClienteActionPerformed
+        buscarClienteVentaNueva.setVisible(false);
+        aniadirVenta.setLocationRelativeTo(null);
+        aniadirVenta.setVisible(true);
+    }//GEN-LAST:event_btnNuevoClienteActionPerformed
+
+    private void btnCargarClienteVentaNuevaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCargarClienteVentaNuevaActionPerformed
+        buscarClienteVentaNueva.setVisible(false);
+        aniadirVenta.setLocationRelativeTo(null);
+        aniadirVenta.setVisible(true);
+    }//GEN-LAST:event_btnCargarClienteVentaNuevaActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1860,12 +1962,15 @@ public class Main extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Main().setVisible(true);
+                JFrame concesionario = new Main();
+                concesionario.setLocationRelativeTo(null);
+                concesionario.setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JDialog acercaDe;
     private javax.swing.JMenuItem acercade;
     private javax.swing.JDialog aniadirCoche;
     private javax.swing.JDialog aniadirRevision;
@@ -2002,6 +2107,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel76;
     private javax.swing.JLabel jLabel77;
     private javax.swing.JLabel jLabel78;
+    private javax.swing.JLabel jLabel79;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
