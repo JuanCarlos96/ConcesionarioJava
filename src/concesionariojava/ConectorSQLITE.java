@@ -75,16 +75,16 @@ public class ConectorSQLITE {
                 "Frenos     TEXT,"+
                 "Aceite     TEXT,"+
                 "Filtro     TEXT"+
-                "N_Bastidor     TEXT  REFERENCES Coche(N_Bastidor)"+
+                "N_Bastidor     TEXT  REFERENCES Coche(N_Bastidor) "+
                     "ON DELETE CASCADE ON UPDATE CASCADE)";
             this.consulta.executeUpdate(creatablaRevision);
             this.consulta.executeUpdate("INSERT INTO Revision VALUES (1, '08/01/2018', 'Sí', 'No', 'Sí', '324AER57G4ED349GX')");
             
             String creatablaVenta;
             creatablaVenta = "CREATE TABLE Venta ("+
-                "N_Bastidor     TEXT  REFERENCES Coche(N_Bastidor)"+
+                "N_Bastidor     TEXT  REFERENCES Coche(N_Bastidor) "+
                     "ON DELETE CASCADE ON UPDATE CASCADE),"+
-                "Dni        TEXT  REFERENCES Cliente(Dni)"+
+                "Dni        TEXT  REFERENCES Cliente(Dni) "+
                     "ON DELETE CASCADE ON UPDATE CASCADE,"+
                 "Fecha      TEXT,"+
                 "Precio     REAL,"+
@@ -94,7 +94,7 @@ public class ConectorSQLITE {
             
             System.out.println("BBDD Creada");//Si llega aqui es que ha creado la BBDD
         }catch (SQLException e){
-            System.out.println("ERROR "+e.getMessage());   
+            System.out.println("ERROR "+e.getMessage());
         }
     }
 
