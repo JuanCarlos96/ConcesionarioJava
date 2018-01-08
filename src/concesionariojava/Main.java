@@ -1,15 +1,65 @@
 package concesionariojava;
 
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 public class Main extends javax.swing.JFrame {
+    private final ConectorSQLITE con;
 
     /**
      * Creates new form Main
      */
     public Main() {
         initComponents();
+        con = new ConectorSQLITE("concesionario.db");
+        con.connect();
+        listarCoches();
+        cerrar_app();
+    }
+    
+    private void cerrar_app(){
+        //Método que añade el listener para el botón X del JFrame
+        this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);//Esto es para que no lo cierre prematuramente, sino que me deje cerrar la conexión con la BBDD
+        this.addWindowListener(new WindowAdapter()
+	{
+            @Override
+            public void windowClosing(WindowEvent e)
+            {
+                System.out.println("Cerrando mediante botón X");
+                con.close();
+                System.out.println("Cerrando base de datos: OK");
+                System.exit(0);
+            }
+	});
+    }
+    
+    private void listarCoches(){
+        DefaultTableModel modeloCoches = (DefaultTableModel) tablaMain.getModel();
+        for(int i=modeloCoches.getRowCount()-1; i>=0; i--) {
+            modeloCoches.removeRow(i);
+        }
+        
+        try{
+            ResultSet rs;
+            //2 Formas de realizar la consulta: de forma normal y con la anti-inyección
+            //rs=this.con.consulta.executeQuery("Select * from Plato where tipo='"+tipo+"'");
+            PreparedStatement consulta;
+            consulta=this.con.dameconexion().prepareStatement("SELECT N_Bastidor,Marca,Modelo,Motor,CV,Tipo,Color,Precio FROM Coche");
+            rs=consulta.executeQuery();
+            
+            while (rs.next()){ 
+                modeloCoches.addRow(new Object[]{rs.getString("N_Bastidor"), rs.getString("Marca"), rs.getString("Modelo"), rs.getString("Motor"), rs.getInt("CV"), rs.getString("Tipo"), rs.getString("Color"), rs.getFloat("Precio")});
+            }
+            rs.close();
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -2247,6 +2297,7 @@ public class Main extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 JFrame concesionario = new Main();
+                concesionario.listarCoches();
                 concesionario.setLocationRelativeTo(null);
                 concesionario.setVisible(true);
             }

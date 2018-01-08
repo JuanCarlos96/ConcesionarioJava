@@ -29,7 +29,7 @@ public class ConectorSQLITE {
             this.conexion = DriverManager.getConnection("jdbc:sqlite:"+this.nombrebd);//Inicializa Conexión
             //Si no existe el fichero de la BBDD, la crea pero vacío
             this.consulta = conexion.createStatement();//Inicializa la sentencia(Statement) que permite realizar consultas SQL
-            String query = "select * from sqlite_master where name='Plato'";
+            String query = "select * from sqlite_master where name='Coche'";
             ResultSet rs = this.consulta.executeQuery(query);
             if (rs.next()==false){//Si no existe la tabla la crea
                 this.creaBBDD();
@@ -40,51 +40,88 @@ public class ConectorSQLITE {
             this.creaBBDD();
         }
     }
+    
     private void creaBBDD(){
         //Crea la BBDD de no existir
         try{
-                System.out.println("Creando Tabla");
-                String creatabla;
-                creatabla = "CREATE TABLE Plato ("+
-                    "platoID  INTEGER  PRIMARY KEY,"+
-                    "nombre   VARCHAR(60),"+
-                    "tipo     CHECK(tipo IN ('primero', 'segundo', 'postre', 'entrante')),"+
-                    "calorias INTEGER,"+
-                    "precio   DECIMAL(5, 2),"+
-                    "img BLOB)";
-                this.consulta.executeUpdate(creatabla);
-                System.out.println("BBDD Creada");//Si llega aqui es que ha creado la BBDD
-                this.consulta.executeUpdate("INSERT INTO Plato VALUES (1, 'Plato de Prueba', 'primero', 0, 0, NULL )");
-                                
+            System.out.println("Creando Tablas");
+            String creatablaCoche;
+            creatablaCoche = "CREATE TABLE Coche ("+
+                "N_Bastidor     TEXT  PRIMARY KEY,"+
+                "Marca      TEXT,"+
+                "Modelo     TEXT,"+
+                "CV         INTEGER,"+
+                "Tipo       TEXT,"+
+                "Color      TEXT,"+
+                "Precio     REAL,"+
+                "Img        BLOB)";
+            this.consulta.executeUpdate(creatablaCoche);
+            this.consulta.executeUpdate("INSERT INTO Coche VALUES ('324AER57G4ED349GX', 'NISSAN', 'PRIMERA', 100, 'TURISMO', 'PLATA', 1000, NULL)");
+            
+            String creatablaCliente;
+            creatablaCliente = "CREATE TABLE Cliente ("+
+                "Dni        TEXT  PRIMARY KEY,"+
+                "Nombre     TEXT,"+
+                "Apellidos      TEXT,"+
+                "Telefono       TEXT,"+
+                "Domicilio      TEXT)";
+            this.consulta.executeUpdate(creatablaCliente);
+            this.consulta.executeUpdate("INSERT INTO Cliente VALUES ('05983762J', 'Juan Carlos', 'Expósito Romero', '722256261', 'Poro 3, Torrecampo, Córdoba')");
+            
+            String creatablaRevision;
+            creatablaRevision = "CREATE TABLE Revision ("+
+                "N_Revision     INTEGER DEFAULT 1 PRIMARY KEY,"+
+                "Fecha      TEXT,"+
+                "Frenos     TEXT,"+
+                "Aceite     TEXT,"+
+                "Filtro     TEXT"+
+                "N_Bastidor     TEXT  REFERENCES Coche(N_Bastidor)"+
+                    "ON DELETE CASCADE ON UPDATE CASCADE)";
+            this.consulta.executeUpdate(creatablaRevision);
+            this.consulta.executeUpdate("INSERT INTO Revision VALUES (1, '08/01/2018', 'Sí', 'No', 'Sí', '324AER57G4ED349GX')");
+            
+            String creatablaVenta;
+            creatablaVenta = "CREATE TABLE Venta ("+
+                "N_Bastidor     TEXT  REFERENCES Coche(N_Bastidor)"+
+                    "ON DELETE CASCADE ON UPDATE CASCADE),"+
+                "Dni        TEXT  REFERENCES Cliente(Dni)"+
+                    "ON DELETE CASCADE ON UPDATE CASCADE,"+
+                "Fecha      TEXT,"+
+                "Precio     REAL,"+
+                "PRIMARY KEY(N_Bastidor,Dni)";
+            this.consulta.executeUpdate(creatablaVenta);
+            this.consulta.executeUpdate("INSERT INTO Venta VALUES ('324AER57G4ED349GX', '05983762J', '08/01/2018', 1000)");
+            
+            System.out.println("BBDD Creada");//Si llega aqui es que ha creado la BBDD
         }catch (SQLException e){
-             System.out.println("ERROR "+e.getMessage());   
+            System.out.println("ERROR "+e.getMessage());   
         }
-        
     }
 
     public void ReiniciaBBDD(){
         // Borra la tabla de Platos y vuelve a crear la 
         try{
-                System.out.println("Borrando Tabla");
-                String borratabla="DROP Table Plato";
-                this.consulta.executeUpdate(borratabla);
-                System.out.println("Tabla Borrada");//Si llega aqui es que ha creado la BBDD
-                this.creaBBDD();
+            System.out.println("Borrando Tablas");
+            this.consulta.executeUpdate("DROP Table Venta");
+            this.consulta.executeUpdate("DROP Table Revision");
+            this.consulta.executeUpdate("DROP Table Cliente");
+            this.consulta.executeUpdate("DROP Table Coche");
+            System.out.println("Tablas Borradas");//Si llega aqui es que ha eliminado la BBDD
+            this.creaBBDD();
         }catch (SQLException e){
-             System.out.println("ERROR "+e.getMessage());   
+            System.out.println("ERROR "+e.getMessage());   
         }
-     }   
+    }
+    
     public Connection dameconexion(){
-         return conexion;
+        return conexion;
     }   
     
     public void close(){
-            try {
-              this.conexion.close();
-            } catch (SQLException e) {
-                System.out.println("ERROR "+e.getMessage());
-            }
-     }
-
-
+        try {
+            this.conexion.close();
+        } catch (SQLException e) {
+            System.out.println("ERROR "+e.getMessage());
+        }
+    }
 }
