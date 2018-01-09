@@ -58,7 +58,7 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="jLabel52" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="btnImagenCocheNuevo" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="pImagenCocheNuevo2" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="pImagenCocheNuevo" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
@@ -122,7 +122,7 @@
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
-                          <Component id="pImagenCocheNuevo2" min="-2" max="-2" attributes="0"/>
+                          <Component id="pImagenCocheNuevo" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -205,7 +205,7 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnImagenCocheNuevoActionPerformed"/>
           </Events>
         </Component>
-        <Container class="javax.swing.JPanel" name="pImagenCocheNuevo2">
+        <Container class="javax.swing.JPanel" name="pImagenCocheNuevo">
           <Properties>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
@@ -295,7 +295,7 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="jLabel61" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="btnImagenCocheModificar" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="pImagenCocheNuevo3" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="pImagenCocheModificar" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
@@ -359,7 +359,7 @@
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
-                          <Component id="pImagenCocheNuevo3" min="-2" max="-2" attributes="0"/>
+                          <Component id="pImagenCocheModificar" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -442,7 +442,7 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnImagenCocheModificarActionPerformed"/>
           </Events>
         </Component>
-        <Container class="javax.swing.JPanel" name="pImagenCocheNuevo3">
+        <Container class="javax.swing.JPanel" name="pImagenCocheModificar">
           <Properties>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
@@ -1884,6 +1884,8 @@
         </Component>
       </SubComponents>
     </Container>
+    <Component class="javax.swing.JFileChooser" name="jFileChooser1">
+    </Component>
     <Menu class="javax.swing.JMenuBar" name="menu">
       <SubComponents>
         <Menu class="javax.swing.JMenu" name="archivo">

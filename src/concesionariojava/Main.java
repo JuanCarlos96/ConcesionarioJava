@@ -1,16 +1,31 @@
 package concesionariojava;
 
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 
 public class Main extends javax.swing.JFrame {
     private final ConectorSQLITE con;
+    private byte[] imagenblob;
 
     /**
      * Creates new form Main
@@ -125,6 +140,18 @@ public class Main extends javax.swing.JFrame {
             e.printStackTrace();
         }
     }
+    
+    public static BufferedImage resize(BufferedImage img, int newW, int newH) {
+        //Una función para reescalar una imagen. Se puede reutilizar tal cual
+        int w = img.getWidth();
+        int h = img.getHeight();
+        BufferedImage dimg = new BufferedImage(newW, newH, img.getType());
+        Graphics2D g = dimg.createGraphics();
+        g.setRenderingHint(RenderingHints.KEY_INTERPOLATION,RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+        g.drawImage(img, 0, 0, newW, newH, 0, 0, w, h, null);
+        g.dispose();
+        return dimg;
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -154,7 +181,7 @@ public class Main extends javax.swing.JFrame {
         txtPrecioCocheNuevo = new javax.swing.JTextField();
         jLabel52 = new javax.swing.JLabel();
         btnImagenCocheNuevo = new javax.swing.JButton();
-        pImagenCocheNuevo2 = new javax.swing.JPanel();
+        pImagenCocheNuevo = new javax.swing.JPanel();
         btnCancelarCocheNuevo = new javax.swing.JButton();
         btnAceptarCocheNuevo = new javax.swing.JButton();
         modificarCoche = new javax.swing.JDialog();
@@ -176,7 +203,7 @@ public class Main extends javax.swing.JFrame {
         txtPrecioCocheModificar = new javax.swing.JTextField();
         jLabel61 = new javax.swing.JLabel();
         btnImagenCocheModificar = new javax.swing.JButton();
-        pImagenCocheNuevo3 = new javax.swing.JPanel();
+        pImagenCocheModificar = new javax.swing.JPanel();
         btnCancelarCocheModificar = new javax.swing.JButton();
         btnAceptarCocheModificar = new javax.swing.JButton();
         buscarClienteVentaNueva = new javax.swing.JDialog();
@@ -292,6 +319,7 @@ public class Main extends javax.swing.JFrame {
         btnAceptarClienteModificar = new javax.swing.JButton();
         acercaDe = new javax.swing.JDialog();
         jLabel79 = new javax.swing.JLabel();
+        jFileChooser1 = new javax.swing.JFileChooser();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         coches = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -405,16 +433,16 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
-        pImagenCocheNuevo2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        pImagenCocheNuevo.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        javax.swing.GroupLayout pImagenCocheNuevo2Layout = new javax.swing.GroupLayout(pImagenCocheNuevo2);
-        pImagenCocheNuevo2.setLayout(pImagenCocheNuevo2Layout);
-        pImagenCocheNuevo2Layout.setHorizontalGroup(
-            pImagenCocheNuevo2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout pImagenCocheNuevoLayout = new javax.swing.GroupLayout(pImagenCocheNuevo);
+        pImagenCocheNuevo.setLayout(pImagenCocheNuevoLayout);
+        pImagenCocheNuevoLayout.setHorizontalGroup(
+            pImagenCocheNuevoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 191, Short.MAX_VALUE)
         );
-        pImagenCocheNuevo2Layout.setVerticalGroup(
-            pImagenCocheNuevo2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        pImagenCocheNuevoLayout.setVerticalGroup(
+            pImagenCocheNuevoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 160, Short.MAX_VALUE)
         );
 
@@ -464,7 +492,7 @@ public class Main extends javax.swing.JFrame {
                         .addGroup(aniadirCocheLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel52)
                             .addComponent(btnImagenCocheNuevo)
-                            .addComponent(pImagenCocheNuevo2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(pImagenCocheNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, aniadirCocheLayout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnAceptarCocheNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -513,7 +541,7 @@ public class Main extends javax.swing.JFrame {
                             .addComponent(txtPrecioCocheNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(aniadirCocheLayout.createSequentialGroup()
                         .addGap(8, 8, 8)
-                        .addComponent(pImagenCocheNuevo2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(pImagenCocheNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(aniadirCocheLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancelarCocheNuevo)
@@ -551,16 +579,16 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
-        pImagenCocheNuevo3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        pImagenCocheModificar.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        javax.swing.GroupLayout pImagenCocheNuevo3Layout = new javax.swing.GroupLayout(pImagenCocheNuevo3);
-        pImagenCocheNuevo3.setLayout(pImagenCocheNuevo3Layout);
-        pImagenCocheNuevo3Layout.setHorizontalGroup(
-            pImagenCocheNuevo3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout pImagenCocheModificarLayout = new javax.swing.GroupLayout(pImagenCocheModificar);
+        pImagenCocheModificar.setLayout(pImagenCocheModificarLayout);
+        pImagenCocheModificarLayout.setHorizontalGroup(
+            pImagenCocheModificarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 191, Short.MAX_VALUE)
         );
-        pImagenCocheNuevo3Layout.setVerticalGroup(
-            pImagenCocheNuevo3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        pImagenCocheModificarLayout.setVerticalGroup(
+            pImagenCocheModificarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 160, Short.MAX_VALUE)
         );
 
@@ -610,7 +638,7 @@ public class Main extends javax.swing.JFrame {
                         .addGroup(modificarCocheLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel61)
                             .addComponent(btnImagenCocheModificar)
-                            .addComponent(pImagenCocheNuevo3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(pImagenCocheModificar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, modificarCocheLayout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnAceptarCocheModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -659,7 +687,7 @@ public class Main extends javax.swing.JFrame {
                             .addComponent(txtPrecioCocheModificar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(modificarCocheLayout.createSequentialGroup()
                         .addGap(8, 8, 8)
-                        .addComponent(pImagenCocheNuevo3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(pImagenCocheModificar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(modificarCocheLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancelarCocheModificar)
@@ -2261,7 +2289,45 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCancelarCocheModificarActionPerformed
 
     private void btnImagenCocheNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImagenCocheNuevoActionPerformed
-        JOptionPane.showMessageDialog(null, "Abre el JFileChooser");
+        //JOptionPane.showMessageDialog(null, "Abre el JFileChooser");
+        //Se crea un filtro para los ficheros a leer
+        FileNameExtensionFilter filter;
+        filter = new FileNameExtensionFilter("Ficheros de imagen", "bmp", "jpg", "gif", "png");
+        jFileChooser1.setFileFilter(filter);
+
+        //Valor que retorna al elegir una opcion en el file chooser
+        int retVal = this.jFileChooser1.showOpenDialog(this);
+        if (retVal == JFileChooser.APPROVE_OPTION) //Si se hace doble click o abrir
+        {
+            //El path absoluto del archivo elegido
+            File f = this.jFileChooser1.getSelectedFile();
+            System.out.println(f);
+            System.out.println("Abriendo");
+            BufferedImage myPicture;
+            try {
+                myPicture = ImageIO.read(f);
+                BufferedImage img_reesc = resize(myPicture,180,150);
+                //Se guarda en una variable de clase para luego poder insertarla con facilidad en la base de datos
+
+                JLabel picLabel;
+                picLabel = new JLabel(new ImageIcon(img_reesc));//Se reescala
+
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                ImageIO.write(img_reesc, "jpg", baos);//Utiliza un jpg temporal para mostrar imagen
+                this.imagenblob = baos.toByteArray();
+                
+                //Crea un panel donde poner la imagen
+                JPanel PanelImagen = new JPanel();
+                //Se establece posición y tamaño
+                PanelImagen.setBounds(290, 60, 180, 150);
+                PanelImagen.add(picLabel);//Se añade la imagen al Panel
+                PanelImagen.setName("IMAGEN");//Le pongo un 'name' para que luego lo pueda buscar y eliminar
+                pImagenCocheNuevo.add(PanelImagen);//Se añade el Panel de la Imagen
+                pImagenCocheNuevo.revalidate();//Si hay algún cambio en su interior repinta todo, JPanel6 pertenece a JPanel1
+            } catch (IOException ex) {
+                Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }//GEN-LAST:event_btnImagenCocheNuevoActionPerformed
 
     private void btnImagenCocheModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImagenCocheModificarActionPerformed
@@ -2417,6 +2483,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JPanel clientes;
     private javax.swing.JPanel coches;
     private javax.swing.JButton jButton2;
+    private javax.swing.JFileChooser jFileChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -2544,8 +2611,8 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JDialog modificarCoche;
     private javax.swing.JDialog modificarRevision;
     private javax.swing.JDialog modificarVenta;
-    private javax.swing.JPanel pImagenCocheNuevo2;
-    private javax.swing.JPanel pImagenCocheNuevo3;
+    private javax.swing.JPanel pImagenCocheModificar;
+    private javax.swing.JPanel pImagenCocheNuevo;
     private javax.swing.JPanel pImagenRevisionMain;
     private javax.swing.JMenuItem reiniciarbd;
     private javax.swing.JPanel revisiones;
