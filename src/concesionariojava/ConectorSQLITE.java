@@ -50,13 +50,14 @@ public class ConectorSQLITE {
                 "N_Bastidor     TEXT  PRIMARY KEY,"+
                 "Marca      TEXT,"+
                 "Modelo     TEXT,"+
+                "Motor      TEXT,"+
                 "CV         INTEGER,"+
                 "Tipo       TEXT,"+
                 "Color      TEXT,"+
                 "Precio     REAL,"+
                 "Img        BLOB)";
             this.consulta.executeUpdate(creatablaCoche);
-            this.consulta.executeUpdate("INSERT INTO Coche VALUES ('324AER57G4ED349GX', 'NISSAN', 'PRIMERA', 100, 'TURISMO', 'PLATA', 1000, NULL)");
+            this.consulta.executeUpdate("INSERT INTO Coche VALUES ('324AER57G4ED349GX', 'NISSAN', 'PRIMERA', 'GASOLINA', 100, 'TURISMO', 'PLATA', 1000, NULL)");
             
             String creatablaCliente;
             creatablaCliente = "CREATE TABLE Cliente ("+
@@ -74,7 +75,7 @@ public class ConectorSQLITE {
                 "Fecha      TEXT,"+
                 "Frenos     TEXT,"+
                 "Aceite     TEXT,"+
-                "Filtro     TEXT"+
+                "Filtro     TEXT,"+
                 "N_Bastidor     TEXT  REFERENCES Coche(N_Bastidor) "+
                     "ON DELETE CASCADE ON UPDATE CASCADE)";
             this.consulta.executeUpdate(creatablaRevision);
@@ -83,14 +84,16 @@ public class ConectorSQLITE {
             String creatablaVenta;
             creatablaVenta = "CREATE TABLE Venta ("+
                 "N_Bastidor     TEXT  REFERENCES Coche(N_Bastidor) "+
-                    "ON DELETE CASCADE ON UPDATE CASCADE),"+
+                    "ON DELETE CASCADE ON UPDATE CASCADE,"+
                 "Dni        TEXT  REFERENCES Cliente(Dni) "+
                     "ON DELETE CASCADE ON UPDATE CASCADE,"+
                 "Fecha      TEXT,"+
                 "Precio     REAL,"+
-                "PRIMARY KEY(N_Bastidor,Dni)";
+                "PRIMARY KEY(N_Bastidor,Dni))";
             this.consulta.executeUpdate(creatablaVenta);
             this.consulta.executeUpdate("INSERT INTO Venta VALUES ('324AER57G4ED349GX', '05983762J', '08/01/2018', 1000)");
+            
+            this.consulta.execute("PRAGMA foreign_keys = ON");
             
             System.out.println("BBDD Creada");//Si llega aqui es que ha creado la BBDD
         }catch (SQLException e){

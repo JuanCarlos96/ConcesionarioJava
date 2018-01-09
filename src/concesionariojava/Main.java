@@ -20,6 +20,9 @@ public class Main extends javax.swing.JFrame {
         con = new ConectorSQLITE("concesionario.db");
         con.connect();
         listarCoches();
+        listarRevisiones();
+        listarVentas();
+        listarClientes();
         cerrar_app();
     }
     
@@ -47,17 +50,78 @@ public class Main extends javax.swing.JFrame {
         
         try{
             ResultSet rs;
-            //2 Formas de realizar la consulta: de forma normal y con la anti-inyección
-            //rs=this.con.consulta.executeQuery("Select * from Plato where tipo='"+tipo+"'");
             PreparedStatement consulta;
-            consulta=this.con.dameconexion().prepareStatement("SELECT N_Bastidor,Marca,Modelo,Motor,CV,Tipo,Color,Precio FROM Coche");
-            rs=consulta.executeQuery();
+            consulta = this.con.dameconexion().prepareStatement("SELECT N_Bastidor,Marca,Modelo,Motor,CV,Tipo,Color,Precio FROM Coche");
+            rs = consulta.executeQuery();
             
             while (rs.next()){ 
                 modeloCoches.addRow(new Object[]{rs.getString("N_Bastidor"), rs.getString("Marca"), rs.getString("Modelo"), rs.getString("Motor"), rs.getInt("CV"), rs.getString("Tipo"), rs.getString("Color"), rs.getFloat("Precio")});
             }
             rs.close();
         }catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
+    
+    private void listarRevisiones(){
+        DefaultTableModel modeloRevisiones = (DefaultTableModel) tablaRevisiones.getModel();
+        for(int i=modeloRevisiones.getRowCount()-1; i>=0; i--){
+            modeloRevisiones.removeRow(i);
+        }
+        
+        try {
+            ResultSet rs;
+            PreparedStatement consulta;
+            consulta = this.con.dameconexion().prepareStatement("SELECT N_Revision FROM Revision");
+            rs = consulta.executeQuery();
+            
+            while(rs.next()){
+                modeloRevisiones.addRow(new Object[]{rs.getInt("N_Revision")});
+            }
+            rs.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    private void listarVentas(){
+        DefaultTableModel modeloVentas = (DefaultTableModel) tablaVentas.getModel();
+        for(int i=modeloVentas.getRowCount()-1; i>=0; i--){
+            modeloVentas.removeRow(i);
+        }
+        
+        try {
+            ResultSet rs;
+            PreparedStatement consulta;
+            consulta = this.con.dameconexion().prepareStatement("SELECT N_Bastidor,Dni FROM Venta");
+            rs = consulta.executeQuery();
+            
+            while(rs.next()){
+                modeloVentas.addRow(new Object[]{rs.getString("N_Bastidor"),rs.getString("Dni")});
+            }
+            rs.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    private void listarClientes(){
+        DefaultTableModel modeloClientes = (DefaultTableModel) tablaClientes.getModel();
+        for(int i=modeloClientes.getRowCount()-1; i>=0; i--){
+            modeloClientes.removeRow(i);
+        }
+        
+        try {
+            ResultSet rs;
+            PreparedStatement consulta;
+            consulta = this.con.dameconexion().prepareStatement("SELECT Dni FROM Cliente");
+            rs = consulta.executeQuery();
+            
+            while(rs.next()){
+                modeloClientes.addRow(new Object[]{rs.getString("Dni")});
+            }
+            rs.close();
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
@@ -269,7 +333,7 @@ public class Main extends javax.swing.JFrame {
         btnRevisionBorrar = new javax.swing.JButton();
         btnRevisionModificar = new javax.swing.JButton();
         jScrollPane9 = new javax.swing.JScrollPane();
-        jTable5 = new javax.swing.JTable();
+        tablaRevisiones = new javax.swing.JTable();
         ventas = new javax.swing.JPanel();
         jScrollPane5 = new javax.swing.JScrollPane();
         tablaVentas = new javax.swing.JTable();
@@ -301,7 +365,7 @@ public class Main extends javax.swing.JFrame {
         btnClienteBorrar = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jScrollPane10 = new javax.swing.JScrollPane();
-        jTable6 = new javax.swing.JTable();
+        tablaClientes = new javax.swing.JTable();
         menu = new javax.swing.JMenuBar();
         archivo = new javax.swing.JMenu();
         reiniciarbd = new javax.swing.JMenuItem();
@@ -1490,12 +1554,19 @@ public class Main extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tablaMain.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(tablaMain);
         if (tablaMain.getColumnModel().getColumnCount() > 0) {
             tablaMain.getColumnModel().getColumn(0).setResizable(false);
+            tablaMain.getColumnModel().getColumn(0).setPreferredWidth(150);
             tablaMain.getColumnModel().getColumn(1).setResizable(false);
             tablaMain.getColumnModel().getColumn(2).setResizable(false);
             tablaMain.getColumnModel().getColumn(3).setResizable(false);
+            tablaMain.getColumnModel().getColumn(4).setResizable(false);
+            tablaMain.getColumnModel().getColumn(4).setPreferredWidth(50);
+            tablaMain.getColumnModel().getColumn(5).setResizable(false);
+            tablaMain.getColumnModel().getColumn(6).setResizable(false);
+            tablaMain.getColumnModel().getColumn(7).setResizable(false);
         }
 
         btnVentaNueva.setText("VENTA");
@@ -1613,36 +1684,21 @@ public class Main extends javax.swing.JFrame {
 
         jLabel5.setText("Nº REVISIÓN");
 
-        lblNumeroRevisionMain.setText("1");
         lblNumeroRevisionMain.setToolTipText("");
 
         jLabel7.setText("FECHA");
 
-        lblFechaRevisionMain.setText("2017/12/04");
-
         jLabel9.setText("Nº BASTIDOR");
-
-        lblBastidorRevisionMain.setText("ABC12345678909876");
 
         jLabel11.setText("MARCA");
 
-        lblMarcaRevisionMain.setText("NISSAN");
-
         jLabel13.setText("MODELO");
-
-        lblModeloRevisionMain.setText("PRIMERA");
 
         jLabel15.setText("REVISIÓN DE FRENOS:");
 
-        lblFrenosRevisionMain.setText("SÍ");
-
         jLabel17.setText("CAMBIO DE FILTRO:");
 
-        lblFiltroRevisionMain.setText("SÍ");
-
         jLabel19.setText("CAMBIO DE ACEITE:");
-
-        lblAceiteRevisionMain.setText("SÍ");
 
         jLabel21.setText("IMAGEN");
 
@@ -1673,7 +1729,7 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
-        jTable5.setModel(new javax.swing.table.DefaultTableModel(
+        tablaRevisiones.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null},
                 {null},
@@ -1699,7 +1755,7 @@ public class Main extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane9.setViewportView(jTable5);
+        jScrollPane9.setViewportView(tablaRevisiones);
 
         javax.swing.GroupLayout revisionesLayout = new javax.swing.GroupLayout(revisiones);
         revisiones.setLayout(revisionesLayout);
@@ -1715,39 +1771,42 @@ public class Main extends javax.swing.JFrame {
                             .addGroup(revisionesLayout.createSequentialGroup()
                                 .addComponent(jLabel19)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblAceiteRevisionMain)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 320, Short.MAX_VALUE))
+                                .addComponent(lblAceiteRevisionMain, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 315, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, revisionesLayout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
                                 .addComponent(btnRevisionModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(8, 8, 8)))
                         .addComponent(btnRevisionBorrar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel13)
                     .addGroup(revisionesLayout.createSequentialGroup()
-                        .addComponent(jLabel15)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblFrenosRevisionMain))
-                    .addGroup(revisionesLayout.createSequentialGroup()
-                        .addComponent(jLabel17)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblFiltroRevisionMain))
-                    .addGroup(revisionesLayout.createSequentialGroup()
-                        .addGroup(revisionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel9)
-                            .addComponent(lblBastidorRevisionMain, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE)
-                            .addComponent(lblNumeroRevisionMain, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lblModeloRevisionMain, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(48, 48, 48)
-                        .addGroup(revisionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel7)
-                            .addComponent(jLabel11)
-                            .addComponent(lblFechaRevisionMain, javax.swing.GroupLayout.DEFAULT_SIZE, 75, Short.MAX_VALUE)
-                            .addComponent(lblMarcaRevisionMain, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(29, 29, 29)
                         .addGroup(revisionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel21)
-                            .addComponent(pImagenRevisionMain, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jLabel13)
+                            .addGroup(revisionesLayout.createSequentialGroup()
+                                .addComponent(jLabel15)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblFrenosRevisionMain, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(revisionesLayout.createSequentialGroup()
+                                .addComponent(jLabel17)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblFiltroRevisionMain, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(revisionesLayout.createSequentialGroup()
+                                .addGroup(revisionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jLabel5)
+                                    .addComponent(jLabel9)
+                                    .addComponent(lblBastidorRevisionMain, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE)
+                                    .addComponent(lblNumeroRevisionMain, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE)
+                                    .addComponent(lblModeloRevisionMain, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE))
+                                .addGap(48, 48, 48)
+                                .addGroup(revisionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jLabel7)
+                                    .addComponent(jLabel11)
+                                    .addComponent(lblFechaRevisionMain, javax.swing.GroupLayout.DEFAULT_SIZE, 75, Short.MAX_VALUE)
+                                    .addComponent(lblMarcaRevisionMain, javax.swing.GroupLayout.DEFAULT_SIZE, 75, Short.MAX_VALUE))
+                                .addGap(29, 29, 29)
+                                .addGroup(revisionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel21)
+                                    .addComponent(pImagenRevisionMain, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addGap(8, 8, 8))
         );
         revisionesLayout.setVerticalGroup(
@@ -1764,36 +1823,36 @@ public class Main extends javax.swing.JFrame {
                         .addGroup(revisionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(revisionesLayout.createSequentialGroup()
                                 .addGroup(revisionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(lblNumeroRevisionMain)
-                                    .addComponent(lblFechaRevisionMain))
+                                    .addComponent(lblNumeroRevisionMain, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblFechaRevisionMain, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(24, 24, 24)
                                 .addGroup(revisionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel9)
                                     .addComponent(jLabel11))
                                 .addGap(8, 8, 8)
                                 .addGroup(revisionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(lblBastidorRevisionMain)
-                                    .addComponent(lblMarcaRevisionMain))
+                                    .addComponent(lblBastidorRevisionMain, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblMarcaRevisionMain, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(24, 24, 24)
                                 .addComponent(jLabel13)
                                 .addGap(8, 8, 8)
-                                .addComponent(lblModeloRevisionMain))
+                                .addComponent(lblModeloRevisionMain, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(pImagenRevisionMain, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(revisionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel15)
-                            .addComponent(lblFrenosRevisionMain)))
+                            .addComponent(lblFrenosRevisionMain, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jScrollPane9, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(8, 8, 8)
                 .addGroup(revisionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel17)
-                    .addComponent(lblFiltroRevisionMain))
+                    .addComponent(lblFiltroRevisionMain, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(revisionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(revisionesLayout.createSequentialGroup()
                         .addGap(8, 8, 8)
                         .addGroup(revisionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel19)
-                            .addComponent(lblAceiteRevisionMain))
+                            .addComponent(lblAceiteRevisionMain, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap(38, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, revisionesLayout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -1831,31 +1890,23 @@ public class Main extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tablaVentas.getTableHeader().setReorderingAllowed(false);
         jScrollPane5.setViewportView(tablaVentas);
+        if (tablaVentas.getColumnModel().getColumnCount() > 0) {
+            tablaVentas.getColumnModel().getColumn(0).setPreferredWidth(150);
+        }
 
         jLabel6.setText("FECHA");
 
-        lblFechaVentaMain.setText("2017/12/04");
-
         jLabel10.setText("NOMBRE");
-
-        lblNombreVentaMain.setText("Juan Carlos");
 
         jLabel14.setText("APELLIDOS");
 
-        lblApellidosVentaMain.setText("Expósito Romero");
-
         jLabel18.setText("DNI");
-
-        lblDniVentaMain.setText("05983762J");
 
         jLabel22.setText("COCHE");
 
-        lblCocheVentaMain.setText("NISSAN PRIMERA");
-
         jLabel24.setText("PRECIO");
-
-        lblPrecioVentaMain.setText("1500.0");
 
         btnVentaBorrar.setText("ELIMINAR");
         btnVentaBorrar.addActionListener(new java.awt.event.ActionListener() {
@@ -1877,26 +1928,26 @@ public class Main extends javax.swing.JFrame {
             ventasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ventasLayout.createSequentialGroup()
                 .addGap(8, 8, 8)
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(47, 47, 47)
                 .addGroup(ventasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel6)
                     .addComponent(jLabel18)
                     .addGroup(ventasLayout.createSequentialGroup()
                         .addGroup(ventasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(lblFechaVentaMain, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lblDniVentaMain, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblDniVentaMain, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
                             .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel22, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblCocheVentaMain, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
-                            .addComponent(lblNombreVentaMain, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(lblNombreVentaMain, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+                            .addComponent(lblFechaVentaMain, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE))
                         .addGap(48, 48, 48)
                         .addGroup(ventasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel24)
                             .addComponent(jLabel14)
                             .addComponent(lblApellidosVentaMain, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblPrecioVentaMain, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(195, Short.MAX_VALUE))
+                .addContainerGap(117, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ventasLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnVentaModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1912,27 +1963,27 @@ public class Main extends javax.swing.JFrame {
                     .addGroup(ventasLayout.createSequentialGroup()
                         .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblFechaVentaMain)
+                        .addComponent(lblFechaVentaMain, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addGroup(ventasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel10)
                             .addComponent(jLabel14))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(ventasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblNombreVentaMain)
-                            .addComponent(lblApellidosVentaMain))
+                            .addComponent(lblNombreVentaMain, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblApellidosVentaMain, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addComponent(jLabel18)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblDniVentaMain)
+                        .addComponent(lblDniVentaMain, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addGroup(ventasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel22)
                             .addComponent(jLabel24))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(ventasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblCocheVentaMain)
-                            .addComponent(lblPrecioVentaMain)))
+                            .addComponent(lblCocheVentaMain, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblPrecioVentaMain, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
                 .addGroup(ventasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -1945,23 +1996,13 @@ public class Main extends javax.swing.JFrame {
 
         jLabel12.setText("DNI");
 
-        lblDniClienteMain.setText("05983762J");
-
         jLabel20.setText("Nombre");
-
-        lblNombreClienteMain.setText("Juan Carlos");
 
         jLabel25.setText("Apellidos");
 
-        lblApellidosClienteMain.setText("Expósito Romero");
-
         jLabel27.setText("Teléfono");
 
-        lblTelefonoClienteMain.setText("722256261");
-
         jLabel29.setText("Dirección");
-
-        lblDireccionClienteMain.setText("Poro 3, Torrecampo, Córdoba");
 
         btnClienteBorrar.setText("ELIMINAR");
         btnClienteBorrar.addActionListener(new java.awt.event.ActionListener() {
@@ -1977,7 +2018,7 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
-        jTable6.setModel(new javax.swing.table.DefaultTableModel(
+        tablaClientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null},
                 {null},
@@ -2003,7 +2044,7 @@ public class Main extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane10.setViewportView(jTable6);
+        jScrollPane10.setViewportView(tablaClientes);
 
         javax.swing.GroupLayout clientesLayout = new javax.swing.GroupLayout(clientes);
         clientes.setLayout(clientesLayout);
@@ -2044,23 +2085,23 @@ public class Main extends javax.swing.JFrame {
                     .addGroup(clientesLayout.createSequentialGroup()
                         .addComponent(jLabel12)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblDniClienteMain)
+                        .addComponent(lblDniClienteMain, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addGroup(clientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel20)
                             .addComponent(jLabel25))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(clientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblNombreClienteMain)
-                            .addComponent(lblApellidosClienteMain))
+                            .addComponent(lblNombreClienteMain, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblApellidosClienteMain, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addComponent(jLabel27)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblTelefonoClienteMain)
+                        .addComponent(lblTelefonoClienteMain, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jLabel29)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblDireccionClienteMain))
+                        .addComponent(lblDireccionClienteMain, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
                 .addGroup(clientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -2076,6 +2117,11 @@ public class Main extends javax.swing.JFrame {
         reiniciarbd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/toolbarButtonGraphics/general/Refresh24.gif"))); // NOI18N
         reiniciarbd.setText("Reiniciar BBDD");
         reiniciarbd.setToolTipText("");
+        reiniciarbd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                reiniciarbdActionPerformed(evt);
+            }
+        });
         archivo.add(reiniciarbd);
 
         salir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/toolbarButtonGraphics/general/Stop24.gif"))); // NOI18N
@@ -2266,6 +2312,10 @@ public class Main extends javax.swing.JFrame {
         JOptionPane.showConfirmDialog(null, "¿Desea eliminar el cliente seleccionado?", "Eliminar cliente", JOptionPane.OK_CANCEL_OPTION);
     }//GEN-LAST:event_btnClienteBorrarActionPerformed
 
+    private void reiniciarbdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reiniciarbdActionPerformed
+        con.ReiniciaBBDD();
+    }//GEN-LAST:event_reiniciarbdActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -2297,7 +2347,6 @@ public class Main extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 JFrame concesionario = new Main();
-                concesionario.listarCoches();
                 concesionario.setLocationRelativeTo(null);
                 concesionario.setVisible(true);
             }
@@ -2458,8 +2507,6 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
     private javax.swing.JTable jTable3;
-    private javax.swing.JTable jTable5;
-    private javax.swing.JTable jTable6;
     private javax.swing.JLabel lblAceiteRevisionMain;
     private javax.swing.JLabel lblApellidosClienteMain;
     private javax.swing.JLabel lblApellidosVentaMain;
@@ -2503,7 +2550,9 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JMenuItem reiniciarbd;
     private javax.swing.JPanel revisiones;
     private javax.swing.JMenuItem salir;
+    private javax.swing.JTable tablaClientes;
     private javax.swing.JTable tablaMain;
+    private javax.swing.JTable tablaRevisiones;
     private javax.swing.JTable tablaVentas;
     private javax.swing.JTextField txtApellidosClienteModificar;
     private javax.swing.JTextField txtApellidosVentaNueva;

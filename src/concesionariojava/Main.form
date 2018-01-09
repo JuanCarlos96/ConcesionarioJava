@@ -1899,6 +1899,9 @@
                 <Property name="text" type="java.lang.String" value="Reiniciar BBDD"/>
                 <Property name="toolTipText" type="java.lang.String" value=""/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="reiniciarbdActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="salir">
               <Properties>
@@ -2190,7 +2193,27 @@
                     </Property>
                     <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                       <TableColumnModel selectionModel="0">
+                        <Column maxWidth="-1" minWidth="-1" prefWidth="150" resizable="false">
+                          <Title/>
+                          <Editor/>
+                          <Renderer/>
+                        </Column>
                         <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="false">
+                          <Title/>
+                          <Editor/>
+                          <Renderer/>
+                        </Column>
+                        <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="false">
+                          <Title/>
+                          <Editor/>
+                          <Renderer/>
+                        </Column>
+                        <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="false">
+                          <Title/>
+                          <Editor/>
+                          <Renderer/>
+                        </Column>
+                        <Column maxWidth="-1" minWidth="-1" prefWidth="50" resizable="false">
                           <Title/>
                           <Editor/>
                           <Renderer/>
@@ -2213,7 +2236,7 @@
                       </TableColumnModel>
                     </Property>
                     <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
-                      <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
+                      <TableHeader reorderingAllowed="false" resizingAllowed="true"/>
                     </Property>
                   </Properties>
                 </Component>
@@ -2284,8 +2307,8 @@
                                   <Group type="102" attributes="0">
                                       <Component id="jLabel19" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="lblAceiteRevisionMain" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace pref="320" max="32767" attributes="0"/>
+                                      <Component id="lblAceiteRevisionMain" min="-2" pref="15" max="-2" attributes="0"/>
+                                      <EmptySpace pref="315" max="32767" attributes="0"/>
                                   </Group>
                                   <Group type="102" alignment="1" attributes="0">
                                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
@@ -2295,37 +2318,42 @@
                               </Group>
                               <Component id="btnRevisionBorrar" min="-2" pref="100" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="jLabel13" min="-2" max="-2" attributes="0"/>
                           <Group type="102" attributes="0">
-                              <Component id="jLabel15" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="lblFrenosRevisionMain" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" attributes="0">
-                              <Component id="jLabel17" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="lblFiltroRevisionMain" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" attributes="0">
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="jLabel5" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel9" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lblBastidorRevisionMain" alignment="0" pref="115" max="32767" attributes="0"/>
-                                  <Component id="lblNumeroRevisionMain" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="lblModeloRevisionMain" max="32767" attributes="0"/>
-                              </Group>
-                              <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="jLabel7" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel11" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lblFechaRevisionMain" pref="75" max="32767" attributes="0"/>
-                                  <Component id="lblMarcaRevisionMain" alignment="0" max="32767" attributes="0"/>
-                              </Group>
-                              <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jLabel21" min="-2" max="-2" attributes="0"/>
-                                  <Component id="pImagenRevisionMain" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel13" min="-2" max="-2" attributes="0"/>
+                                  <Group type="102" attributes="0">
+                                      <Component id="jLabel15" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="lblFrenosRevisionMain" min="-2" pref="15" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" attributes="0">
+                                      <Component id="jLabel17" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="lblFiltroRevisionMain" min="-2" pref="15" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" attributes="0">
+                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                          <Component id="jLabel5" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jLabel9" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lblBastidorRevisionMain" alignment="0" pref="115" max="32767" attributes="0"/>
+                                          <Component id="lblNumeroRevisionMain" alignment="0" pref="115" max="32767" attributes="0"/>
+                                          <Component id="lblModeloRevisionMain" pref="115" max="32767" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                          <Component id="jLabel7" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jLabel11" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lblFechaRevisionMain" pref="75" max="32767" attributes="0"/>
+                                          <Component id="lblMarcaRevisionMain" alignment="0" pref="75" max="32767" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="jLabel21" min="-2" max="-2" attributes="0"/>
+                                          <Component id="pImagenRevisionMain" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
                               </Group>
+                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
@@ -2347,8 +2375,8 @@
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" attributes="0">
                                       <Group type="103" groupAlignment="3" attributes="0">
-                                          <Component id="lblNumeroRevisionMain" alignment="3" max="-2" attributes="0"/>
-                                          <Component id="lblFechaRevisionMain" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lblNumeroRevisionMain" alignment="3" min="-2" pref="14" max="-2" attributes="0"/>
+                                          <Component id="lblFechaRevisionMain" alignment="3" min="-2" pref="14" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="3" attributes="0">
@@ -2357,20 +2385,20 @@
                                       </Group>
                                       <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="3" attributes="0">
-                                          <Component id="lblBastidorRevisionMain" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="lblMarcaRevisionMain" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lblBastidorRevisionMain" alignment="3" min="-2" pref="14" max="-2" attributes="0"/>
+                                          <Component id="lblMarcaRevisionMain" alignment="3" min="-2" pref="14" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
                                       <Component id="jLabel13" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
-                                      <Component id="lblModeloRevisionMain" min="-2" max="-2" attributes="0"/>
+                                      <Component id="lblModeloRevisionMain" min="-2" pref="14" max="-2" attributes="0"/>
                                   </Group>
                                   <Component id="pImagenRevisionMain" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jLabel15" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lblFrenosRevisionMain" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lblFrenosRevisionMain" alignment="3" min="-2" pref="14" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <Component id="jScrollPane9" alignment="1" min="-2" pref="206" max="-2" attributes="0"/>
@@ -2378,14 +2406,14 @@
                       <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel17" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="lblFiltroRevisionMain" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblFiltroRevisionMain" alignment="3" min="-2" pref="14" max="-2" attributes="0"/>
                       </Group>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
                               <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jLabel19" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lblAceiteRevisionMain" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lblAceiteRevisionMain" alignment="3" min="-2" pref="14" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace pref="38" max="32767" attributes="0"/>
                           </Group>
@@ -2410,7 +2438,6 @@
             </Component>
             <Component class="javax.swing.JLabel" name="lblNumeroRevisionMain">
               <Properties>
-                <Property name="text" type="java.lang.String" value="1"/>
                 <Property name="toolTipText" type="java.lang.String" value=""/>
               </Properties>
             </Component>
@@ -2420,9 +2447,6 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="lblFechaRevisionMain">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="2017/12/04"/>
-              </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel9">
               <Properties>
@@ -2430,9 +2454,6 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="lblBastidorRevisionMain">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="ABC12345678909876"/>
-              </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel11">
               <Properties>
@@ -2440,9 +2461,6 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="lblMarcaRevisionMain">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="NISSAN"/>
-              </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel13">
               <Properties>
@@ -2450,9 +2468,6 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="lblModeloRevisionMain">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="PRIMERA"/>
-              </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel15">
               <Properties>
@@ -2460,9 +2475,6 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="lblFrenosRevisionMain">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="S&#xcd;"/>
-              </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel17">
               <Properties>
@@ -2470,9 +2482,6 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="lblFiltroRevisionMain">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="S&#xcd;"/>
-              </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel19">
               <Properties>
@@ -2480,9 +2489,6 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="lblAceiteRevisionMain">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="S&#xcd;"/>
-              </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel21">
               <Properties>
@@ -2534,7 +2540,7 @@
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
               <SubComponents>
-                <Component class="javax.swing.JTable" name="jTable5">
+                <Component class="javax.swing.JTable" name="tablaRevisiones">
                   <Properties>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                       <Table columnCount="1" rowCount="4">
@@ -2589,19 +2595,19 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
-                      <Component id="jScrollPane5" min="-2" pref="170" max="-2" attributes="0"/>
+                      <Component id="jScrollPane5" min="-2" pref="248" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel18" min="-2" max="-2" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                  <Component id="lblFechaVentaMain" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="lblDniVentaMain" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="lblDniVentaMain" alignment="0" pref="100" max="32767" attributes="0"/>
                                   <Component id="jLabel10" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="jLabel22" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="lblCocheVentaMain" alignment="0" pref="100" max="32767" attributes="0"/>
-                                  <Component id="lblNombreVentaMain" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="lblNombreVentaMain" alignment="0" pref="100" max="32767" attributes="0"/>
+                                  <Component id="lblFechaVentaMain" alignment="0" pref="100" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
@@ -2612,7 +2618,7 @@
                               </Group>
                           </Group>
                       </Group>
-                      <EmptySpace pref="195" max="32767" attributes="0"/>
+                      <EmptySpace pref="117" max="32767" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace max="32767" attributes="0"/>
@@ -2631,7 +2637,7 @@
                           <Group type="102" attributes="0">
                               <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="lblFechaVentaMain" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblFechaVentaMain" min="-2" pref="14" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jLabel10" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -2639,13 +2645,13 @@
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="lblNombreVentaMain" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lblApellidosVentaMain" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lblNombreVentaMain" alignment="3" min="-2" pref="14" max="-2" attributes="0"/>
+                                  <Component id="lblApellidosVentaMain" alignment="3" min="-2" pref="14" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="jLabel18" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="lblDniVentaMain" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblDniVentaMain" min="-2" pref="14" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jLabel22" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -2653,8 +2659,8 @@
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="lblCocheVentaMain" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lblPrecioVentaMain" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lblCocheVentaMain" alignment="3" min="-2" pref="14" max="-2" attributes="0"/>
+                                  <Component id="lblPrecioVentaMain" alignment="3" min="-2" pref="14" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <Component id="jScrollPane5" min="-2" pref="206" max="-2" attributes="0"/>
@@ -2687,7 +2693,7 @@
                     </Property>
                     <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                       <TableColumnModel selectionModel="0">
-                        <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                        <Column maxWidth="-1" minWidth="-1" prefWidth="150" resizable="true">
                           <Title/>
                           <Editor/>
                           <Renderer/>
@@ -2700,7 +2706,7 @@
                       </TableColumnModel>
                     </Property>
                     <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
-                      <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
+                      <TableHeader reorderingAllowed="false" resizingAllowed="true"/>
                     </Property>
                   </Properties>
                 </Component>
@@ -2712,9 +2718,6 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="lblFechaVentaMain">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="2017/12/04"/>
-              </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel10">
               <Properties>
@@ -2722,9 +2725,6 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="lblNombreVentaMain">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Juan Carlos"/>
-              </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel14">
               <Properties>
@@ -2732,9 +2732,6 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="lblApellidosVentaMain">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Exp&#xf3;sito Romero"/>
-              </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel18">
               <Properties>
@@ -2742,9 +2739,6 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="lblDniVentaMain">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="05983762J"/>
-              </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel22">
               <Properties>
@@ -2752,9 +2746,6 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="lblCocheVentaMain">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="NISSAN PRIMERA"/>
-              </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel24">
               <Properties>
@@ -2762,9 +2753,6 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="lblPrecioVentaMain">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="1500.0"/>
-              </Properties>
             </Component>
             <Component class="javax.swing.JButton" name="btnVentaBorrar">
               <Properties>
@@ -2839,7 +2827,7 @@
                           <Group type="102" attributes="0">
                               <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="lblDniClienteMain" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblDniClienteMain" min="-2" pref="14" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jLabel20" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -2847,17 +2835,17 @@
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="lblNombreClienteMain" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lblApellidosClienteMain" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lblNombreClienteMain" alignment="3" min="-2" pref="14" max="-2" attributes="0"/>
+                                  <Component id="lblApellidosClienteMain" alignment="3" min="-2" pref="14" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="jLabel27" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="lblTelefonoClienteMain" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblTelefonoClienteMain" min="-2" pref="14" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="jLabel29" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="lblDireccionClienteMain" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblDireccionClienteMain" min="-2" pref="14" max="-2" attributes="0"/>
                           </Group>
                           <Component id="jScrollPane10" min="-2" pref="206" max="-2" attributes="0"/>
                       </Group>
@@ -2878,9 +2866,6 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="lblDniClienteMain">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="05983762J"/>
-              </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel20">
               <Properties>
@@ -2888,9 +2873,6 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="lblNombreClienteMain">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Juan Carlos"/>
-              </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel25">
               <Properties>
@@ -2898,9 +2880,6 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="lblApellidosClienteMain">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Exp&#xf3;sito Romero"/>
-              </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel27">
               <Properties>
@@ -2908,9 +2887,6 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="lblTelefonoClienteMain">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="722256261"/>
-              </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel29">
               <Properties>
@@ -2918,9 +2894,6 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="lblDireccionClienteMain">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Poro 3, Torrecampo, C&#xf3;rdoba"/>
-              </Properties>
             </Component>
             <Component class="javax.swing.JButton" name="btnClienteBorrar">
               <Properties>
@@ -2945,7 +2918,7 @@
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
               <SubComponents>
-                <Component class="javax.swing.JTable" name="jTable6">
+                <Component class="javax.swing.JTable" name="tablaClientes">
                   <Properties>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                       <Table columnCount="1" rowCount="4">
