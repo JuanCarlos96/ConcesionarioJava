@@ -2364,7 +2364,7 @@ public class Main extends javax.swing.JFrame {
                 //Crea un panel donde poner la imagen
                 JPanel PanelImagen = new JPanel();
                 //Se establece posición y tamaño
-                PanelImagen.setBounds(290, 60, 180, 150);
+                PanelImagen.setBounds(5, 5, 180, 150);
                 PanelImagen.add(picLabel);//Se añade la imagen al Panel
                 PanelImagen.setName("IMAGEN");//Le pongo un 'name' para que luego lo pueda buscar y eliminar
                 pImagenCocheNuevo.add(PanelImagen);//Se añade el Panel de la Imagen
