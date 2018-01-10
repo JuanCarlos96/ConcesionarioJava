@@ -38,21 +38,21 @@
                                           <Component id="txtColorCocheNuevo" alignment="1" pref="130" max="32767" attributes="0"/>
                                           <Component id="txtMotorCocheNuevo" alignment="0" max="32767" attributes="0"/>
                                           <Component id="txtModeloCocheNuevo" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="txtBastidorCocheNuevo" alignment="0" max="32767" attributes="0"/>
                                       </Group>
+                                      <Component id="txtBastidorCocheNuevo" alignment="1" min="-2" pref="130" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace min="0" pref="32" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                           <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                              <Component id="txtCVCocheNuevo" alignment="0" pref="130" max="32767" attributes="0"/>
-                              <Component id="txtTipoCocheNuevo" alignment="0" max="32767" attributes="0"/>
+                              <Component id="txtTipoCocheNuevo" alignment="0" pref="130" max="32767" attributes="0"/>
                               <Component id="jLabel48" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel49" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel50" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel51" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="txtMarcaCocheNuevo" alignment="0" max="32767" attributes="0"/>
-                              <Component id="txtPrecioCocheNuevo" alignment="1" max="32767" attributes="0"/>
+                              <Component id="txtCVCocheNuevo" max="32767" attributes="0"/>
+                              <Component id="txtPrecioCocheNuevo" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
@@ -83,9 +83,9 @@
                   </Group>
                   <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="txtBastidorCocheNuevo" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="txtMarcaCocheNuevo" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="btnImagenCocheNuevo" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtBastidorCocheNuevo" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
@@ -141,8 +141,6 @@
             <Property name="text" type="java.lang.String" value="N&#xba; BASTIDOR"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="txtBastidorCocheNuevo">
-        </Component>
         <Component class="javax.swing.JLabel" name="jLabel45">
           <Properties>
             <Property name="text" type="java.lang.String" value="MODELO"/>
@@ -183,14 +181,10 @@
             <Property name="text" type="java.lang.String" value="CV"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="txtCVCocheNuevo">
-        </Component>
         <Component class="javax.swing.JLabel" name="jLabel51">
           <Properties>
             <Property name="text" type="java.lang.String" value="PRECIO"/>
           </Properties>
-        </Component>
-        <Component class="javax.swing.JTextField" name="txtPrecioCocheNuevo">
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel52">
           <Properties>
@@ -240,6 +234,27 @@
             <Property name="text" type="java.lang.String" value="Aceptar"/>
           </Properties>
         </Component>
+        <Component class="javax.swing.JFormattedTextField" name="txtBastidorCocheNuevo">
+          <Properties>
+            <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor" preCode="try {" postCode="} catch (java.text.ParseException ex) {&#xa;ex.printStackTrace();&#xa;}">
+              <Format format="UUUAAAAAAAA######" subtype="-1" type="5"/>
+            </Property>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JFormattedTextField" name="txtCVCocheNuevo">
+          <Properties>
+            <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor" preCode="try {" postCode="} catch (java.text.ParseException ex) {&#xa;ex.printStackTrace();&#xa;}">
+              <Format format="####" subtype="-1" type="5"/>
+            </Property>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JFormattedTextField" name="txtPrecioCocheNuevo">
+          <Properties>
+            <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor">
+              <Format subtype="0" type="0"/>
+            </Property>
+          </Properties>
+        </Component>
       </SubComponents>
     </Container>
     <Container class="javax.swing.JDialog" name="modificarCoche">
@@ -282,14 +297,14 @@
                               </Group>
                           </Group>
                           <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                              <Component id="txtCVCocheModificar" alignment="0" pref="130" max="32767" attributes="0"/>
-                              <Component id="txtTipoCocheModificar" alignment="0" max="32767" attributes="0"/>
+                              <Component id="txtTipoCocheModificar" alignment="0" pref="130" max="32767" attributes="0"/>
                               <Component id="jLabel57" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel58" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel59" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel60" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="txtMarcaCocheModificar" alignment="0" max="32767" attributes="0"/>
-                              <Component id="txtPrecioCocheModificar" alignment="1" max="32767" attributes="0"/>
+                              <Component id="txtCVCocheModificar" max="32767" attributes="0"/>
+                              <Component id="txtPrecioCocheModificar" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
@@ -379,6 +394,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtBastidorCocheModificar">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+          </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel54">
           <Properties>
@@ -420,14 +438,10 @@
             <Property name="text" type="java.lang.String" value="CV"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="txtCVCocheModificar">
-        </Component>
         <Component class="javax.swing.JLabel" name="jLabel60">
           <Properties>
             <Property name="text" type="java.lang.String" value="PRECIO"/>
           </Properties>
-        </Component>
-        <Component class="javax.swing.JTextField" name="txtPrecioCocheModificar">
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel61">
           <Properties>
@@ -476,6 +490,15 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Aceptar"/>
           </Properties>
+        </Component>
+        <Component class="javax.swing.JFormattedTextField" name="txtCVCocheModificar">
+          <Properties>
+            <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor">
+              <Format format="####" subtype="-1" type="0"/>
+            </Property>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JFormattedTextField" name="txtPrecioCocheModificar">
         </Component>
       </SubComponents>
     </Container>
@@ -951,13 +974,12 @@
                                           <Group type="102" alignment="0" attributes="0">
                                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                                   <Component id="jLabel28" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="txtNombreVentaNueva" max="32767" attributes="0"/>
+                                                  <Component id="txtNombreVentaNueva" pref="135" max="32767" attributes="0"/>
                                                   <Component id="jLabel30" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="txtDniVentaNueva" alignment="0" pref="135" max="32767" attributes="0"/>
+                                                  <Component id="txtDniVentaNueva" alignment="0" max="32767" attributes="0"/>
                                               </Group>
                                               <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
                                               <Group type="103" groupAlignment="0" attributes="0">
-                                                  <Component id="txtTelefonoVentaNueva" alignment="0" max="32767" attributes="0"/>
                                                   <Component id="txtApellidosVentaNueva" alignment="0" max="32767" attributes="0"/>
                                                   <Group type="102" attributes="0">
                                                       <Group type="103" groupAlignment="0" attributes="0">
@@ -966,6 +988,7 @@
                                                       </Group>
                                                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                                   </Group>
+                                                  <Component id="txtTelefonoVentaNueva" alignment="0" max="32767" attributes="0"/>
                                               </Group>
                                           </Group>
                                       </Group>
@@ -1085,8 +1108,6 @@
             <Property name="text" type="java.lang.String" value="DNI"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="txtDniVentaNueva">
-        </Component>
         <Component class="javax.swing.JLabel" name="jLabel31">
           <Properties>
             <Property name="text" type="java.lang.String" value="APELLIDOS"/>
@@ -1098,8 +1119,6 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="TEL&#xc9;FONO"/>
           </Properties>
-        </Component>
-        <Component class="javax.swing.JTextField" name="txtTelefonoVentaNueva">
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel33">
           <Properties>
@@ -1119,6 +1138,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtBastidorVentaNueva">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+          </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel36">
           <Properties>
@@ -1126,6 +1148,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtMarcaVentaNueva">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+          </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel37">
           <Properties>
@@ -1133,6 +1158,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtModeloVentaNueva">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+          </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel38">
           <Properties>
@@ -1157,6 +1185,20 @@
         <Component class="javax.swing.JButton" name="btnAceptarVentaNueva">
           <Properties>
             <Property name="text" type="java.lang.String" value="Aceptar"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JFormattedTextField" name="txtDniVentaNueva">
+          <Properties>
+            <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor" preCode="try {" postCode="} catch (java.text.ParseException ex) {&#xa;ex.printStackTrace();&#xa;}">
+              <Format format="########U" subtype="-1" type="5"/>
+            </Property>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JFormattedTextField" name="txtTelefonoVentaNueva">
+          <Properties>
+            <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor">
+              <Format format="#########" subtype="-1" type="0"/>
+            </Property>
           </Properties>
         </Component>
       </SubComponents>
@@ -1640,6 +1682,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtFechaVentaModificar">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+          </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel70">
           <Properties>
@@ -1647,6 +1692,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtDniVentaModificar">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+          </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel71">
           <Properties>
@@ -1654,6 +1702,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtBastidorVentaModificar">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+          </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel72">
           <Properties>
@@ -1661,6 +1712,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtPrecioVentaModificar">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+          </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="btnCalendarioVentaModificar">
           <Properties>
@@ -1722,35 +1776,30 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
-                          <Component id="jLabel78" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="263" max="32767" attributes="0"/>
-                      </Group>
-                      <Group type="102" attributes="0">
-                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                              <Component id="txtDireccionClienteModificar" max="32767" attributes="0"/>
-                              <Group type="102" attributes="0">
-                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="jLabel74" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jLabel76" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="txtDniClienteModificar" alignment="0" pref="135" max="32767" attributes="0"/>
-                                      <Component id="txtNombreClienteModificar" alignment="0" max="32767" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="jLabel75" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jLabel77" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="txtApellidosClienteModificar" alignment="0" pref="135" max="32767" attributes="0"/>
-                                      <Component id="txtTelefonoClienteModificar" max="32767" attributes="0"/>
-                                  </Group>
+                      <Component id="jLabel78" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                          <Component id="txtDireccionClienteModificar" max="32767" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="jLabel74" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel76" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="txtDniClienteModificar" alignment="0" pref="135" max="32767" attributes="0"/>
+                                  <Component id="txtNombreClienteModificar" alignment="0" max="32767" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="jLabel75" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel77" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="txtApellidosClienteModificar" alignment="0" pref="135" max="32767" attributes="0"/>
+                                  <Component id="txtTelefonoClienteModificar" alignment="0" max="32767" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
                       </Group>
                   </Group>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
               <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace pref="112" max="32767" attributes="0"/>
                   <Component id="btnAceptarClienteModificar" min="-2" pref="100" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
                   <Component id="btnCancelarClienteModificar" min="-2" pref="100" max="-2" attributes="0"/>
@@ -1816,13 +1865,14 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtDniClienteModificar">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+          </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel77">
           <Properties>
             <Property name="text" type="java.lang.String" value="TEL&#xc9;FONO"/>
           </Properties>
-        </Component>
-        <Component class="javax.swing.JTextField" name="txtTelefonoClienteModificar">
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel78">
           <Properties>
@@ -1842,6 +1892,13 @@
         <Component class="javax.swing.JButton" name="btnAceptarClienteModificar">
           <Properties>
             <Property name="text" type="java.lang.String" value="Aceptar"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JFormattedTextField" name="txtTelefonoClienteModificar">
+          <Properties>
+            <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor" preCode="try {" postCode="} catch (java.text.ParseException ex) {&#xa;ex.printStackTrace();&#xa;}">
+              <Format format="#########" subtype="-1" type="5"/>
+            </Property>
           </Properties>
         </Component>
       </SubComponents>

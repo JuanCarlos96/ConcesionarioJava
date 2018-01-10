@@ -164,7 +164,6 @@ public class Main extends javax.swing.JFrame {
 
         aniadirCoche = new javax.swing.JDialog();
         jLabel44 = new javax.swing.JLabel();
-        txtBastidorCocheNuevo = new javax.swing.JTextField();
         jLabel45 = new javax.swing.JLabel();
         txtModeloCocheNuevo = new javax.swing.JTextField();
         jLabel46 = new javax.swing.JLabel();
@@ -176,14 +175,15 @@ public class Main extends javax.swing.JFrame {
         jLabel49 = new javax.swing.JLabel();
         txtTipoCocheNuevo = new javax.swing.JTextField();
         jLabel50 = new javax.swing.JLabel();
-        txtCVCocheNuevo = new javax.swing.JTextField();
         jLabel51 = new javax.swing.JLabel();
-        txtPrecioCocheNuevo = new javax.swing.JTextField();
         jLabel52 = new javax.swing.JLabel();
         btnImagenCocheNuevo = new javax.swing.JButton();
         pImagenCocheNuevo = new javax.swing.JPanel();
         btnCancelarCocheNuevo = new javax.swing.JButton();
         btnAceptarCocheNuevo = new javax.swing.JButton();
+        txtBastidorCocheNuevo = new javax.swing.JFormattedTextField();
+        txtCVCocheNuevo = new javax.swing.JFormattedTextField();
+        txtPrecioCocheNuevo = new javax.swing.JFormattedTextField();
         modificarCoche = new javax.swing.JDialog();
         jLabel53 = new javax.swing.JLabel();
         txtBastidorCocheModificar = new javax.swing.JTextField();
@@ -198,14 +198,14 @@ public class Main extends javax.swing.JFrame {
         jLabel58 = new javax.swing.JLabel();
         txtTipoCocheModificar = new javax.swing.JTextField();
         jLabel59 = new javax.swing.JLabel();
-        txtCVCocheModificar = new javax.swing.JTextField();
         jLabel60 = new javax.swing.JLabel();
-        txtPrecioCocheModificar = new javax.swing.JTextField();
         jLabel61 = new javax.swing.JLabel();
         btnImagenCocheModificar = new javax.swing.JButton();
         pImagenCocheModificar = new javax.swing.JPanel();
         btnCancelarCocheModificar = new javax.swing.JButton();
         btnAceptarCocheModificar = new javax.swing.JButton();
+        txtCVCocheModificar = new javax.swing.JFormattedTextField();
+        txtPrecioCocheModificar = new javax.swing.JFormattedTextField();
         buscarClienteVentaNueva = new javax.swing.JDialog();
         btnNuevoCliente = new javax.swing.JButton();
         jSeparator2 = new javax.swing.JSeparator();
@@ -236,11 +236,9 @@ public class Main extends javax.swing.JFrame {
         jLabel28 = new javax.swing.JLabel();
         txtNombreVentaNueva = new javax.swing.JTextField();
         jLabel30 = new javax.swing.JLabel();
-        txtDniVentaNueva = new javax.swing.JTextField();
         jLabel31 = new javax.swing.JLabel();
         txtApellidosVentaNueva = new javax.swing.JTextField();
         jLabel32 = new javax.swing.JLabel();
-        txtTelefonoVentaNueva = new javax.swing.JTextField();
         jLabel33 = new javax.swing.JLabel();
         txtDireccionVentaNueva = new javax.swing.JTextField();
         jLabel34 = new javax.swing.JLabel();
@@ -255,6 +253,8 @@ public class Main extends javax.swing.JFrame {
         jLabel40 = new javax.swing.JLabel();
         btnCancelarVentaNueva = new javax.swing.JButton();
         btnAceptarVentaNueva = new javax.swing.JButton();
+        txtDniVentaNueva = new javax.swing.JFormattedTextField();
+        txtTelefonoVentaNueva = new javax.swing.JFormattedTextField();
         aniadirRevision = new javax.swing.JDialog();
         jLabel23 = new javax.swing.JLabel();
         lblNumeroRevisionNueva = new javax.swing.JLabel();
@@ -312,11 +312,11 @@ public class Main extends javax.swing.JFrame {
         jLabel76 = new javax.swing.JLabel();
         txtDniClienteModificar = new javax.swing.JTextField();
         jLabel77 = new javax.swing.JLabel();
-        txtTelefonoClienteModificar = new javax.swing.JTextField();
         jLabel78 = new javax.swing.JLabel();
         txtDireccionClienteModificar = new javax.swing.JTextField();
         btnCancelarClienteModificar = new javax.swing.JButton();
         btnAceptarClienteModificar = new javax.swing.JButton();
+        txtTelefonoClienteModificar = new javax.swing.JFormattedTextField();
         acercaDe = new javax.swing.JDialog();
         jLabel79 = new javax.swing.JLabel();
         jFileChooser1 = new javax.swing.JFileChooser();
@@ -455,6 +455,20 @@ public class Main extends javax.swing.JFrame {
 
         btnAceptarCocheNuevo.setText("Aceptar");
 
+        try {
+            txtBastidorCocheNuevo.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("UUUAAAAAAAA######")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
+        try {
+            txtCVCocheNuevo.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
+        txtPrecioCocheNuevo.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
+
         javax.swing.GroupLayout aniadirCocheLayout = new javax.swing.GroupLayout(aniadirCoche.getContentPane());
         aniadirCoche.getContentPane().setLayout(aniadirCocheLayout);
         aniadirCocheLayout.setHorizontalGroup(
@@ -476,17 +490,17 @@ public class Main extends javax.swing.JFrame {
                                     .addGroup(aniadirCocheLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                         .addComponent(txtColorCocheNuevo, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
                                         .addComponent(txtMotorCocheNuevo, javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(txtModeloCocheNuevo, javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(txtBastidorCocheNuevo, javax.swing.GroupLayout.Alignment.LEADING)))
+                                        .addComponent(txtModeloCocheNuevo, javax.swing.GroupLayout.Alignment.LEADING))
+                                    .addComponent(txtBastidorCocheNuevo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(0, 32, Short.MAX_VALUE)))
                         .addGroup(aniadirCocheLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(txtCVCocheNuevo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
-                            .addComponent(txtTipoCocheNuevo, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtTipoCocheNuevo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
                             .addComponent(jLabel48, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel49, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel50, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel51, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtMarcaCocheNuevo, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtCVCocheNuevo)
                             .addComponent(txtPrecioCocheNuevo))
                         .addGap(32, 32, 32)
                         .addGroup(aniadirCocheLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -510,9 +524,9 @@ public class Main extends javax.swing.JFrame {
                     .addComponent(jLabel52))
                 .addGap(7, 7, 7)
                 .addGroup(aniadirCocheLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtBastidorCocheNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtMarcaCocheNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnImagenCocheNuevo))
+                    .addComponent(btnImagenCocheNuevo)
+                    .addComponent(txtBastidorCocheNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(aniadirCocheLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(aniadirCocheLayout.createSequentialGroup()
                         .addGap(18, 18, 18)
@@ -555,6 +569,8 @@ public class Main extends javax.swing.JFrame {
         modificarCoche.setSize(new java.awt.Dimension(535, 350));
 
         jLabel53.setText("Nº BASTIDOR");
+
+        txtBastidorCocheModificar.setEditable(false);
 
         jLabel54.setText("MODELO");
 
@@ -601,6 +617,8 @@ public class Main extends javax.swing.JFrame {
 
         btnAceptarCocheModificar.setText("Aceptar");
 
+        txtCVCocheModificar.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("####"))));
+
         javax.swing.GroupLayout modificarCocheLayout = new javax.swing.GroupLayout(modificarCoche.getContentPane());
         modificarCoche.getContentPane().setLayout(modificarCocheLayout);
         modificarCocheLayout.setHorizontalGroup(
@@ -626,13 +644,13 @@ public class Main extends javax.swing.JFrame {
                                         .addComponent(txtBastidorCocheModificar, javax.swing.GroupLayout.Alignment.LEADING)))
                                 .addGap(0, 32, Short.MAX_VALUE)))
                         .addGroup(modificarCocheLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(txtCVCocheModificar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
-                            .addComponent(txtTipoCocheModificar, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtTipoCocheModificar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
                             .addComponent(jLabel57, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel58, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel59, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel60, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtMarcaCocheModificar, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtCVCocheModificar)
                             .addComponent(txtPrecioCocheModificar))
                         .addGap(32, 32, 32)
                         .addGroup(modificarCocheLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -934,9 +952,15 @@ public class Main extends javax.swing.JFrame {
 
         jLabel35.setText("BASTIDOR");
 
+        txtBastidorVentaNueva.setEditable(false);
+
         jLabel36.setText("MARCA");
 
+        txtMarcaVentaNueva.setEditable(false);
+
         jLabel37.setText("MODELO");
+
+        txtModeloVentaNueva.setEditable(false);
 
         jLabel38.setText("PRECIO:");
 
@@ -950,6 +974,14 @@ public class Main extends javax.swing.JFrame {
         });
 
         btnAceptarVentaNueva.setText("Aceptar");
+
+        try {
+            txtDniVentaNueva.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("########U")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
+        txtTelefonoVentaNueva.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#########"))));
 
         javax.swing.GroupLayout aniadirVentaLayout = new javax.swing.GroupLayout(aniadirVenta.getContentPane());
         aniadirVenta.getContentPane().setLayout(aniadirVentaLayout);
@@ -995,18 +1027,18 @@ public class Main extends javax.swing.JFrame {
                                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, aniadirVentaLayout.createSequentialGroup()
                                             .addGroup(aniadirVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                                 .addComponent(jLabel28)
-                                                .addComponent(txtNombreVentaNueva)
+                                                .addComponent(txtNombreVentaNueva, javax.swing.GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE)
                                                 .addComponent(jLabel30)
-                                                .addComponent(txtDniVentaNueva, javax.swing.GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE))
+                                                .addComponent(txtDniVentaNueva))
                                             .addGap(37, 37, 37)
                                             .addGroup(aniadirVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(txtTelefonoVentaNueva)
                                                 .addComponent(txtApellidosVentaNueva)
                                                 .addGroup(aniadirVentaLayout.createSequentialGroup()
                                                     .addGroup(aniadirVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                         .addComponent(jLabel31)
                                                         .addComponent(jLabel32))
-                                                    .addGap(0, 0, Short.MAX_VALUE))))))))
+                                                    .addGap(0, 0, Short.MAX_VALUE))
+                                                .addComponent(txtTelefonoVentaNueva)))))))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(aniadirVentaLayout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -1303,11 +1335,19 @@ public class Main extends javax.swing.JFrame {
 
         jLabel69.setText("FECHA");
 
+        txtFechaVentaModificar.setEditable(false);
+
         jLabel70.setText("DNI");
+
+        txtDniVentaModificar.setEditable(false);
 
         jLabel71.setText("Nº BASTIDOR");
 
+        txtBastidorVentaModificar.setEditable(false);
+
         jLabel72.setText("PRECIO");
+
+        txtPrecioVentaModificar.setEditable(false);
 
         btnCalendarioVentaModificar.setText("Abrir calendario");
         btnCalendarioVentaModificar.addActionListener(new java.awt.event.ActionListener() {
@@ -1432,6 +1472,8 @@ public class Main extends javax.swing.JFrame {
 
         jLabel76.setText("DNI");
 
+        txtDniClienteModificar.setEditable(false);
+
         jLabel77.setText("TELÉFONO");
 
         jLabel78.setText("DIRECCIÓN");
@@ -1445,6 +1487,12 @@ public class Main extends javax.swing.JFrame {
 
         btnAceptarClienteModificar.setText("Aceptar");
 
+        try {
+            txtTelefonoClienteModificar.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("#########")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
         javax.swing.GroupLayout modificarClienteLayout = new javax.swing.GroupLayout(modificarCliente.getContentPane());
         modificarCliente.getContentPane().setLayout(modificarClienteLayout);
         modificarClienteLayout.setHorizontalGroup(
@@ -1452,27 +1500,24 @@ public class Main extends javax.swing.JFrame {
             .addGroup(modificarClienteLayout.createSequentialGroup()
                 .addGap(8, 8, 8)
                 .addGroup(modificarClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(modificarClienteLayout.createSequentialGroup()
-                        .addComponent(jLabel78)
-                        .addContainerGap(263, Short.MAX_VALUE))
-                    .addGroup(modificarClienteLayout.createSequentialGroup()
-                        .addGroup(modificarClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(txtDireccionClienteModificar)
-                            .addGroup(modificarClienteLayout.createSequentialGroup()
-                                .addGroup(modificarClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jLabel74)
-                                    .addComponent(jLabel76)
-                                    .addComponent(txtDniClienteModificar, javax.swing.GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE)
-                                    .addComponent(txtNombreClienteModificar))
-                                .addGap(37, 37, 37)
-                                .addGroup(modificarClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jLabel75)
-                                    .addComponent(jLabel77)
-                                    .addComponent(txtApellidosClienteModificar, javax.swing.GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE)
-                                    .addComponent(txtTelefonoClienteModificar))))
-                        .addGap(8, 8, 8))))
+                    .addComponent(jLabel78)
+                    .addGroup(modificarClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(txtDireccionClienteModificar)
+                        .addGroup(modificarClienteLayout.createSequentialGroup()
+                            .addGroup(modificarClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jLabel74)
+                                .addComponent(jLabel76)
+                                .addComponent(txtDniClienteModificar, javax.swing.GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE)
+                                .addComponent(txtNombreClienteModificar))
+                            .addGap(37, 37, 37)
+                            .addGroup(modificarClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jLabel75)
+                                .addComponent(jLabel77)
+                                .addComponent(txtApellidosClienteModificar, javax.swing.GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE)
+                                .addComponent(txtTelefonoClienteModificar)))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, modificarClienteLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(112, Short.MAX_VALUE)
                 .addComponent(btnAceptarClienteModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(8, 8, 8)
                 .addComponent(btnCancelarClienteModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -2323,7 +2368,7 @@ public class Main extends javax.swing.JFrame {
                 PanelImagen.add(picLabel);//Se añade la imagen al Panel
                 PanelImagen.setName("IMAGEN");//Le pongo un 'name' para que luego lo pueda buscar y eliminar
                 pImagenCocheNuevo.add(PanelImagen);//Se añade el Panel de la Imagen
-                pImagenCocheNuevo.revalidate();//Si hay algún cambio en su interior repinta todo, JPanel6 pertenece a JPanel1
+                aniadirCoche.revalidate();//Si hay algún cambio en su interior repinta todo, JPanel6 pertenece a JPanel1
             } catch (IOException ex) {
                 Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -2624,22 +2669,22 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JTextField txtApellidosClienteModificar;
     private javax.swing.JTextField txtApellidosVentaNueva;
     private javax.swing.JTextField txtBastidorCocheModificar;
-    private javax.swing.JTextField txtBastidorCocheNuevo;
+    private javax.swing.JFormattedTextField txtBastidorCocheNuevo;
     private javax.swing.JTextField txtBastidorVentaModificar;
     private javax.swing.JTextField txtBastidorVentaNueva;
     private javax.swing.JTextField txtBuscarClienteVentaModificar;
     private javax.swing.JTextField txtBuscarClienteVentaNueva;
     private javax.swing.JTextField txtBuscarCocheVentaModificar;
     private javax.swing.JTextField txtBuscarMain;
-    private javax.swing.JTextField txtCVCocheModificar;
-    private javax.swing.JTextField txtCVCocheNuevo;
+    private javax.swing.JFormattedTextField txtCVCocheModificar;
+    private javax.swing.JFormattedTextField txtCVCocheNuevo;
     private javax.swing.JTextField txtColorCocheModificar;
     private javax.swing.JTextField txtColorCocheNuevo;
     private javax.swing.JTextField txtDireccionClienteModificar;
     private javax.swing.JTextField txtDireccionVentaNueva;
     private javax.swing.JTextField txtDniClienteModificar;
     private javax.swing.JTextField txtDniVentaModificar;
-    private javax.swing.JTextField txtDniVentaNueva;
+    private javax.swing.JFormattedTextField txtDniVentaNueva;
     private javax.swing.JTextField txtFechaVentaModificar;
     private javax.swing.JTextField txtMarcaCocheModificar;
     private javax.swing.JTextField txtMarcaCocheNuevo;
@@ -2651,11 +2696,11 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JTextField txtMotorCocheNuevo;
     private javax.swing.JTextField txtNombreClienteModificar;
     private javax.swing.JTextField txtNombreVentaNueva;
-    private javax.swing.JTextField txtPrecioCocheModificar;
-    private javax.swing.JTextField txtPrecioCocheNuevo;
+    private javax.swing.JFormattedTextField txtPrecioCocheModificar;
+    private javax.swing.JFormattedTextField txtPrecioCocheNuevo;
     private javax.swing.JTextField txtPrecioVentaModificar;
-    private javax.swing.JTextField txtTelefonoClienteModificar;
-    private javax.swing.JTextField txtTelefonoVentaNueva;
+    private javax.swing.JFormattedTextField txtTelefonoClienteModificar;
+    private javax.swing.JFormattedTextField txtTelefonoVentaNueva;
     private javax.swing.JTextField txtTipoCocheModificar;
     private javax.swing.JTextField txtTipoCocheNuevo;
     private javax.swing.JPanel ventas;
