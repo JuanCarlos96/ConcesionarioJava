@@ -152,6 +152,36 @@ public class Main extends javax.swing.JFrame {
         g.dispose();
         return dimg;
     }
+    
+    public void insertarCoche(){
+        Boolean inserta = true;
+        String bastidor = txtBastidorCocheNuevo.getText();
+        String marca = txtMarcaCocheNuevo.getText();
+        String modelo = txtModeloCocheNuevo.getText();
+        String tipo = txtTipoCocheNuevo.getText();
+        String motor = txtMotorCocheNuevo.getText();
+        int cv;
+        String color = txtColorCocheNuevo.getText();
+        float precio;
+        
+        if(bastidor.equals("") || marca.equals("") || modelo.equals("") || tipo.equals("") || motor.equals("") || txtCVCocheNuevo.getText().equals("") || color.equals("") || txtPrecioCocheNuevo.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Ningún campo debe estar vacío", "Algún campo vacío", JOptionPane.WARNING_MESSAGE);
+        }else{
+            try {
+                cv = Integer.parseInt(txtCVCocheNuevo.getText());
+            } catch (NumberFormatException e) {
+                inserta = false;
+                JOptionPane.showMessageDialog(null, "Los CV deben ser un número entero", "CV incorrectos", JOptionPane.WARNING_MESSAGE);
+            }
+
+            try {
+                precio = Float.parseFloat(txtPrecioCocheNuevo.getText());
+            } catch (Exception e) {
+                inserta = false;
+                JOptionPane.showMessageDialog(null, "El precio debe ser un número real", "Precio incorrecto", JOptionPane.WARNING_MESSAGE);
+            }
+        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -467,7 +497,7 @@ public class Main extends javax.swing.JFrame {
             ex.printStackTrace();
         }
 
-        txtPrecioCocheNuevo.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
+        txtPrecioCocheNuevo.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,###.00"))));
 
         javax.swing.GroupLayout aniadirCocheLayout = new javax.swing.GroupLayout(aniadirCoche.getContentPane());
         aniadirCoche.getContentPane().setLayout(aniadirCocheLayout);
