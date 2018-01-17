@@ -515,11 +515,6 @@ public class Main extends javax.swing.JFrame {
             ex.printStackTrace();
         }
 
-        try {
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-
         javax.swing.GroupLayout aniadirCocheLayout = new javax.swing.GroupLayout(aniadirCoche.getContentPane());
         aniadirCoche.getContentPane().setLayout(aniadirCocheLayout);
         aniadirCocheLayout.setHorizontalGroup(
@@ -790,10 +785,30 @@ public class Main extends javax.swing.JFrame {
                 {null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3"
+                "DNI", "Nombre", "Apellidos"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane4.setViewportView(jTable1);
+        if (jTable1.getColumnModel().getColumnCount() > 0) {
+            jTable1.getColumnModel().getColumn(0).setResizable(false);
+            jTable1.getColumnModel().getColumn(1).setResizable(false);
+            jTable1.getColumnModel().getColumn(2).setResizable(false);
+        }
 
         btnCargarClienteVentaNueva.setText("Cargar cliente");
         btnCargarClienteVentaNueva.addActionListener(new java.awt.event.ActionListener() {
@@ -2480,6 +2495,7 @@ public class Main extends javax.swing.JFrame {
 
     private void btnAceptarCocheNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarCocheNuevoActionPerformed
         insertarCoche();
+        this.aniadirCoche.setVisible(false);
     }//GEN-LAST:event_btnAceptarCocheNuevoActionPerformed
 
     /**
