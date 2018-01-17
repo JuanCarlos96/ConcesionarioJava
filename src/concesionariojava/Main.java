@@ -160,11 +160,11 @@ public class Main extends javax.swing.JFrame {
         String modelo = txtModeloCocheNuevo.getText();
         String tipo = txtTipoCocheNuevo.getText();
         String motor = txtMotorCocheNuevo.getText();
-        int cv;
+        int cv = 0;
         String color = txtColorCocheNuevo.getText();
-        float precio;
+        float precio = 0;
         
-        if(bastidor.equals("") || marca.equals("") || modelo.equals("") || tipo.equals("") || motor.equals("") || txtCVCocheNuevo.getText().equals("") || color.equals("") || txtPrecioCocheNuevo.getText().equals("")){
+        if(bastidor.equals("") || marca.equals("") || modelo.equals("") || tipo.equals("") || motor.equals("") || txtCVCocheNuevo.getText().equals("") || color.equals("") || txtPrecioCocheNuevo.getText().equals("") || this.imagenblob==null){
             JOptionPane.showMessageDialog(null, "Ningún campo debe estar vacío", "Algún campo vacío", JOptionPane.WARNING_MESSAGE);
         }else{
             try {
@@ -179,6 +179,25 @@ public class Main extends javax.swing.JFrame {
             } catch (Exception e) {
                 inserta = false;
                 JOptionPane.showMessageDialog(null, "El precio debe ser un número real", "Precio incorrecto", JOptionPane.WARNING_MESSAGE);
+            }
+            
+            if(inserta){
+                try {
+                    PreparedStatement ps;
+                    ps=this.con.dameconexion().prepareStatement("INSERT INTO Coche VALUES (?,?,?,?,?,?,?,?,?);");
+                    ps.setString(1,bastidor);
+                    ps.setString(2,marca);
+                    ps.setString(3,modelo);
+                    ps.setString(4,motor);
+                    ps.setInt(5,cv);
+                    ps.setString(6,tipo);
+                    ps.setString(7,color);
+                    ps.setFloat(8,precio);
+                    ps.setBytes(9,this.imagenblob);
+                    ps.executeUpdate();
+                    listarCoches();
+                } catch (Exception e) {
+                }
             }
         }
     }
@@ -484,6 +503,11 @@ public class Main extends javax.swing.JFrame {
         });
 
         btnAceptarCocheNuevo.setText("Aceptar");
+        btnAceptarCocheNuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAceptarCocheNuevoActionPerformed(evt);
+            }
+        });
 
         try {
             txtBastidorCocheNuevo.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("UUUAAAAAAAA######")));
@@ -492,12 +516,9 @@ public class Main extends javax.swing.JFrame {
         }
 
         try {
-            txtCVCocheNuevo.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("####")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
-
-        txtPrecioCocheNuevo.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,###.00"))));
 
         javax.swing.GroupLayout aniadirCocheLayout = new javax.swing.GroupLayout(aniadirCoche.getContentPane());
         aniadirCoche.getContentPane().setLayout(aniadirCocheLayout);
@@ -2456,6 +2477,10 @@ public class Main extends javax.swing.JFrame {
     private void reiniciarbdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reiniciarbdActionPerformed
         con.ReiniciaBBDD();
     }//GEN-LAST:event_reiniciarbdActionPerformed
+
+    private void btnAceptarCocheNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarCocheNuevoActionPerformed
+        insertarCoche();
+    }//GEN-LAST:event_btnAceptarCocheNuevoActionPerformed
 
     /**
      * @param args the command line arguments
