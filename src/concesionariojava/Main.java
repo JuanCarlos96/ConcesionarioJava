@@ -11,6 +11,9 @@ import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
@@ -26,6 +29,8 @@ import javax.swing.table.DefaultTableModel;
 public class Main extends javax.swing.JFrame {
     private final ConectorSQLITE con;
     private byte[] imagenblob;
+    private DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+    private Date date = new Date();
 
     /**
      * Creates new form Main
@@ -2457,7 +2462,31 @@ public class Main extends javax.swing.JFrame {
 
     private void btnRevisionNuevaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRevisionNuevaActionPerformed
         aniadirRevision.setLocationRelativeTo(null);
+        try {
+            DefaultTableModel modelo = (DefaultTableModel) tablaMain.getModel();
+            String bastidor = (String)modelo.getValueAt(tablaMain.getSelectedRow(), 0);
+            String marca = (String)modelo.getValueAt(tablaMain.getSelectedRow(), 1);
+            String modelocoche = (String)modelo.getValueAt(tablaMain.getSelectedRow(), 2);
+            System.out.println(bastidor+" "+marca+" "+modelocoche);
+            lblMarcaRevisionNueva.setText(marca);
+            lblModeloRevisionNueva.setText(modelocoche);
+            lblBastidorRevisionNueva.setText(bastidor);
+            ResultSet rs;
+            PreparedStatement ps = this.con.dameconexion().prepareStatement("SELECT MAX(N_Revision) FROM Revision");
+            int nrevision;
+            rs = ps.executeQuery();
+            if(rs.next()==false){
+                nrevision = 1;
+            }else{
+                nrevision = rs.getInt("N_Revision")+1;
+            }
+            lblNumeroRevisionNueva.setText(Integer.toString(nrevision));
+            lblFechaRevisionNueva.setText(dateFormat.format(date));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         aniadirRevision.setVisible(true);
+        //System.out.println(dateFormat.format(date));
     }//GEN-LAST:event_btnRevisionNuevaActionPerformed
 
     private void btnRevisionModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRevisionModificarActionPerformed
@@ -2468,6 +2497,16 @@ public class Main extends javax.swing.JFrame {
     private void btnNuevoClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoClienteActionPerformed
         buscarClienteVentaNueva.setVisible(false);
         aniadirVenta.setLocationRelativeTo(null);
+        txtNombreVentaNueva.setText("");
+        txtNombreVentaNueva.setEditable(true);
+        txtApellidosVentaNueva.setText("");
+        txtApellidosVentaNueva.setEditable(true);
+        txtDniVentaNueva.setText("");
+        txtDniVentaNueva.setEditable(true);
+        txtTelefonoVentaNueva.setText("");
+        txtTelefonoVentaNueva.setEditable(true);
+        txtDireccionVentaNueva.setText("");
+        txtDireccionVentaNueva.setEditable(true);
         DefaultTableModel modelo = (DefaultTableModel) tablaMain.getModel();
         txtBastidorVentaNueva.setText((String)modelo.getValueAt(tablaMain.getSelectedRow(), 0));
         txtMarcaVentaNueva.setText((String)modelo.getValueAt(tablaMain.getSelectedRow(), 1));
@@ -2678,9 +2717,8 @@ public class Main extends javax.swing.JFrame {
                 PreparedStatement ps = this.con.dameconexion().prepareStatement("SELECT Dni FROM Cliente WHERE Dni=?");
                 ps.setString(1, txtDniVentaNueva.getText());
                 rs = ps.executeQuery();
-                String dni = rs.getString("Dni");
                 
-                if(dni==null){
+                if(rs.next()==false){
                     String dni2 = txtDniVentaNueva.getText();
                     String nombre = txtNombreVentaNueva.getText();
                     String apellidos = txtApellidosVentaNueva.getText();
@@ -2696,6 +2734,7 @@ public class Main extends javax.swing.JFrame {
                     listarClientes();
                     listarClientes2();
                     listarClientes3();
+                    JOptionPane.showMessageDialog(null, "Cliente nuevo introducido correctamente", "Nuevo cliente insertado", JOptionPane.INFORMATION_MESSAGE);
                 }
             } catch (SQLException ex) {
                 Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
