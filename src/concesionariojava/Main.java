@@ -34,10 +34,15 @@ public class Main extends javax.swing.JFrame {
         initComponents();
         con = new ConectorSQLITE("concesionario.db");
         con.connect();
+        btnVentaNueva.setEnabled(false);
+        btnRevisionNueva.setEnabled(false);
         listarCoches();
+        listarCoches2();
         listarRevisiones();
         listarVentas();
         listarClientes();
+        listarClientes2();
+        listarClientes3();
         cerrar_app();
     }
     
@@ -141,6 +146,69 @@ public class Main extends javax.swing.JFrame {
         }
     }
     
+    private void listarClientes2(){
+        DefaultTableModel modeloClientes = (DefaultTableModel) jTable1.getModel();
+        for(int i=modeloClientes.getRowCount()-1; i>=0; i--){
+            modeloClientes.removeRow(i);
+        }
+        
+        try {
+            ResultSet rs;
+            PreparedStatement consulta;
+            consulta = this.con.dameconexion().prepareStatement("SELECT Dni,Nombre,Apellidos FROM Cliente");
+            rs = consulta.executeQuery();
+            
+            while(rs.next()){
+                modeloClientes.addRow(new Object[]{rs.getString("Dni"),rs.getString("Nombre"),rs.getString("Apellidos")});
+            }
+            rs.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    private void listarClientes3(){
+        DefaultTableModel modeloClientes = (DefaultTableModel) jTable2.getModel();
+        for(int i=modeloClientes.getRowCount()-1; i>=0; i--){
+            modeloClientes.removeRow(i);
+        }
+        
+        try {
+            ResultSet rs;
+            PreparedStatement consulta;
+            consulta = this.con.dameconexion().prepareStatement("SELECT Dni,Nombre,Apellidos FROM Cliente");
+            rs = consulta.executeQuery();
+            
+            while(rs.next()){
+                modeloClientes.addRow(new Object[]{rs.getString("Dni"),rs.getString("Nombre"),rs.getString("Apellidos")});
+            }
+            rs.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public void listarCoches2(){
+        DefaultTableModel modeloCoches = (DefaultTableModel) jTable3.getModel();
+        for(int i=modeloCoches.getRowCount()-1; i>=0; i--) {
+            modeloCoches.removeRow(i);
+        }
+        
+        try{
+            ResultSet rs;
+            PreparedStatement consulta;
+            consulta = this.con.dameconexion().prepareStatement("SELECT N_Bastidor,Marca,Modelo FROM Coche");
+            rs = consulta.executeQuery();
+            
+            while (rs.next()){ 
+                modeloCoches.addRow(new Object[]{rs.getString("N_Bastidor"), rs.getString("Marca"), rs.getString("Modelo")});
+            }
+            rs.close();
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
+    
     public static BufferedImage resize(BufferedImage img, int newW, int newH) {
         //Una función para reescalar una imagen. Se puede reutilizar tal cual
         int w = img.getWidth();
@@ -200,6 +268,10 @@ public class Main extends javax.swing.JFrame {
                 }
             }
         }
+    }
+    
+    public void insertarCliente(){
+        
     }
 
     /**
@@ -803,6 +875,11 @@ public class Main extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                jTable1MouseReleased(evt);
+            }
+        });
         jScrollPane4.setViewportView(jTable1);
         if (jTable1.getColumnModel().getColumnCount() > 0) {
             jTable1.getColumnModel().getColumn(0).setResizable(false);
@@ -879,10 +956,30 @@ public class Main extends javax.swing.JFrame {
                 {null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3"
+                "DNI", "Nombre", "Apellidos"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane6.setViewportView(jTable2);
+        if (jTable2.getColumnModel().getColumnCount() > 0) {
+            jTable2.getColumnModel().getColumn(0).setResizable(false);
+            jTable2.getColumnModel().getColumn(1).setResizable(false);
+            jTable2.getColumnModel().getColumn(2).setResizable(false);
+        }
 
         btnCargarClienteVentaModificar.setText("Cargar cliente");
         btnCargarClienteVentaModificar.addActionListener(new java.awt.event.ActionListener() {
@@ -945,10 +1042,31 @@ public class Main extends javax.swing.JFrame {
                 {null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3"
+                "Bastidor", "Marca", "Modelo"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane7.setViewportView(jTable3);
+        if (jTable3.getColumnModel().getColumnCount() > 0) {
+            jTable3.getColumnModel().getColumn(0).setResizable(false);
+            jTable3.getColumnModel().getColumn(0).setPreferredWidth(150);
+            jTable3.getColumnModel().getColumn(1).setResizable(false);
+            jTable3.getColumnModel().getColumn(2).setResizable(false);
+        }
 
         btnCargarCocheVentaModificar.setText("Cargar coche");
         btnCargarCocheVentaModificar.addActionListener(new java.awt.event.ActionListener() {
@@ -1040,6 +1158,11 @@ public class Main extends javax.swing.JFrame {
         });
 
         btnAceptarVentaNueva.setText("Aceptar");
+        btnAceptarVentaNueva.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAceptarVentaNuevaActionPerformed(evt);
+            }
+        });
 
         try {
             txtDniVentaNueva.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("########U")));
@@ -1694,6 +1817,11 @@ public class Main extends javax.swing.JFrame {
             }
         });
         tablaMain.getTableHeader().setReorderingAllowed(false);
+        tablaMain.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                tablaMainMouseReleased(evt);
+            }
+        });
         jScrollPane1.setViewportView(tablaMain);
         if (tablaMain.getColumnModel().getColumnCount() > 0) {
             tablaMain.getColumnModel().getColumn(0).setResizable(false);
@@ -2323,6 +2451,7 @@ public class Main extends javax.swing.JFrame {
 
     private void btnVentaNuevaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVentaNuevaActionPerformed
         buscarClienteVentaNueva.setLocationRelativeTo(null);
+        btnCargarClienteVentaNueva.setEnabled(false);
         buscarClienteVentaNueva.setVisible(true);
     }//GEN-LAST:event_btnVentaNuevaActionPerformed
 
@@ -2339,11 +2468,40 @@ public class Main extends javax.swing.JFrame {
     private void btnNuevoClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoClienteActionPerformed
         buscarClienteVentaNueva.setVisible(false);
         aniadirVenta.setLocationRelativeTo(null);
+        DefaultTableModel modelo = (DefaultTableModel) tablaMain.getModel();
+        txtBastidorVentaNueva.setText((String)modelo.getValueAt(tablaMain.getSelectedRow(), 0));
+        txtMarcaVentaNueva.setText((String)modelo.getValueAt(tablaMain.getSelectedRow(), 1));
+        txtModeloVentaNueva.setText((String)modelo.getValueAt(tablaMain.getSelectedRow(), 2));
+        lblPrecioVentaNueva.setText(Float.toString((Float)modelo.getValueAt(tablaMain.getSelectedRow(), 7)));
         aniadirVenta.setVisible(true);
     }//GEN-LAST:event_btnNuevoClienteActionPerformed
 
     private void btnCargarClienteVentaNuevaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCargarClienteVentaNuevaActionPerformed
         buscarClienteVentaNueva.setVisible(false);
+        String dni = (String)jTable1.getValueAt(jTable1.getSelectedRow(), 0);
+        try {
+            DefaultTableModel modelo = (DefaultTableModel) tablaMain.getModel();
+            txtBastidorVentaNueva.setText((String)modelo.getValueAt(tablaMain.getSelectedRow(), 0));
+            txtMarcaVentaNueva.setText((String)modelo.getValueAt(tablaMain.getSelectedRow(), 1));
+            txtModeloVentaNueva.setText((String)modelo.getValueAt(tablaMain.getSelectedRow(), 2));
+            lblPrecioVentaNueva.setText(Float.toString((Float)modelo.getValueAt(tablaMain.getSelectedRow(), 7)));
+            ResultSet rs;
+            PreparedStatement ps = this.con.dameconexion().prepareStatement("SELECT * FROM Cliente WHERE Dni=?");
+            ps.setString(1, dni);
+            rs = ps.executeQuery();
+            txtNombreVentaNueva.setText(rs.getString("Nombre"));
+            txtNombreVentaNueva.setEditable(false);
+            txtApellidosVentaNueva.setText(rs.getString("Apellidos"));
+            txtApellidosVentaNueva.setEditable(false);
+            txtDniVentaNueva.setText(rs.getString("Dni"));
+            txtDniVentaNueva.setEditable(false);
+            txtTelefonoVentaNueva.setText(rs.getString("Telefono"));
+            txtTelefonoVentaNueva.setEditable(false);
+            txtDireccionVentaNueva.setText(rs.getString("Domicilio"));
+            txtDireccionVentaNueva.setEditable(false);
+        } catch (SQLException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
         aniadirVenta.setLocationRelativeTo(null);
         aniadirVenta.setVisible(true);
     }//GEN-LAST:event_btnCargarClienteVentaNuevaActionPerformed
@@ -2497,6 +2655,53 @@ public class Main extends javax.swing.JFrame {
         insertarCoche();
         this.aniadirCoche.setVisible(false);
     }//GEN-LAST:event_btnAceptarCocheNuevoActionPerformed
+
+    private void tablaMainMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaMainMouseReleased
+        if(tablaMain.getSelectedRow()!=-1){
+            btnVentaNueva.setEnabled(true);
+            btnRevisionNueva.setEnabled(true);
+        }
+    }//GEN-LAST:event_tablaMainMouseReleased
+
+    private void jTable1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseReleased
+        if(jTable1.getSelectedRow()!=-1){
+            btnCargarClienteVentaNueva.setEnabled(true);
+        }
+    }//GEN-LAST:event_jTable1MouseReleased
+
+    private void btnAceptarVentaNuevaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarVentaNuevaActionPerformed
+        if(txtNombreVentaNueva.getText().equals("") || txtApellidosVentaNueva.getText().equals("") || txtDniVentaNueva.getText().equals("") || txtTelefonoVentaNueva.getText().equals("") || txtDireccionVentaNueva.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "No puede haber ningún campo vacío", "Algún campo vacío", JOptionPane.WARNING_MESSAGE);
+        }else{
+            try {
+                ResultSet rs;
+                PreparedStatement ps = this.con.dameconexion().prepareStatement("SELECT Dni FROM Cliente WHERE Dni=?");
+                ps.setString(1, txtDniVentaNueva.getText());
+                rs = ps.executeQuery();
+                String dni = rs.getString("Dni");
+                
+                if(dni==null){
+                    String dni2 = txtDniVentaNueva.getText();
+                    String nombre = txtNombreVentaNueva.getText();
+                    String apellidos = txtApellidosVentaNueva.getText();
+                    String telefono = txtTelefonoVentaNueva.getText();
+                    String direccion = txtDireccionVentaNueva.getText();
+                    PreparedStatement ps2 = this.con.dameconexion().prepareStatement("INSERT INTO Cliente VALUES ?,?,?,?,?");
+                    ps2.setString(1,dni2);
+                    ps2.setString(2,nombre);
+                    ps2.setString(3,apellidos);
+                    ps2.setString(4,telefono);
+                    ps2.setString(5,direccion);
+                    ps2.executeQuery();
+                    listarClientes();
+                    listarClientes2();
+                    listarClientes3();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_btnAceptarVentaNuevaActionPerformed
 
     /**
      * @param args the command line arguments
