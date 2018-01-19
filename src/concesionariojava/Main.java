@@ -2852,9 +2852,19 @@ public class Main extends javax.swing.JFrame {
         if(txtMarcaCocheModificar.getText().equals("") || txtModeloCocheModificar.getText().equals("") || txtTipoCocheModificar.getText().equals("") || txtMotorCocheModificar.getText().equals("") || txtCVCocheModificar.getText().equals("") || txtColorCocheModificar.getText().equals("") || txtPrecioCocheModificar.getText().equals("")){
             JOptionPane.showMessageDialog(null, "Ningún campo debe estar vacío", "Algún campo vacío", JOptionPane.WARNING_MESSAGE);
         }else{
-            String bastidor = txtBastidorCocheModificar.getText();
             try {
-                PreparedStatement ps = this.con.dameconexion().prepareStatement("UPDATE Coche WHERE N_Bastidor = ?;");
+                PreparedStatement ps = this.con.dameconexion().prepareStatement("UPDATE Coche SET Marca=?,Modelo=?,Motor=?,CV=?,Tipo=?,Color=?,Precio=? WHERE N_Bastidor = ?;");
+                ps.setString(1,txtMarcaCocheModificar.getText());
+                ps.setString(2,txtModeloCocheModificar.getText());
+                ps.setString(3, txtMotorCocheModificar.getText());
+                ps.setInt(4, Integer.parseInt(txtCVCocheModificar.getText()));
+                ps.setString(5,txtTipoCocheModificar.getText());
+                ps.setString(6,txtColorCocheModificar.getText());
+                ps.setFloat(7, Float.parseFloat(txtPrecioCocheModificar.getText()));
+                ps.setString(8,txtBastidorCocheModificar.getText());
+                ps.executeUpdate();
+                listarCoches();
+                listarCoches2();
             } catch (SQLException ex) {
                 Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
             }
