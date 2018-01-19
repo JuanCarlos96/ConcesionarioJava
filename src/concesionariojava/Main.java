@@ -41,6 +41,8 @@ public class Main extends javax.swing.JFrame {
         con.connect();
         btnVentaNueva.setEnabled(false);
         btnRevisionNueva.setEnabled(false);
+        btnCocheModificar.setEnabled(false);
+        btnCocheBorrar.setEnabled(false);
         listarCoches();
         listarCoches2();
         listarRevisiones();
@@ -193,7 +195,7 @@ public class Main extends javax.swing.JFrame {
         }
     }
     
-    public void listarCoches2(){
+    private void listarCoches2(){
         DefaultTableModel modeloCoches = (DefaultTableModel) jTable3.getModel();
         for(int i=modeloCoches.getRowCount()-1; i>=0; i--) {
             modeloCoches.removeRow(i);
@@ -214,7 +216,7 @@ public class Main extends javax.swing.JFrame {
         }
     }
     
-    public static BufferedImage resize(BufferedImage img, int newW, int newH) {
+    private static BufferedImage resize(BufferedImage img, int newW, int newH) {
         //Una función para reescalar una imagen. Se puede reutilizar tal cual
         int w = img.getWidth();
         int h = img.getHeight();
@@ -226,7 +228,7 @@ public class Main extends javax.swing.JFrame {
         return dimg;
     }
     
-    public void insertarCoche(){
+    private void insertarCoche(){
         Boolean inserta = true;
         String bastidor = txtBastidorCocheNuevo.getText();
         String marca = txtMarcaCocheNuevo.getText();
@@ -249,7 +251,7 @@ public class Main extends javax.swing.JFrame {
 
             try {
                 precio = Float.parseFloat(txtPrecioCocheNuevo.getText());
-            } catch (Exception e) {
+            } catch (NumberFormatException e) {
                 inserta = false;
                 JOptionPane.showMessageDialog(null, "El precio debe ser un número real", "Precio incorrecto", JOptionPane.WARNING_MESSAGE);
             }
@@ -269,14 +271,13 @@ public class Main extends javax.swing.JFrame {
                     ps.setBytes(9,this.imagenblob);
                     ps.executeUpdate();
                     listarCoches();
-                } catch (Exception e) {
+                } catch (SQLException ex) {
+                    if(ex.getErrorCode()==19){
+                        JOptionPane.showMessageDialog(null, "Ya existe un coche con estos datos", "Información", JOptionPane.INFORMATION_MESSAGE);
+                    }
                 }
             }
         }
-    }
-    
-    public void insertarCliente(){
-        
     }
 
     /**
@@ -739,8 +740,11 @@ public class Main extends javax.swing.JFrame {
         });
 
         btnAceptarCocheModificar.setText("Aceptar");
-
-        txtCVCocheModificar.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("####"))));
+        btnAceptarCocheModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAceptarCocheModificarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout modificarCocheLayout = new javax.swing.GroupLayout(modificarCoche.getContentPane());
         modificarCoche.getContentPane().setLayout(modificarCocheLayout);
@@ -1331,6 +1335,11 @@ public class Main extends javax.swing.JFrame {
         });
 
         btnAceptarRevisionNueva.setText("Aceptar");
+        btnAceptarRevisionNueva.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAceptarRevisionNuevaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout aniadirRevisionLayout = new javax.swing.GroupLayout(aniadirRevision.getContentPane());
         aniadirRevision.getContentPane().setLayout(aniadirRevisionLayout);
@@ -1354,24 +1363,26 @@ public class Main extends javax.swing.JFrame {
                             .addComponent(jLabel43)
                             .addGroup(aniadirRevisionLayout.createSequentialGroup()
                                 .addGap(10, 10, 10)
-                                .addGroup(aniadirRevisionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(lblMarcaRevisionNueva, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(aniadirRevisionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblMarcaRevisionNueva, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel62)
-                                    .addComponent(jLabel67)
-                                    .addComponent(lblBastidorRevisionNueva, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE))))
-                        .addGap(8, 8, 8)
+                                    .addComponent(jLabel67))))
+                        .addGap(23, 23, 23)
                         .addGroup(aniadirRevisionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(aniadirRevisionLayout.createSequentialGroup()
                                 .addComponent(jLabel41)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblFechaRevisionNueva, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(lblFechaRevisionNueva, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jLabel64)
                             .addComponent(lblModeloRevisionNueva, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(chkAceiteRevisionNueva)
                     .addGroup(aniadirRevisionLayout.createSequentialGroup()
                         .addComponent(chkFrenosRevisionNueva)
                         .addGap(18, 18, 18)
                         .addComponent(chkFiltroRevisionNueva))
-                    .addComponent(chkAceiteRevisionNueva))
+                    .addGroup(aniadirRevisionLayout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(lblBastidorRevisionNueva, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(6, 36, Short.MAX_VALUE))
         );
         aniadirRevisionLayout.setVerticalGroup(
@@ -2446,11 +2457,51 @@ public class Main extends javax.swing.JFrame {
 
     private void btnCocheNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCocheNuevoActionPerformed
         aniadirCoche.setLocationRelativeTo(null);
+        txtBastidorCocheNuevo.setText("");
+        txtMarcaCocheNuevo.setText("");
+        txtModeloCocheNuevo.setText("");
+        txtTipoCocheNuevo.setText("");
+        txtMotorCocheNuevo.setText("");
+        txtCVCocheNuevo.setText("");
+        txtColorCocheNuevo.setText("");
+        txtPrecioCocheNuevo.setText("");
+        pImagenCocheNuevo.removeAll();
+        this.imagenblob=null;
         aniadirCoche.setVisible(true);
     }//GEN-LAST:event_btnCocheNuevoActionPerformed
 
     private void btnCocheModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCocheModificarActionPerformed
         modificarCoche.setLocationRelativeTo(null);
+        try {
+            String bastidor = (String)tablaMain.getValueAt(tablaMain.getSelectedRow(), 0);
+            ResultSet rs;
+            PreparedStatement ps = this.con.dameconexion().prepareStatement("SELECT * FROM Coche WHERE N_Bastidor = ?;");
+            ps.setString(1,bastidor);
+            rs = ps.executeQuery();
+            txtBastidorCocheModificar.setText(rs.getString("N_Bastidor"));
+            txtMarcaCocheModificar.setText(rs.getString("Marca"));
+            txtModeloCocheModificar.setText(rs.getString("Modelo"));
+            txtTipoCocheModificar.setText(rs.getString("Tipo"));
+            txtMotorCocheModificar.setText(rs.getString("Motor"));
+            txtCVCocheModificar.setText(Integer.toString(rs.getInt("CV")));
+            txtColorCocheModificar.setText(rs.getString("Color"));
+            txtPrecioCocheModificar.setText(Float.toString(rs.getFloat("Precio")));
+            
+            pImagenCocheModificar.removeAll();
+            JPanel PanelImagen = new JPanel();
+            byte[] imagen_bytes=rs.getBytes("Img");//Toma el campo img de la base de datos en forma de bytes 
+            
+            JLabel picLabel;
+            picLabel = new JLabel(new ImageIcon(imagen_bytes));//Se reescala
+            PanelImagen.setBounds(5, 5, 180, 150);
+            PanelImagen.add(picLabel);//Se añade la imagen al Panel
+            PanelImagen.setName("IMAGEN"); //Se añade un NAME para luego poder buscarlo entre todos los componentes
+            pImagenCocheModificar.add(PanelImagen);//Se añade el Panel de la Imagen
+            modificarCoche.revalidate();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        btnImagenCocheModificar.setEnabled(false);
         modificarCoche.setVisible(true);
     }//GEN-LAST:event_btnCocheModificarActionPerformed
 
@@ -2467,7 +2518,7 @@ public class Main extends javax.swing.JFrame {
             String bastidor = (String)modelo.getValueAt(tablaMain.getSelectedRow(), 0);
             String marca = (String)modelo.getValueAt(tablaMain.getSelectedRow(), 1);
             String modelocoche = (String)modelo.getValueAt(tablaMain.getSelectedRow(), 2);
-            System.out.println(bastidor+" "+marca+" "+modelocoche);
+            //System.out.println(bastidor+" "+marca+" "+modelocoche);
             lblMarcaRevisionNueva.setText(marca);
             lblModeloRevisionNueva.setText(modelocoche);
             lblBastidorRevisionNueva.setText(bastidor);
@@ -2478,15 +2529,17 @@ public class Main extends javax.swing.JFrame {
             if(rs.next()==false){
                 nrevision = 1;
             }else{
-                nrevision = rs.getInt("N_Revision")+1;
+                nrevision = rs.getInt("MAX(N_Revision)")+1;
             }
             lblNumeroRevisionNueva.setText(Integer.toString(nrevision));
             lblFechaRevisionNueva.setText(dateFormat.format(date));
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        chkAceiteRevisionNueva.setSelected(false);
+        chkFrenosRevisionNueva.setSelected(false);
+        chkFiltroRevisionNueva.setSelected(false);
         aniadirRevision.setVisible(true);
-        //System.out.println(dateFormat.format(date));
     }//GEN-LAST:event_btnRevisionNuevaActionPerformed
 
     private void btnRevisionModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRevisionModificarActionPerformed
@@ -2497,6 +2550,7 @@ public class Main extends javax.swing.JFrame {
     private void btnNuevoClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoClienteActionPerformed
         buscarClienteVentaNueva.setVisible(false);
         aniadirVenta.setLocationRelativeTo(null);
+        lblFechaVentaNueva.setText(dateFormat.format(date));
         txtNombreVentaNueva.setText("");
         txtNombreVentaNueva.setEditable(true);
         txtApellidosVentaNueva.setText("");
@@ -2517,6 +2571,7 @@ public class Main extends javax.swing.JFrame {
 
     private void btnCargarClienteVentaNuevaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCargarClienteVentaNuevaActionPerformed
         buscarClienteVentaNueva.setVisible(false);
+        lblFechaVentaNueva.setText(dateFormat.format(date));
         String dni = (String)jTable1.getValueAt(jTable1.getSelectedRow(), 0);
         try {
             DefaultTableModel modelo = (DefaultTableModel) tablaMain.getModel();
@@ -2699,6 +2754,8 @@ public class Main extends javax.swing.JFrame {
         if(tablaMain.getSelectedRow()!=-1){
             btnVentaNueva.setEnabled(true);
             btnRevisionNueva.setEnabled(true);
+            btnCocheModificar.setEnabled(true);
+            btnCocheBorrar.setEnabled(true);
         }
     }//GEN-LAST:event_tablaMainMouseReleased
 
@@ -2712,35 +2769,97 @@ public class Main extends javax.swing.JFrame {
         if(txtNombreVentaNueva.getText().equals("") || txtApellidosVentaNueva.getText().equals("") || txtDniVentaNueva.getText().equals("") || txtTelefonoVentaNueva.getText().equals("") || txtDireccionVentaNueva.getText().equals("")){
             JOptionPane.showMessageDialog(null, "No puede haber ningún campo vacío", "Algún campo vacío", JOptionPane.WARNING_MESSAGE);
         }else{
+            try {//INSERCIÓN DEL CLIENTE
+                String dni2 = txtDniVentaNueva.getText();
+                String nombre = txtNombreVentaNueva.getText();
+                String apellidos = txtApellidosVentaNueva.getText();
+                String telefono = txtTelefonoVentaNueva.getText();
+                String direccion = txtDireccionVentaNueva.getText();
+                PreparedStatement ps2 = this.con.dameconexion().prepareStatement("INSERT INTO Cliente VALUES (?,?,?,?,?);");
+                ps2.setString(1,dni2);
+                ps2.setString(2,nombre);
+                ps2.setString(3,apellidos);
+                ps2.setString(4,telefono);
+                ps2.setString(5,direccion);
+                ps2.executeUpdate();
+                listarClientes();
+                listarClientes2();
+                listarClientes3();
+                JOptionPane.showMessageDialog(null, "Nuevo cliente introducido correctamente", "Nuevo cliente insertado", JOptionPane.INFORMATION_MESSAGE);
+            } catch (SQLException ex) {
+                //System.out.println(ex.getErrorCode());
+                if(ex.getErrorCode()==19){}else
+                    Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            try {//INSERCIÓN DE LA VENTA
+                PreparedStatement ps = this.con.dameconexion().prepareStatement("INSERT INTO Venta VALUES (?,?,?,?);");
+                ps.setString(1,txtBastidorVentaNueva.getText());
+                ps.setString(2,txtDniVentaNueva.getText());
+                ps.setString(3,lblFechaVentaNueva.getText());
+                ps.setFloat(4, Float.parseFloat(lblPrecioVentaNueva.getText()));
+                ps.executeUpdate();
+                listarVentas();
+                JOptionPane.showMessageDialog(null, "Nueva venta introducida correctamente", "Nueva venta insertada", JOptionPane.INFORMATION_MESSAGE);
+            } catch (SQLException ex) {
+                if(ex.getErrorCode()==19){
+                    JOptionPane.showMessageDialog(null, "Ya existe una venta con estos datos", "Información", JOptionPane.INFORMATION_MESSAGE);
+                }else
+                    Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            aniadirVenta.setVisible(false);
+        }
+    }//GEN-LAST:event_btnAceptarVentaNuevaActionPerformed
+
+    private void btnAceptarRevisionNuevaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarRevisionNuevaActionPerformed
+        if(!chkAceiteRevisionNueva.isSelected() && !chkFiltroRevisionNueva.isSelected() && !chkFrenosRevisionNueva.isSelected()){
+            JOptionPane.showMessageDialog(null, "Debe haber algún campo seleccionado", "Información", JOptionPane.INFORMATION_MESSAGE);
+        }else{
             try {
-                ResultSet rs;
-                PreparedStatement ps = this.con.dameconexion().prepareStatement("SELECT Dni FROM Cliente WHERE Dni=?");
-                ps.setString(1, txtDniVentaNueva.getText());
-                rs = ps.executeQuery();
+                PreparedStatement ps = this.con.dameconexion().prepareStatement("INSERT INTO Revision VALUES (?,?,?,?,?,?);");
+                ps.setInt(1, Integer.parseInt(lblNumeroRevisionNueva.getText()));
+                ps.setString(2,lblFechaRevisionNueva.getText());
+                if(chkFrenosRevisionNueva.isSelected())
+                    ps.setString(3, "Sí");
+                else
+                    ps.setString(3, "No");
                 
-                if(rs.next()==false){
-                    String dni2 = txtDniVentaNueva.getText();
-                    String nombre = txtNombreVentaNueva.getText();
-                    String apellidos = txtApellidosVentaNueva.getText();
-                    String telefono = txtTelefonoVentaNueva.getText();
-                    String direccion = txtDireccionVentaNueva.getText();
-                    PreparedStatement ps2 = this.con.dameconexion().prepareStatement("INSERT INTO Cliente VALUES ?,?,?,?,?");
-                    ps2.setString(1,dni2);
-                    ps2.setString(2,nombre);
-                    ps2.setString(3,apellidos);
-                    ps2.setString(4,telefono);
-                    ps2.setString(5,direccion);
-                    ps2.executeQuery();
-                    listarClientes();
-                    listarClientes2();
-                    listarClientes3();
-                    JOptionPane.showMessageDialog(null, "Cliente nuevo introducido correctamente", "Nuevo cliente insertado", JOptionPane.INFORMATION_MESSAGE);
-                }
+                if(chkAceiteRevisionNueva.isSelected())
+                    ps.setString(4, "Sí");
+                else
+                    ps.setString(4, "No");
+                
+                if(chkFiltroRevisionNueva.isSelected())
+                    ps.setString(5, "Sí");
+                else
+                    ps.setString(5, "No");
+                
+                ps.setString(6,lblBastidorRevisionNueva.getText());
+                ps.executeUpdate();
+                JOptionPane.showMessageDialog(null, "Revisión introducida correctamente", "Información", JOptionPane.INFORMATION_MESSAGE);
+                listarRevisiones();
+                aniadirRevision.setVisible(false);
+            } catch (SQLException ex) {
+                if(ex.getErrorCode()==19)
+                    JOptionPane.showMessageDialog(null, "Ya existe una revisión con estos datos", "Información", JOptionPane.INFORMATION_MESSAGE);
+                else
+                    Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_btnAceptarRevisionNuevaActionPerformed
+
+    private void btnAceptarCocheModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarCocheModificarActionPerformed
+        if(txtMarcaCocheModificar.getText().equals("") || txtModeloCocheModificar.getText().equals("") || txtTipoCocheModificar.getText().equals("") || txtMotorCocheModificar.getText().equals("") || txtCVCocheModificar.getText().equals("") || txtColorCocheModificar.getText().equals("") || txtPrecioCocheModificar.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Ningún campo debe estar vacío", "Algún campo vacío", JOptionPane.WARNING_MESSAGE);
+        }else{
+            String bastidor = txtBastidorCocheModificar.getText();
+            try {
+                PreparedStatement ps = this.con.dameconexion().prepareStatement("UPDATE Coche WHERE N_Bastidor = ?;");
             } catch (SQLException ex) {
                 Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-    }//GEN-LAST:event_btnAceptarVentaNuevaActionPerformed
+    }//GEN-LAST:event_btnAceptarCocheModificarActionPerformed
 
     /**
      * @param args the command line arguments
