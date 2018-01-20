@@ -12,6 +12,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.Level;
@@ -422,19 +423,18 @@ public class Main extends javax.swing.JFrame {
         btnAceptarRevisionModificar = new javax.swing.JButton();
         modificarVenta = new javax.swing.JDialog();
         jLabel69 = new javax.swing.JLabel();
-        txtFechaVentaModificar = new javax.swing.JTextField();
         jLabel70 = new javax.swing.JLabel();
         txtDniVentaModificar = new javax.swing.JTextField();
         jLabel71 = new javax.swing.JLabel();
         txtBastidorVentaModificar = new javax.swing.JTextField();
         jLabel72 = new javax.swing.JLabel();
         txtPrecioVentaModificar = new javax.swing.JTextField();
-        btnCalendarioVentaModificar = new javax.swing.JButton();
         btnBuscarCliente = new javax.swing.JButton();
         btnBuscarCoche = new javax.swing.JButton();
         jLabel73 = new javax.swing.JLabel();
         btnCancelarVentaModificar = new javax.swing.JButton();
         btnAceptarVentaModificar = new javax.swing.JButton();
+        jDateChooser = new com.toedter.calendar.JDateChooser();
         modificarCliente = new javax.swing.JDialog();
         jLabel74 = new javax.swing.JLabel();
         jLabel75 = new javax.swing.JLabel();
@@ -1544,8 +1544,6 @@ public class Main extends javax.swing.JFrame {
 
         jLabel69.setText("FECHA");
 
-        txtFechaVentaModificar.setEditable(false);
-
         jLabel70.setText("DNI");
 
         txtDniVentaModificar.setEditable(false);
@@ -1557,13 +1555,6 @@ public class Main extends javax.swing.JFrame {
         jLabel72.setText("PRECIO");
 
         txtPrecioVentaModificar.setEditable(false);
-
-        btnCalendarioVentaModificar.setText("Abrir calendario");
-        btnCalendarioVentaModificar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCalendarioVentaModificarActionPerformed(evt);
-            }
-        });
 
         btnBuscarCliente.setText("Buscar cliente");
         btnBuscarCliente.addActionListener(new java.awt.event.ActionListener() {
@@ -1590,50 +1581,46 @@ public class Main extends javax.swing.JFrame {
 
         btnAceptarVentaModificar.setText("Aceptar");
 
+        jDateChooser.setDateFormatString("dd/MM/yyyy");
+
         javax.swing.GroupLayout modificarVentaLayout = new javax.swing.GroupLayout(modificarVenta.getContentPane());
         modificarVenta.getContentPane().setLayout(modificarVentaLayout);
         modificarVentaLayout.setHorizontalGroup(
             modificarVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(modificarVentaLayout.createSequentialGroup()
-                .addGroup(modificarVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(modificarVentaLayout.createSequentialGroup()
-                        .addGroup(modificarVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(txtPrecioVentaModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(modificarVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(modificarVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(modificarVentaLayout.createSequentialGroup()
+                            .addGroup(modificarVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(txtPrecioVentaModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(modificarVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtBastidorVentaModificar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(modificarVentaLayout.createSequentialGroup()
+                                        .addContainerGap()
+                                        .addGroup(modificarVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, modificarVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(txtDniVentaModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(jLabel71))
+                                            .addComponent(jLabel72)))))
+                            .addGap(18, 18, 18)
                             .addGroup(modificarVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(modificarVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(txtBastidorVentaModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(modificarVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(modificarVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addGroup(modificarVentaLayout.createSequentialGroup()
-                                                .addGap(8, 8, 8)
-                                                .addComponent(jLabel69))
-                                            .addGroup(modificarVentaLayout.createSequentialGroup()
-                                                .addContainerGap()
-                                                .addComponent(txtFechaVentaModificar, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE))
-                                            .addGroup(modificarVentaLayout.createSequentialGroup()
-                                                .addContainerGap()
-                                                .addComponent(jLabel70))
-                                            .addGroup(modificarVentaLayout.createSequentialGroup()
-                                                .addContainerGap()
-                                                .addComponent(txtDniVentaModificar)))
-                                        .addGroup(modificarVentaLayout.createSequentialGroup()
-                                            .addContainerGap()
-                                            .addComponent(jLabel71))))
-                                .addGroup(modificarVentaLayout.createSequentialGroup()
-                                    .addContainerGap()
-                                    .addComponent(jLabel72))))
-                        .addGap(18, 18, 18)
+                                .addGroup(modificarVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(btnBuscarCliente, javax.swing.GroupLayout.DEFAULT_SIZE, 107, Short.MAX_VALUE)
+                                    .addComponent(btnBuscarCoche, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(jLabel73)))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, modificarVentaLayout.createSequentialGroup()
+                            .addGap(47, 47, 47)
+                            .addComponent(btnAceptarVentaModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
+                            .addComponent(btnCancelarVentaModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(modificarVentaLayout.createSequentialGroup()
+                            .addContainerGap()
+                            .addComponent(jLabel70)))
+                    .addGroup(modificarVentaLayout.createSequentialGroup()
+                        .addContainerGap()
                         .addGroup(modificarVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(modificarVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(btnCalendarioVentaModificar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnBuscarCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnBuscarCoche, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(jLabel73)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, modificarVentaLayout.createSequentialGroup()
-                        .addGap(47, 47, 47)
-                        .addComponent(btnAceptarVentaModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
-                        .addComponent(btnCancelarVentaModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel69))))
                 .addGap(8, 8, 8))
         );
         modificarVentaLayout.setVerticalGroup(
@@ -1641,11 +1628,9 @@ public class Main extends javax.swing.JFrame {
             .addGroup(modificarVentaLayout.createSequentialGroup()
                 .addGap(8, 8, 8)
                 .addComponent(jLabel69)
-                .addGap(8, 8, 8)
-                .addGroup(modificarVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtFechaVentaModificar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnCalendarioVentaModificar))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(21, 21, 21)
                 .addComponent(jLabel70)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(modificarVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -2649,7 +2634,7 @@ public class Main extends javax.swing.JFrame {
         options[0] = "Cliente";
         options[1] = "Coche";
         int respuesta = JOptionPane.showOptionDialog(null, "¿Qué desea modificar?", "Modificar venta", 0, JOptionPane.QUESTION_MESSAGE, null, options, null);
-        System.out.println(respuesta);
+        //System.out.println(respuesta);
         if(respuesta==0){//MODIFICAR CLIENTE
             modificarVenta.setLocationRelativeTo(null);
             btnBuscarCoche.setEnabled(false);
@@ -2659,12 +2644,14 @@ public class Main extends javax.swing.JFrame {
                 ps.setString(1,(String)tablaVentas.getValueAt(tablaVentas.getSelectedRow(), 0));
                 ps.setString(2,(String)tablaVentas.getValueAt(tablaVentas.getSelectedRow(), 1));
                 rs = ps.executeQuery();
-                txtFechaVentaModificar.setText(rs.getString("Fecha"));
+                jDateChooser.setDate(dateFormat.parse(rs.getString("Fecha")));
                 txtBastidorVentaModificar.setText(rs.getString("N_Bastidor"));
                 txtDniVentaModificar.setText(rs.getString("Dni"));
                 txtPrecioVentaModificar.setText(rs.getString("Precio"));
             } catch (SQLException e) {
                 Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, e);
+            } catch (ParseException ex) {
+                Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
             }
             modificarVenta.setVisible(true);
         }else{//MODIFICAR COCHE
@@ -2676,12 +2663,14 @@ public class Main extends javax.swing.JFrame {
                 ps.setString(1,(String)tablaVentas.getValueAt(tablaVentas.getSelectedRow(), 0));
                 ps.setString(2,(String)tablaVentas.getValueAt(tablaVentas.getSelectedRow(), 1));
                 rs = ps.executeQuery();
-                txtFechaVentaModificar.setText(rs.getString("Fecha"));
+                jDateChooser.setDate(dateFormat.parse(rs.getString("Fecha")));
                 txtBastidorVentaModificar.setText(rs.getString("N_Bastidor"));
                 txtDniVentaModificar.setText(rs.getString("Dni"));
                 txtPrecioVentaModificar.setText(rs.getString("Precio"));
             } catch (SQLException e) {
                 Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, e);
+            } catch (ParseException ex) {
+                Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
             }
             modificarVenta.setVisible(true);
         }
@@ -2698,6 +2687,7 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBuscarCocheActionPerformed
 
     private void btnCargarClienteVentaModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCargarClienteVentaModificarActionPerformed
+        
         buscarClienteVentaModificar.setVisible(false);
     }//GEN-LAST:event_btnCargarClienteVentaModificarActionPerformed
 
@@ -2784,10 +2774,6 @@ public class Main extends javax.swing.JFrame {
     private void btnCancelarVentaModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarVentaModificarActionPerformed
         modificarVenta.setVisible(false);
     }//GEN-LAST:event_btnCancelarVentaModificarActionPerformed
-
-    private void btnCalendarioVentaModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalendarioVentaModificarActionPerformed
-        JOptionPane.showMessageDialog(null, "Abre el JCalendar");
-    }//GEN-LAST:event_btnCalendarioVentaModificarActionPerformed
 
     private void btnCancelarClienteModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarClienteModificarActionPerformed
         modificarCliente.setVisible(false);
@@ -3050,7 +3036,6 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JButton btnBuscarCoche;
     private javax.swing.JButton btnBuscarCocheVentaModificar;
     private javax.swing.JButton btnBuscarMain;
-    private javax.swing.JButton btnCalendarioVentaModificar;
     private javax.swing.JButton btnCancelarClienteModificar;
     private javax.swing.JButton btnCancelarCocheModificar;
     private javax.swing.JButton btnCancelarCocheNuevo;
@@ -3093,6 +3078,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JPanel clientes;
     private javax.swing.JPanel coches;
     private javax.swing.JButton jButton2;
+    private com.toedter.calendar.JDateChooser jDateChooser;
     private javax.swing.JFileChooser jFileChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -3250,7 +3236,6 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JTextField txtDniClienteModificar;
     private javax.swing.JTextField txtDniVentaModificar;
     private javax.swing.JFormattedTextField txtDniVentaNueva;
-    private javax.swing.JTextField txtFechaVentaModificar;
     private javax.swing.JTextField txtMarcaCocheModificar;
     private javax.swing.JTextField txtMarcaCocheNuevo;
     private javax.swing.JTextField txtMarcaVentaNueva;
