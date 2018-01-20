@@ -85,6 +85,10 @@ public class Main extends javax.swing.JFrame {
                 modeloCoches.addRow(new Object[]{rs.getString("N_Bastidor"), rs.getString("Marca"), rs.getString("Modelo"), rs.getString("Motor"), rs.getInt("CV"), rs.getString("Tipo"), rs.getString("Color"), rs.getFloat("Precio")});
             }
             rs.close();
+            btnVentaNueva.setEnabled(false);
+            btnRevisionNueva.setEnabled(false);
+            btnCocheModificar.setEnabled(false);
+            btnCocheBorrar.setEnabled(false);
         }catch (SQLException e){
             e.printStackTrace();
         }
@@ -240,20 +244,20 @@ public class Main extends javax.swing.JFrame {
         float precio = 0;
         
         if(bastidor.equals("") || marca.equals("") || modelo.equals("") || tipo.equals("") || motor.equals("") || txtCVCocheNuevo.getText().equals("") || color.equals("") || txtPrecioCocheNuevo.getText().equals("") || this.imagenblob==null){
-            JOptionPane.showMessageDialog(null, "Ningún campo debe estar vacío", "Algún campo vacío", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Ningún campo debe estar vacío", "", JOptionPane.WARNING_MESSAGE);
         }else{
             try {
                 cv = Integer.parseInt(txtCVCocheNuevo.getText());
             } catch (NumberFormatException e) {
                 inserta = false;
-                JOptionPane.showMessageDialog(null, "Los CV deben ser un número entero", "CV incorrectos", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Los CV deben ser un número entero", "", JOptionPane.WARNING_MESSAGE);
             }
 
             try {
                 precio = Float.parseFloat(txtPrecioCocheNuevo.getText());
             } catch (NumberFormatException e) {
                 inserta = false;
-                JOptionPane.showMessageDialog(null, "El precio debe ser un número real", "Precio incorrecto", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(null, "El precio debe ser un número real", "", JOptionPane.WARNING_MESSAGE);
             }
             
             if(inserta){
@@ -273,7 +277,7 @@ public class Main extends javax.swing.JFrame {
                     listarCoches();
                 } catch (SQLException ex) {
                     if(ex.getErrorCode()==19){
-                        JOptionPane.showMessageDialog(null, "Ya existe un coche con estos datos", "Información", JOptionPane.INFORMATION_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "Ya existe un coche con estos datos", "", JOptionPane.INFORMATION_MESSAGE);
                     }
                 }
             }
@@ -2038,6 +2042,11 @@ public class Main extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tablaRevisiones.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                tablaRevisionesMouseReleased(evt);
+            }
+        });
         jScrollPane9.setViewportView(tablaRevisiones);
 
         javax.swing.GroupLayout revisionesLayout = new javax.swing.GroupLayout(revisiones);
@@ -2544,6 +2553,41 @@ public class Main extends javax.swing.JFrame {
 
     private void btnRevisionModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRevisionModificarActionPerformed
         modificarRevision.setLocationRelativeTo(null);
+        try {
+            ResultSet rs;
+            PreparedStatement ps = this.con.dameconexion().prepareStatement("SELECT r.N_Revision,r.Fecha,c.Marca,c.Modelo,r.N_Bastidor,r.Frenos,r.Filtro,r.Aceite FROM Revision AS r, Coche AS c WHERE r.N_Revision=? AND r.N_Bastidor=c.N_Bastidor;");
+            ps.setInt(1, (int)tablaRevisiones.getValueAt(tablaRevisiones.getSelectedRow(), 0));
+            rs = ps.executeQuery();
+            lblNumeroRevisionModificar.setText(Integer.toString(rs.getInt("r.N_Revision")));
+            lblFechaRevisionModificar.setText(rs.getString("r.Fecha"));
+            lblMarcaRevisionModificar.setText(rs.getString("c.Marca"));
+            lblModeloRevisionModificar.setText(rs.getString("c.Modelo"));
+            lblBastidorRevisionModificar.setText(rs.getString("r.N_Bastidor"));
+            String frenos = rs.getString("r.Frenos");
+            String filtro = rs.getString("r.Filtro");
+            String aceite = rs.getString("r.Aceite");
+            
+            if(frenos.equals("Sí")){
+                chkFrenosRevisionModificar.setSelected(true);
+            }else{
+                chkFrenosRevisionModificar.setSelected(false);
+            }
+            
+            if(filtro.equals("Sí")){
+                chkFiltroRevisionModificar.setSelected(true);
+            }else{
+                chkFiltroRevisionModificar.setSelected(false);
+            }
+            
+            if(aceite.equals("Sí")){
+                chkAceiteRevisionModificar.setSelected(true);
+            }else{
+                chkAceiteRevisionModificar.setSelected(false);
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
         modificarRevision.setVisible(true);
     }//GEN-LAST:event_btnRevisionModificarActionPerformed
 
@@ -2726,7 +2770,20 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_salirActionPerformed
 
     private void btnCocheBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCocheBorrarActionPerformed
-        JOptionPane.showConfirmDialog(null, "¿Desea eliminar el coche seleccionado?", "Eliminar coche", JOptionPane.OK_CANCEL_OPTION);
+        int opcion = JOptionPane.showConfirmDialog(null, "¿Desea eliminar el coche seleccionado?", "Eliminar coche", JOptionPane.OK_CANCEL_OPTION);
+        //System.out.println(opcion);
+        if(opcion==0){
+            try {
+                PreparedStatement ps = this.con.dameconexion().prepareStatement("DELETE FROM Coche WHERE N_Bastidor = ?;");
+                ps.setString(1, (String)tablaMain.getValueAt(tablaMain.getSelectedRow(), 0));
+                ps.executeUpdate();
+                listarCoches();
+                listarCoches2();
+                JOptionPane.showMessageDialog(null, "Coche eliminado correctamente", "", JOptionPane.INFORMATION_MESSAGE);
+            } catch (SQLException ex) {
+                Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }//GEN-LAST:event_btnCocheBorrarActionPerformed
 
     private void btnRevisionBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRevisionBorrarActionPerformed
@@ -2767,7 +2824,7 @@ public class Main extends javax.swing.JFrame {
 
     private void btnAceptarVentaNuevaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarVentaNuevaActionPerformed
         if(txtNombreVentaNueva.getText().equals("") || txtApellidosVentaNueva.getText().equals("") || txtDniVentaNueva.getText().equals("") || txtTelefonoVentaNueva.getText().equals("") || txtDireccionVentaNueva.getText().equals("")){
-            JOptionPane.showMessageDialog(null, "No puede haber ningún campo vacío", "Algún campo vacío", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "No puede haber ningún campo vacío", "", JOptionPane.WARNING_MESSAGE);
         }else{
             try {//INSERCIÓN DEL CLIENTE
                 String dni2 = txtDniVentaNueva.getText();
@@ -2785,7 +2842,7 @@ public class Main extends javax.swing.JFrame {
                 listarClientes();
                 listarClientes2();
                 listarClientes3();
-                JOptionPane.showMessageDialog(null, "Nuevo cliente introducido correctamente", "Nuevo cliente insertado", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Nuevo cliente introducido correctamente", "", JOptionPane.INFORMATION_MESSAGE);
             } catch (SQLException ex) {
                 //System.out.println(ex.getErrorCode());
                 if(ex.getErrorCode()==19){}else
@@ -2800,10 +2857,10 @@ public class Main extends javax.swing.JFrame {
                 ps.setFloat(4, Float.parseFloat(lblPrecioVentaNueva.getText()));
                 ps.executeUpdate();
                 listarVentas();
-                JOptionPane.showMessageDialog(null, "Nueva venta introducida correctamente", "Nueva venta insertada", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Nueva venta introducida correctamente", "", JOptionPane.INFORMATION_MESSAGE);
             } catch (SQLException ex) {
                 if(ex.getErrorCode()==19){
-                    JOptionPane.showMessageDialog(null, "Ya existe una venta con estos datos", "Información", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Ya existe una venta con estos datos", "", JOptionPane.INFORMATION_MESSAGE);
                 }else
                     Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -2813,7 +2870,7 @@ public class Main extends javax.swing.JFrame {
 
     private void btnAceptarRevisionNuevaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarRevisionNuevaActionPerformed
         if(!chkAceiteRevisionNueva.isSelected() && !chkFiltroRevisionNueva.isSelected() && !chkFrenosRevisionNueva.isSelected()){
-            JOptionPane.showMessageDialog(null, "Debe haber algún campo seleccionado", "Información", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Debe haber algún campo seleccionado", "", JOptionPane.INFORMATION_MESSAGE);
         }else{
             try {
                 PreparedStatement ps = this.con.dameconexion().prepareStatement("INSERT INTO Revision VALUES (?,?,?,?,?,?);");
@@ -2836,12 +2893,12 @@ public class Main extends javax.swing.JFrame {
                 
                 ps.setString(6,lblBastidorRevisionNueva.getText());
                 ps.executeUpdate();
-                JOptionPane.showMessageDialog(null, "Revisión introducida correctamente", "Información", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Revisión introducida correctamente", "", JOptionPane.INFORMATION_MESSAGE);
                 listarRevisiones();
                 aniadirRevision.setVisible(false);
             } catch (SQLException ex) {
                 if(ex.getErrorCode()==19)
-                    JOptionPane.showMessageDialog(null, "Ya existe una revisión con estos datos", "Información", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Ya existe una revisión con estos datos", "", JOptionPane.INFORMATION_MESSAGE);
                 else
                     Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -2850,7 +2907,7 @@ public class Main extends javax.swing.JFrame {
 
     private void btnAceptarCocheModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarCocheModificarActionPerformed
         if(txtMarcaCocheModificar.getText().equals("") || txtModeloCocheModificar.getText().equals("") || txtTipoCocheModificar.getText().equals("") || txtMotorCocheModificar.getText().equals("") || txtCVCocheModificar.getText().equals("") || txtColorCocheModificar.getText().equals("") || txtPrecioCocheModificar.getText().equals("")){
-            JOptionPane.showMessageDialog(null, "Ningún campo debe estar vacío", "Algún campo vacío", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Ningún campo debe estar vacío", "", JOptionPane.WARNING_MESSAGE);
         }else{
             try {
                 PreparedStatement ps = this.con.dameconexion().prepareStatement("UPDATE Coche SET Marca=?,Modelo=?,Motor=?,CV=?,Tipo=?,Color=?,Precio=? WHERE N_Bastidor = ?;");
@@ -2865,11 +2922,20 @@ public class Main extends javax.swing.JFrame {
                 ps.executeUpdate();
                 listarCoches();
                 listarCoches2();
+                JOptionPane.showMessageDialog(null, "Coche modificado correctamente", "", JOptionPane.INFORMATION_MESSAGE);
+                modificarCoche.setVisible(false);
             } catch (SQLException ex) {
                 Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }//GEN-LAST:event_btnAceptarCocheModificarActionPerformed
+
+    private void tablaRevisionesMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaRevisionesMouseReleased
+        if(tablaRevisiones.getSelectedRow()!=-1){
+            btnRevisionModificar.setEnabled(true);
+            btnRevisionBorrar.setEnabled(true);
+        }
+    }//GEN-LAST:event_tablaRevisionesMouseReleased
 
     /**
      * @param args the command line arguments
