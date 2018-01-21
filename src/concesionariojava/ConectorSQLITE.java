@@ -102,7 +102,6 @@ public class ConectorSQLITE {
     }
 
     public void ReiniciaBBDD(){
-        // Borra la tabla de Platos y vuelve a crear la 
         try{
             System.out.println("Borrando Tablas");
             this.consulta.executeUpdate("DROP Table Venta");
