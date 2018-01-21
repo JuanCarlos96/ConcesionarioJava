@@ -2037,6 +2037,9 @@
   </Layout>
   <SubComponents>
     <Container class="javax.swing.JTabbedPane" name="jTabbedPane1">
+      <Events>
+        <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="jTabbedPane1StateChanged"/>
+      </Events>
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
       <SubComponents>
@@ -2300,6 +2303,7 @@
             <Component class="javax.swing.JButton" name="btnVentaNueva">
               <Properties>
                 <Property name="text" type="java.lang.String" value="VENTA"/>
+                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnVentaNuevaActionPerformed"/>
@@ -2308,6 +2312,7 @@
             <Component class="javax.swing.JButton" name="btnRevisionNueva">
               <Properties>
                 <Property name="text" type="java.lang.String" value="REVISI&#xd3;N"/>
+                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRevisionNuevaActionPerformed"/>
@@ -2316,6 +2321,7 @@
             <Component class="javax.swing.JButton" name="btnCocheBorrar">
               <Properties>
                 <Property name="text" type="java.lang.String" value="ELIMINAR"/>
+                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCocheBorrarActionPerformed"/>
@@ -2324,6 +2330,7 @@
             <Component class="javax.swing.JButton" name="btnCocheModificar">
               <Properties>
                 <Property name="text" type="java.lang.String" value="MODIFICAR"/>
+                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCocheModificarActionPerformed"/>
@@ -2398,10 +2405,10 @@
                                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                           <Component id="jLabel7" alignment="0" min="-2" max="-2" attributes="0"/>
                                           <Component id="jLabel11" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="lblFechaRevisionMain" pref="75" max="32767" attributes="0"/>
-                                          <Component id="lblMarcaRevisionMain" alignment="0" pref="75" max="32767" attributes="0"/>
+                                          <Component id="lblFechaRevisionMain" alignment="0" pref="94" max="32767" attributes="0"/>
+                                          <Component id="lblMarcaRevisionMain" alignment="0" max="32767" attributes="0"/>
                                       </Group>
-                                      <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
+                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Component id="jLabel21" min="-2" max="-2" attributes="0"/>
                                           <Component id="pImagenRevisionMain" min="-2" max="-2" attributes="0"/>
@@ -2575,6 +2582,7 @@
             <Component class="javax.swing.JButton" name="btnRevisionBorrar">
               <Properties>
                 <Property name="text" type="java.lang.String" value="ELIMINAR"/>
+                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRevisionBorrarActionPerformed"/>
@@ -2583,6 +2591,7 @@
             <Component class="javax.swing.JButton" name="btnRevisionModificar">
               <Properties>
                 <Property name="text" type="java.lang.String" value="MODIFICAR"/>
+                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRevisionModificarActionPerformed"/>
@@ -2609,25 +2618,10 @@
                           <Editor/>
                           <Renderer/>
                         </Column>
-                        <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                          <Title/>
-                          <Editor/>
-                          <Renderer/>
-                        </Column>
-                        <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                          <Title/>
-                          <Editor/>
-                          <Renderer/>
-                        </Column>
-                        <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                          <Title/>
-                          <Editor/>
-                          <Renderer/>
-                        </Column>
                       </TableColumnModel>
                     </Property>
                     <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
-                      <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
+                      <TableHeader reorderingAllowed="false" resizingAllowed="true"/>
                     </Property>
                   </Properties>
                   <Events>
@@ -2751,12 +2745,12 @@
                     </Property>
                     <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                       <TableColumnModel selectionModel="0">
-                        <Column maxWidth="-1" minWidth="-1" prefWidth="150" resizable="true">
+                        <Column maxWidth="-1" minWidth="-1" prefWidth="150" resizable="false">
                           <Title/>
                           <Editor/>
                           <Renderer/>
                         </Column>
-                        <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                        <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="false">
                           <Title/>
                           <Editor/>
                           <Renderer/>
@@ -2818,6 +2812,7 @@
             <Component class="javax.swing.JButton" name="btnVentaBorrar">
               <Properties>
                 <Property name="text" type="java.lang.String" value="ELIMINAR"/>
+                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnVentaBorrarActionPerformed"/>
@@ -2826,6 +2821,7 @@
             <Component class="javax.swing.JButton" name="btnVentaModificar">
               <Properties>
                 <Property name="text" type="java.lang.String" value="MODIFICAR"/>
+                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnVentaModificarActionPerformed"/>
@@ -2959,6 +2955,7 @@
             <Component class="javax.swing.JButton" name="btnClienteBorrar">
               <Properties>
                 <Property name="text" type="java.lang.String" value="ELIMINAR"/>
+                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnClienteBorrarActionPerformed"/>
@@ -2967,6 +2964,7 @@
             <Component class="javax.swing.JButton" name="btnClienteModificar">
               <Properties>
                 <Property name="text" type="java.lang.String" value="MODIFICAR"/>
+                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnClienteModificarActionPerformed"/>
@@ -2993,25 +2991,10 @@
                           <Editor/>
                           <Renderer/>
                         </Column>
-                        <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                          <Title/>
-                          <Editor/>
-                          <Renderer/>
-                        </Column>
-                        <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                          <Title/>
-                          <Editor/>
-                          <Renderer/>
-                        </Column>
-                        <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                          <Title/>
-                          <Editor/>
-                          <Renderer/>
-                        </Column>
                       </TableColumnModel>
                     </Property>
                     <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
-                      <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
+                      <TableHeader reorderingAllowed="false" resizingAllowed="true"/>
                     </Property>
                   </Properties>
                   <Events>
