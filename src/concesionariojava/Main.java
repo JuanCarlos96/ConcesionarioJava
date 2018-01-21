@@ -2966,6 +2966,9 @@ public class Main extends javax.swing.JFrame {
 
     private void reiniciarbdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reiniciarbdActionPerformed
         con.ReiniciaBBDD();
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {}
         listarCoches();
         listarCoches2();
         listarVentas();
