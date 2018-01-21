@@ -2347,6 +2347,11 @@ public class Main extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tablaClientes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                tablaClientesMouseReleased(evt);
+            }
+        });
         jScrollPane10.setViewportView(tablaClientes);
 
         javax.swing.GroupLayout clientesLayout = new javax.swing.GroupLayout(clientes);
@@ -3133,7 +3138,7 @@ public class Main extends javax.swing.JFrame {
             lblNombreVentaMain.setText(rs.getString("Nombre"));
             lblApellidosVentaMain.setText(rs.getString("Apellidos"));
             lblDniVentaMain.setText(rs.getString("Dni"));
-            lblCocheVentaMain.setText(rs.getString("Marca || ' ' || Modelo"));
+            lblCocheVentaMain.setText(rs.getString("Coche"));
             lblPrecioVentaMain.setText(Float.toString(rs.getFloat("Precio")));
         } catch (SQLException e) {
             e.printStackTrace();
@@ -3141,6 +3146,24 @@ public class Main extends javax.swing.JFrame {
         btnVentaModificar.setEnabled(true);
         btnVentaBorrar.setEnabled(true);
     }//GEN-LAST:event_tablaVentasMouseReleased
+
+    private void tablaClientesMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaClientesMouseReleased
+        try {
+            ResultSet rs;
+            PreparedStatement ps = this.con.dameconexion().prepareStatement("SELECT * FROM Cliente WHERE Dni=?;");
+            ps.setString(1, (String)tablaClientes.getValueAt(tablaClientes.getSelectedRow(), 0));
+            rs = ps.executeQuery();
+            lblNombreClienteMain.setText(rs.getString("Nombre"));
+            lblApellidosClienteMain.setText(rs.getString("Apellidos"));
+            lblDniClienteMain.setText(rs.getString("Dni"));
+            lblTelefonoClienteMain.setText(rs.getString("Telefono"));
+            lblDireccionClienteMain.setText(rs.getString("Domicilio"));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        btnClienteModificar.setEnabled(true);
+        btnClienteBorrar.setEnabled(true);
+    }//GEN-LAST:event_tablaClientesMouseReleased
 
     /**
      * @param args the command line arguments
