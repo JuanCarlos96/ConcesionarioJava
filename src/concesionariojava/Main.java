@@ -458,35 +458,31 @@ public class Main extends javax.swing.JFrame {
     private void modificarCoche(){
         modificarCoche.setLocationRelativeTo(null);
         try {
-            if(tablaMain.getSelectedRow()<0){
-                
-            }else{
-                String bastidor = (String)tablaMain.getValueAt(tablaMain.getSelectedRow(), 0);
-                ResultSet rs;
-                PreparedStatement ps = this.con.dameconexion().prepareStatement("SELECT * FROM Coche WHERE N_Bastidor = ?;");
-                ps.setString(1,bastidor);
-                rs = ps.executeQuery();
-                txtBastidorCocheModificar.setText(rs.getString("N_Bastidor"));
-                txtMarcaCocheModificar.setText(rs.getString("Marca"));
-                txtModeloCocheModificar.setText(rs.getString("Modelo"));
-                txtTipoCocheModificar.setText(rs.getString("Tipo"));
-                txtMotorCocheModificar.setText(rs.getString("Motor"));
-                txtCVCocheModificar.setText(Integer.toString(rs.getInt("CV")));
-                txtColorCocheModificar.setText(rs.getString("Color"));
-                txtPrecioCocheModificar.setText(Float.toString(rs.getFloat("Precio")));
+            String bastidor = (String)tablaMain.getValueAt(tablaMain.getSelectedRow(), 0);
+            ResultSet rs;
+            PreparedStatement ps = this.con.dameconexion().prepareStatement("SELECT * FROM Coche WHERE N_Bastidor = ?;");
+            ps.setString(1,bastidor);
+            rs = ps.executeQuery();
+            txtBastidorCocheModificar.setText(rs.getString("N_Bastidor"));
+            txtMarcaCocheModificar.setText(rs.getString("Marca"));
+            txtModeloCocheModificar.setText(rs.getString("Modelo"));
+            txtTipoCocheModificar.setText(rs.getString("Tipo"));
+            txtMotorCocheModificar.setText(rs.getString("Motor"));
+            txtCVCocheModificar.setText(Integer.toString(rs.getInt("CV")));
+            txtColorCocheModificar.setText(rs.getString("Color"));
+            txtPrecioCocheModificar.setText(Float.toString(rs.getFloat("Precio")));
 
-                pImagenCocheModificar.removeAll();
-                JPanel PanelImagen = new JPanel();
-                byte[] imagen_bytes=rs.getBytes("Img");//Toma el campo img de la base de datos en forma de bytes 
+            pImagenCocheModificar.removeAll();
+            JPanel PanelImagen = new JPanel();
+            byte[] imagen_bytes=rs.getBytes("Img");//Toma el campo img de la base de datos en forma de bytes 
 
-                JLabel picLabel;
-                picLabel = new JLabel(new ImageIcon(imagen_bytes));//Se reescala
-                PanelImagen.setBounds(5, 5, 180, 150);
-                PanelImagen.add(picLabel);//Se añade la imagen al Panel
-                PanelImagen.setName("IMAGEN"); //Se añade un NAME para luego poder buscarlo entre todos los componentes
-                pImagenCocheModificar.add(PanelImagen);//Se añade el Panel de la Imagen
-                modificarCoche.revalidate();
-            }
+            JLabel picLabel;
+            picLabel = new JLabel(new ImageIcon(imagen_bytes));//Se reescala
+            PanelImagen.setBounds(5, 5, 180, 150);
+            PanelImagen.add(picLabel);//Se añade la imagen al Panel
+            PanelImagen.setName("IMAGEN"); //Se añade un NAME para luego poder buscarlo entre todos los componentes
+            pImagenCocheModificar.add(PanelImagen);//Se añade el Panel de la Imagen
+            modificarCoche.revalidate();
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -3265,7 +3261,9 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAceptarCocheNuevoActionPerformed
 
     private void tablaMainMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaMainMouseReleased
-        if(tablaMain.getSelectedRow()!=-1){
+        int fila=this.tablaMain.rowAtPoint(evt.getPoint());
+        if(fila!=-1){
+            tablaMain.setRowSelectionInterval(fila, fila);
             btnVentaNueva.setEnabled(true);
             btnRevisionNueva.setEnabled(true);
             btnCocheModificar.setEnabled(true);
