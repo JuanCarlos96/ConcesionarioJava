@@ -47,6 +47,8 @@ public class Main extends javax.swing.JFrame {
         listarClientes();
         listarClientes2();
         listarClientes3();
+        rellenarComboMarca();
+        rellenarComboMotor();
         cerrar_app();
     }
     
@@ -86,6 +88,53 @@ public class Main extends javax.swing.JFrame {
             btnRevisionNueva.setEnabled(false);
             btnCocheModificar.setEnabled(false);
             btnCocheBorrar.setEnabled(false);
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
+    
+    private void listarCochesFiltro(String filtro, String dato){
+        DefaultTableModel modeloCoches = (DefaultTableModel) tablaMain.getModel();
+        for(int i=modeloCoches.getRowCount()-1; i>=0; i--) {
+            modeloCoches.removeRow(i);
+        }
+        
+        try{
+            ResultSet rs;
+            PreparedStatement consulta;
+            consulta = this.con.dameconexion().prepareStatement("SELECT N_Bastidor,Marca,Modelo,Motor,CV,Tipo,Color,Precio FROM Coche WHERE "+filtro+" LIKE '%"+dato+"%';");
+            rs = consulta.executeQuery();
+            
+            while (rs.next()){ 
+                modeloCoches.addRow(new Object[]{rs.getString("N_Bastidor"), rs.getString("Marca"), rs.getString("Modelo"), rs.getString("Motor"), rs.getInt("CV"), rs.getString("Tipo"), rs.getString("Color"), rs.getFloat("Precio")});
+            }
+            rs.close();
+            btnVentaNueva.setEnabled(false);
+            btnRevisionNueva.setEnabled(false);
+            btnCocheModificar.setEnabled(false);
+            btnCocheBorrar.setEnabled(false);
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
+    
+    private void listarCoches2Filtro(String filtro, String dato){
+        DefaultTableModel modeloCoches = (DefaultTableModel) jTable3.getModel();
+        for(int i=modeloCoches.getRowCount()-1; i>=0; i--) {
+            modeloCoches.removeRow(i);
+        }
+        
+        try{
+            ResultSet rs;
+            PreparedStatement consulta;
+            consulta = this.con.dameconexion().prepareStatement("SELECT N_Bastidor,Marca,Modelo FROM Coche WHERE "+filtro+" LIKE '%"+dato+"%';");
+            rs = consulta.executeQuery();
+            
+            while (rs.next()){ 
+                modeloCoches.addRow(new Object[]{rs.getString("N_Bastidor"), rs.getString("Marca"), rs.getString("Modelo")});
+            }
+            rs.close();
+            btnCargarCocheVentaModificar.setEnabled(false);
         }catch (SQLException e){
             e.printStackTrace();
         }
@@ -170,6 +219,51 @@ public class Main extends javax.swing.JFrame {
                 modeloClientes.addRow(new Object[]{rs.getString("Dni"),rs.getString("Nombre"),rs.getString("Apellidos")});
             }
             rs.close();
+            btnCargarClienteVentaNueva.setEnabled(false);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    private void listarClientes2Filtro(String filtro, String dato){
+        DefaultTableModel modeloClientes = (DefaultTableModel) jTable1.getModel();
+        for(int i=modeloClientes.getRowCount()-1; i>=0; i--){
+            modeloClientes.removeRow(i);
+        }
+        
+        try {
+            ResultSet rs;
+            PreparedStatement consulta;
+            consulta = this.con.dameconexion().prepareStatement("SELECT Dni,Nombre,Apellidos FROM Cliente WHERE "+filtro+" LIKE '%"+dato+"%';");
+            rs = consulta.executeQuery();
+            
+            while(rs.next()){
+                modeloClientes.addRow(new Object[]{rs.getString("Dni"),rs.getString("Nombre"),rs.getString("Apellidos")});
+            }
+            rs.close();
+            btnCargarClienteVentaNueva.setEnabled(false);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    private void listarClientes3Filtro(String filtro, String dato){
+        DefaultTableModel modeloClientes = (DefaultTableModel) jTable2.getModel();
+        for(int i=modeloClientes.getRowCount()-1; i>=0; i--){
+            modeloClientes.removeRow(i);
+        }
+        
+        try {
+            ResultSet rs;
+            PreparedStatement consulta;
+            consulta = this.con.dameconexion().prepareStatement("SELECT Dni,Nombre,Apellidos FROM Cliente WHERE "+filtro+" LIKE '%"+dato+"%';");
+            rs = consulta.executeQuery();
+            
+            while(rs.next()){
+                modeloClientes.addRow(new Object[]{rs.getString("Dni"),rs.getString("Nombre"),rs.getString("Apellidos")});
+            }
+            rs.close();
+            btnCargarClienteVentaNueva.setEnabled(false);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -191,6 +285,7 @@ public class Main extends javax.swing.JFrame {
                 modeloClientes.addRow(new Object[]{rs.getString("Dni"),rs.getString("Nombre"),rs.getString("Apellidos")});
             }
             rs.close();
+            btnCargarClienteVentaModificar.setEnabled(false);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -212,6 +307,7 @@ public class Main extends javax.swing.JFrame {
                 modeloCoches.addRow(new Object[]{rs.getString("N_Bastidor"), rs.getString("Marca"), rs.getString("Modelo")});
             }
             rs.close();
+            btnCargarCocheVentaModificar.setEnabled(false);
         }catch (SQLException e){
             e.printStackTrace();
         }
@@ -231,7 +327,7 @@ public class Main extends javax.swing.JFrame {
     
     private void insertarCoche(){
         Boolean inserta = true;
-        String bastidor = txtBastidorCocheNuevo.getText();
+        String bastidor = txtBastidorCocheNuevo.getText().toUpperCase();
         String marca = txtMarcaCocheNuevo.getText();
         String modelo = txtModeloCocheNuevo.getText();
         String tipo = txtTipoCocheNuevo.getText();
@@ -272,6 +368,10 @@ public class Main extends javax.swing.JFrame {
                     ps.setBytes(9,this.imagenblob);
                     ps.executeUpdate();
                     listarCoches();
+                    listarCoches2();
+                    rellenarComboMarca();
+                    rellenarComboMotor();
+                    JOptionPane.showMessageDialog(null, "Coche nuevo introducido correctamente", "", JOptionPane.INFORMATION_MESSAGE);
                     this.aniadirCoche.setVisible(false);
                 } catch (SQLException ex) {
                     if(ex.getErrorCode()==19){
@@ -319,6 +419,40 @@ public class Main extends javax.swing.JFrame {
         lblApellidosClienteMain.setText("");
         lblTelefonoClienteMain.setText("");
         lblDireccionClienteMain.setText("");
+    }
+    
+    private void rellenarComboMarca(){
+        cbMarcaMain.removeAllItems();
+        cbMarcaMain.addItem("");
+        try {
+            ResultSet rs;
+            PreparedStatement ps = this.con.dameconexion().prepareStatement("SELECT DISTINCT Marca FROM Coche;");
+            rs = ps.executeQuery();
+            
+            while(rs.next()){
+                cbMarcaMain.addItem(rs.getString("Marca"));
+            }
+            rs.close();
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+    
+    private void rellenarComboMotor(){
+        cbMotorMain.removeAllItems();
+        cbMotorMain.addItem("");
+        try {
+            ResultSet rs;
+            PreparedStatement ps = this.con.dameconexion().prepareStatement("SELECT DISTINCT Motor FROM Coche;");
+            rs = ps.executeQuery();
+            
+            while(rs.next()){
+                cbMotorMain.addItem(rs.getString("Motor"));
+            }
+            rs.close();
+        } catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -894,9 +1028,27 @@ public class Main extends javax.swing.JFrame {
 
         jSeparator2.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
-        cbBuscarClienteVentaNueva.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbBuscarClienteVentaNueva.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " ", "DNI", "Nombre", "Apellidos" }));
+        cbBuscarClienteVentaNueva.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cbBuscarClienteVentaNuevaItemStateChanged(evt);
+            }
+        });
+
+        txtBuscarClienteVentaNueva.setEditable(false);
+        txtBuscarClienteVentaNueva.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtBuscarClienteVentaNuevaKeyReleased(evt);
+            }
+        });
 
         btnBuscarClienteVentaNueva.setText("Buscar");
+        btnBuscarClienteVentaNueva.setEnabled(false);
+        btnBuscarClienteVentaNueva.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarClienteVentaNuevaActionPerformed(evt);
+            }
+        });
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -993,9 +1145,22 @@ public class Main extends javax.swing.JFrame {
         buscarClienteVentaModificar.setResizable(false);
         buscarClienteVentaModificar.setSize(new java.awt.Dimension(426, 270));
 
-        cbBuscarClienteVentaModificar.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbBuscarClienteVentaModificar.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " ", "DNI", "Nombre", "Apellidos" }));
+        cbBuscarClienteVentaModificar.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cbBuscarClienteVentaModificarItemStateChanged(evt);
+            }
+        });
+
+        txtBuscarClienteVentaModificar.setEditable(false);
 
         btnBuscarClienteVentaModificar.setText("Buscar");
+        btnBuscarClienteVentaModificar.setEnabled(false);
+        btnBuscarClienteVentaModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarClienteVentaModificarActionPerformed(evt);
+            }
+        });
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -1021,6 +1186,11 @@ public class Main extends javax.swing.JFrame {
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
+            }
+        });
+        jTable2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                jTable2MouseReleased(evt);
             }
         });
         jScrollPane6.setViewportView(jTable2);
@@ -1079,9 +1249,27 @@ public class Main extends javax.swing.JFrame {
         buscarCocheVentaModificar.setResizable(false);
         buscarCocheVentaModificar.setSize(new java.awt.Dimension(426, 270));
 
-        cbBuscarCocheVentaModificar.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbBuscarCocheVentaModificar.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " ", "Bastidor", "Marca", "Modelo" }));
+        cbBuscarCocheVentaModificar.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cbBuscarCocheVentaModificarItemStateChanged(evt);
+            }
+        });
+
+        txtBuscarCocheVentaModificar.setEditable(false);
+        txtBuscarCocheVentaModificar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtBuscarCocheVentaModificarKeyReleased(evt);
+            }
+        });
 
         btnBuscarCocheVentaModificar.setText("Buscar");
+        btnBuscarCocheVentaModificar.setEnabled(false);
+        btnBuscarCocheVentaModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarCocheVentaModificarActionPerformed(evt);
+            }
+        });
 
         jTable3.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -1107,6 +1295,11 @@ public class Main extends javax.swing.JFrame {
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
+            }
+        });
+        jTable3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                jTable3MouseReleased(evt);
             }
         });
         jScrollPane7.setViewportView(jTable3);
@@ -1665,7 +1858,7 @@ public class Main extends javax.swing.JFrame {
                     .addGroup(modificarVentaLayout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(modificarVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel69))))
                 .addGap(8, 8, 8))
         );
@@ -1836,21 +2029,51 @@ public class Main extends javax.swing.JFrame {
 
         jLabel2.setText("Marca");
 
-        cbMarcaMain.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbMarcaMain.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cbMarcaMainItemStateChanged(evt);
+            }
+        });
 
         jLabel3.setText("Motor");
 
-        cbMotorMain.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbMotorMain.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cbMotorMainItemStateChanged(evt);
+            }
+        });
 
-        cbBuscarMain.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbBuscarMain.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " ", "Bastidor", "Marca", "Modelo", "Motor", "CV", "Tipo", "Color", "Precio" }));
+        cbBuscarMain.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cbBuscarMainItemStateChanged(evt);
+            }
+        });
 
         jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
+        txtBuscarMain.setEditable(false);
         txtBuscarMain.setToolTipText("");
+        txtBuscarMain.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtBuscarMainKeyReleased(evt);
+            }
+        });
 
         btnBuscarMain.setText("Buscar");
+        btnBuscarMain.setEnabled(false);
+        btnBuscarMain.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarMainActionPerformed(evt);
+            }
+        });
 
         btnReiniciarBusqueda.setText("Reiniciar Búsqueda");
+        btnReiniciarBusqueda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReiniciarBusquedaActionPerformed(evt);
+            }
+        });
 
         tablaMain.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -2719,6 +2942,7 @@ public class Main extends javax.swing.JFrame {
         if(respuesta==0){//MODIFICAR CLIENTE
             modificarVenta.setLocationRelativeTo(null);
             btnBuscarCoche.setEnabled(false);
+            btnBuscarCliente.setEnabled(true);
             try {
                 ResultSet rs;
                 PreparedStatement ps = this.con.dameconexion().prepareStatement("SELECT * FROM Venta WHERE N_Bastidor = ? AND Dni = ?;");
@@ -2738,6 +2962,7 @@ public class Main extends javax.swing.JFrame {
         }else{//MODIFICAR COCHE
             modificarVenta.setLocationRelativeTo(null);
             btnBuscarCliente.setEnabled(false);
+            btnBuscarCoche.setEnabled(true);
             try {
                 ResultSet rs;
                 PreparedStatement ps = this.con.dameconexion().prepareStatement("SELECT * FROM Venta WHERE N_Bastidor = ? AND Dni = ?;");
@@ -2764,6 +2989,7 @@ public class Main extends javax.swing.JFrame {
 
     private void btnBuscarCocheActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarCocheActionPerformed
         buscarCocheVentaModificar.setLocationRelativeTo(null);
+        btnCargarCocheVentaModificar.setEnabled(false);
         buscarCocheVentaModificar.setVisible(true);
     }//GEN-LAST:event_btnBuscarCocheActionPerformed
 
@@ -2774,6 +3000,15 @@ public class Main extends javax.swing.JFrame {
 
     private void btnCargarCocheVentaModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCargarCocheVentaModificarActionPerformed
         txtBastidorVentaModificar.setText((String)jTable3.getValueAt(jTable3.getSelectedRow(), 0));
+        try {
+            ResultSet rs;
+            PreparedStatement ps = this.con.dameconexion().prepareStatement("SELECT Precio FROM Coche WHERE N_Bastidor=?;");
+            ps.setString(1,(String)jTable3.getValueAt(jTable3.getSelectedRow(), 0));
+            rs = ps.executeQuery();
+            txtPrecioVentaModificar.setText(Float.toString(rs.getFloat("Precio")));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         buscarCocheVentaModificar.setVisible(false);
     }//GEN-LAST:event_btnCargarCocheVentaModificarActionPerformed
 
@@ -2890,6 +3125,8 @@ public class Main extends javax.swing.JFrame {
                 listarCoches2();
                 listarRevisiones();
                 listarVentas();
+                rellenarComboMarca();
+                rellenarComboMotor();
                 JOptionPane.showMessageDialog(null, "Coche eliminado correctamente", "", JOptionPane.INFORMATION_MESSAGE);
             } catch (SQLException ex) {
                 Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
@@ -2951,6 +3188,7 @@ public class Main extends javax.swing.JFrame {
                 ps.setString(1,(String)tablaClientes.getValueAt(tablaClientes.getSelectedRow(), 0));
                 ps.executeUpdate();
                 listarClientes();
+                listarClientes2();
                 listarVentas();
                 lblDniClienteMain.setText("");
                 lblNombreClienteMain.setText("");
@@ -3085,25 +3323,47 @@ public class Main extends javax.swing.JFrame {
         if(txtMarcaCocheModificar.getText().equals("") || txtModeloCocheModificar.getText().equals("") || txtTipoCocheModificar.getText().equals("") || txtMotorCocheModificar.getText().equals("") || txtCVCocheModificar.getText().equals("") || txtColorCocheModificar.getText().equals("") || txtPrecioCocheModificar.getText().equals("")){
             JOptionPane.showMessageDialog(null, "Ningún campo debe estar vacío", "", JOptionPane.WARNING_MESSAGE);
         }else{
+            int cv = 0;
+            float precio = 0;
+            boolean inserta = true;
+            
             try {
-                PreparedStatement ps = this.con.dameconexion().prepareStatement("UPDATE Coche SET Marca=?,Modelo=?,Motor=?,CV=?,Tipo=?,Color=?,Precio=? WHERE N_Bastidor = ?;");
-                ps.setString(1,txtMarcaCocheModificar.getText());
-                ps.setString(2,txtModeloCocheModificar.getText());
-                ps.setString(3, txtMotorCocheModificar.getText());
-                ps.setInt(4, Integer.parseInt(txtCVCocheModificar.getText()));
-                ps.setString(5,txtTipoCocheModificar.getText());
-                ps.setString(6,txtColorCocheModificar.getText());
-                ps.setFloat(7, Float.parseFloat(txtPrecioCocheModificar.getText()));
-                ps.setString(8,txtBastidorCocheModificar.getText());
-                ps.executeUpdate();
-                listarCoches();
-                listarCoches2();
-                listarRevisiones();
-                listarVentas();
-                JOptionPane.showMessageDialog(null, "Coche modificado correctamente", "", JOptionPane.INFORMATION_MESSAGE);
-                modificarCoche.setVisible(false);
-            } catch (SQLException ex) {
-                Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+                cv = Integer.parseInt(txtCVCocheModificar.getText());
+            } catch (NumberFormatException e) {
+                inserta = false;
+                JOptionPane.showMessageDialog(null, "Los CV deben ser un número entero", "", JOptionPane.WARNING_MESSAGE);
+            }
+
+            try {
+                precio = Float.parseFloat(txtPrecioCocheModificar.getText());
+            } catch (NumberFormatException e) {
+                inserta = false;
+                JOptionPane.showMessageDialog(null, "El precio debe ser un número real", "", JOptionPane.WARNING_MESSAGE);
+            }
+            
+            if(inserta){
+                try {
+                    PreparedStatement ps = this.con.dameconexion().prepareStatement("UPDATE Coche SET Marca=?,Modelo=?,Motor=?,CV=?,Tipo=?,Color=?,Precio=? WHERE N_Bastidor = ?;");
+                    ps.setString(1,txtMarcaCocheModificar.getText());
+                    ps.setString(2,txtModeloCocheModificar.getText());
+                    ps.setString(3, txtMotorCocheModificar.getText());
+                    ps.setInt(4, cv);
+                    ps.setString(5,txtTipoCocheModificar.getText());
+                    ps.setString(6,txtColorCocheModificar.getText());
+                    ps.setFloat(7, precio);
+                    ps.setString(8,txtBastidorCocheModificar.getText());
+                    ps.executeUpdate();
+                    listarCoches();
+                    listarCoches2();
+                    listarRevisiones();
+                    listarVentas();
+                    rellenarComboMarca();
+                    rellenarComboMotor();
+                    JOptionPane.showMessageDialog(null, "Coche modificado correctamente", "", JOptionPane.INFORMATION_MESSAGE);
+                    modificarCoche.setVisible(false);
+                } catch (SQLException ex) {
+                    Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         }
     }//GEN-LAST:event_btnAceptarCocheModificarActionPerformed
@@ -3280,6 +3540,312 @@ public class Main extends javax.swing.JFrame {
     private void jTabbedPane1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jTabbedPane1StateChanged
         limpiarTodo();
     }//GEN-LAST:event_jTabbedPane1StateChanged
+
+    private void cbBuscarMainItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbBuscarMainItemStateChanged
+        if(cbBuscarMain.getSelectedIndex()!=0){
+            txtBuscarMain.setEditable(true);
+            btnBuscarMain.setEnabled(true);
+        }else{
+            txtBuscarMain.setText("");
+            txtBuscarMain.setEditable(false);
+            btnBuscarMain.setEnabled(false);
+            listarCoches();
+        }
+    }//GEN-LAST:event_cbBuscarMainItemStateChanged
+
+    private void btnBuscarMainActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarMainActionPerformed
+        if(txtBuscarMain.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "El campo no puede estar vacío", "", JOptionPane.WARNING_MESSAGE);
+        }else{
+            String campo = (String) cbBuscarMain.getSelectedItem();
+            if(campo.equals("Bastidor"))
+                campo = "N_Bastidor";
+            
+            listarCochesFiltro(campo, txtBuscarMain.getText());
+        }
+    }//GEN-LAST:event_btnBuscarMainActionPerformed
+
+    private void txtBuscarMainKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarMainKeyReleased
+        //System.out.println(evt.getKeyCode());
+        if(evt.getKeyCode()==10){
+            if(txtBuscarMain.getText().equals("")){
+                JOptionPane.showMessageDialog(null, "El campo no puede estar vacío", "", JOptionPane.WARNING_MESSAGE);
+            }else{
+                String campo = (String) cbBuscarMain.getSelectedItem();
+                if(campo.equals("Bastidor"))
+                    campo = "N_Bastidor";
+
+                listarCochesFiltro(campo, txtBuscarMain.getText());
+            }
+        }
+    }//GEN-LAST:event_txtBuscarMainKeyReleased
+
+    private void cbMarcaMainItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbMarcaMainItemStateChanged
+        if(cbMarcaMain.getSelectedIndex()>0 && cbMotorMain.getSelectedIndex()>0){
+            try {
+                ResultSet rs;
+                PreparedStatement ps = this.con.dameconexion().prepareStatement("SELECT N_Bastidor,Marca,Modelo,Motor,CV,Tipo,Color,Precio FROM Coche WHERE Marca=? AND Motor=?;");
+                ps.setString(1, (String)cbMarcaMain.getSelectedItem());
+                ps.setString(2, (String)cbMotorMain.getSelectedItem());
+                rs = ps.executeQuery();
+                
+                DefaultTableModel modeloCoches = (DefaultTableModel)tablaMain.getModel();
+                for(int i=modeloCoches.getRowCount()-1; i>=0; i--) {
+                    modeloCoches.removeRow(i);
+                }
+                
+                while (rs.next()){ 
+                    modeloCoches.addRow(new Object[]{rs.getString("N_Bastidor"), rs.getString("Marca"), rs.getString("Modelo"), rs.getString("Motor"), rs.getInt("CV"), rs.getString("Tipo"), rs.getString("Color"), rs.getFloat("Precio")});
+                }
+                rs.close();
+                btnVentaNueva.setEnabled(false);
+                btnRevisionNueva.setEnabled(false);
+                btnCocheModificar.setEnabled(false);
+                btnCocheBorrar.setEnabled(false);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }else if(cbMarcaMain.getSelectedIndex()>0 && cbMotorMain.getSelectedIndex()<=0){
+            try {
+                ResultSet rs;
+                PreparedStatement ps = this.con.dameconexion().prepareStatement("SELECT N_Bastidor,Marca,Modelo,Motor,CV,Tipo,Color,Precio FROM Coche WHERE Marca=?;");
+                ps.setString(1, (String)cbMarcaMain.getSelectedItem());
+                rs = ps.executeQuery();
+                
+                DefaultTableModel modeloCoches = (DefaultTableModel)tablaMain.getModel();
+                for(int i=modeloCoches.getRowCount()-1; i>=0; i--) {
+                    modeloCoches.removeRow(i);
+                }
+                
+                while (rs.next()){ 
+                    modeloCoches.addRow(new Object[]{rs.getString("N_Bastidor"), rs.getString("Marca"), rs.getString("Modelo"), rs.getString("Motor"), rs.getInt("CV"), rs.getString("Tipo"), rs.getString("Color"), rs.getFloat("Precio")});
+                }
+                rs.close();
+                btnVentaNueva.setEnabled(false);
+                btnRevisionNueva.setEnabled(false);
+                btnCocheModificar.setEnabled(false);
+                btnCocheBorrar.setEnabled(false);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }else if(cbMarcaMain.getSelectedIndex()<=0 && cbMotorMain.getSelectedIndex()>0){
+            try {
+                ResultSet rs;
+                PreparedStatement ps = this.con.dameconexion().prepareStatement("SELECT N_Bastidor,Marca,Modelo,Motor,CV,Tipo,Color,Precio FROM Coche WHERE Motor=?;");
+                ps.setString(1, (String)cbMotorMain.getSelectedItem());
+                rs = ps.executeQuery();
+                
+                DefaultTableModel modeloCoches = (DefaultTableModel)tablaMain.getModel();
+                for(int i=modeloCoches.getRowCount()-1; i>=0; i--) {
+                    modeloCoches.removeRow(i);
+                }
+                
+                while (rs.next()){ 
+                    modeloCoches.addRow(new Object[]{rs.getString("N_Bastidor"), rs.getString("Marca"), rs.getString("Modelo"), rs.getString("Motor"), rs.getInt("CV"), rs.getString("Tipo"), rs.getString("Color"), rs.getFloat("Precio")});
+                }
+                rs.close();
+                btnVentaNueva.setEnabled(false);
+                btnRevisionNueva.setEnabled(false);
+                btnCocheModificar.setEnabled(false);
+                btnCocheBorrar.setEnabled(false);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }else{
+            listarCoches();
+        }
+        cbBuscarMain.setSelectedIndex(0);
+    }//GEN-LAST:event_cbMarcaMainItemStateChanged
+
+    private void cbMotorMainItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbMotorMainItemStateChanged
+        if(cbMotorMain.getSelectedIndex()>0 && cbMarcaMain.getSelectedIndex()>0){
+            try {
+                ResultSet rs;
+                PreparedStatement ps = this.con.dameconexion().prepareStatement("SELECT N_Bastidor,Marca,Modelo,Motor,CV,Tipo,Color,Precio FROM Coche WHERE Marca=? AND Motor=?;");
+                ps.setString(1, (String)cbMarcaMain.getSelectedItem());
+                ps.setString(2, (String)cbMotorMain.getSelectedItem());
+                rs = ps.executeQuery();
+                
+                DefaultTableModel modeloCoches = (DefaultTableModel)tablaMain.getModel();
+                for(int i=modeloCoches.getRowCount()-1; i>=0; i--) {
+                    modeloCoches.removeRow(i);
+                }
+                
+                while (rs.next()){ 
+                    modeloCoches.addRow(new Object[]{rs.getString("N_Bastidor"), rs.getString("Marca"), rs.getString("Modelo"), rs.getString("Motor"), rs.getInt("CV"), rs.getString("Tipo"), rs.getString("Color"), rs.getFloat("Precio")});
+                }
+                rs.close();
+                btnVentaNueva.setEnabled(false);
+                btnRevisionNueva.setEnabled(false);
+                btnCocheModificar.setEnabled(false);
+                btnCocheBorrar.setEnabled(false);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }else if(cbMotorMain.getSelectedIndex()>0 && cbMarcaMain.getSelectedIndex()<=0){
+            try {
+                ResultSet rs;
+                PreparedStatement ps = this.con.dameconexion().prepareStatement("SELECT N_Bastidor,Marca,Modelo,Motor,CV,Tipo,Color,Precio FROM Coche WHERE Motor=?;");
+                ps.setString(1, (String)cbMotorMain.getSelectedItem());
+                rs = ps.executeQuery();
+                
+                DefaultTableModel modeloCoches = (DefaultTableModel)tablaMain.getModel();
+                for(int i=modeloCoches.getRowCount()-1; i>=0; i--) {
+                    modeloCoches.removeRow(i);
+                }
+                
+                while (rs.next()){ 
+                    modeloCoches.addRow(new Object[]{rs.getString("N_Bastidor"), rs.getString("Marca"), rs.getString("Modelo"), rs.getString("Motor"), rs.getInt("CV"), rs.getString("Tipo"), rs.getString("Color"), rs.getFloat("Precio")});
+                }
+                rs.close();
+                btnVentaNueva.setEnabled(false);
+                btnRevisionNueva.setEnabled(false);
+                btnCocheModificar.setEnabled(false);
+                btnCocheBorrar.setEnabled(false);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }else if(cbMotorMain.getSelectedIndex()<=0 && cbMarcaMain.getSelectedIndex()>0){
+            try {
+                ResultSet rs;
+                PreparedStatement ps = this.con.dameconexion().prepareStatement("SELECT N_Bastidor,Marca,Modelo,Motor,CV,Tipo,Color,Precio FROM Coche WHERE Marca=?;");
+                ps.setString(1, (String)cbMarcaMain.getSelectedItem());
+                rs = ps.executeQuery();
+                
+                DefaultTableModel modeloCoches = (DefaultTableModel)tablaMain.getModel();
+                for(int i=modeloCoches.getRowCount()-1; i>=0; i--) {
+                    modeloCoches.removeRow(i);
+                }
+                
+                while (rs.next()){ 
+                    modeloCoches.addRow(new Object[]{rs.getString("N_Bastidor"), rs.getString("Marca"), rs.getString("Modelo"), rs.getString("Motor"), rs.getInt("CV"), rs.getString("Tipo"), rs.getString("Color"), rs.getFloat("Precio")});
+                }
+                rs.close();
+                btnVentaNueva.setEnabled(false);
+                btnRevisionNueva.setEnabled(false);
+                btnCocheModificar.setEnabled(false);
+                btnCocheBorrar.setEnabled(false);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }else{
+            listarCoches();
+        }
+        cbBuscarMain.setSelectedIndex(0);
+    }//GEN-LAST:event_cbMotorMainItemStateChanged
+
+    private void btnReiniciarBusquedaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReiniciarBusquedaActionPerformed
+        cbBuscarMain.setSelectedIndex(0);
+        cbMarcaMain.setSelectedIndex(0);
+        cbMotorMain.setSelectedIndex(0);
+        listarCoches();
+    }//GEN-LAST:event_btnReiniciarBusquedaActionPerformed
+
+    private void btnBuscarClienteVentaNuevaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarClienteVentaNuevaActionPerformed
+        if(txtBuscarClienteVentaNueva.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "El campo no puede estar vacío", "", JOptionPane.WARNING_MESSAGE);
+        }else{
+            String campo = (String) cbBuscarClienteVentaNueva.getSelectedItem();
+            
+            listarClientes2Filtro(campo, txtBuscarClienteVentaNueva.getText());
+        }
+    }//GEN-LAST:event_btnBuscarClienteVentaNuevaActionPerformed
+
+    private void cbBuscarClienteVentaNuevaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbBuscarClienteVentaNuevaItemStateChanged
+        if(cbBuscarClienteVentaNueva.getSelectedIndex()!=0){
+            txtBuscarClienteVentaNueva.setEditable(true);
+            btnBuscarClienteVentaNueva.setEnabled(true);
+        }else{
+            txtBuscarClienteVentaNueva.setText("");
+            txtBuscarClienteVentaNueva.setEditable(false);
+            btnBuscarClienteVentaNueva.setEnabled(false);
+            listarClientes2();
+        }
+    }//GEN-LAST:event_cbBuscarClienteVentaNuevaItemStateChanged
+
+    private void txtBuscarClienteVentaNuevaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarClienteVentaNuevaKeyReleased
+        if(evt.getKeyCode()==10){
+            if(txtBuscarClienteVentaNueva.getText().equals("")){
+                JOptionPane.showMessageDialog(null, "El campo no puede estar vacío", "", JOptionPane.WARNING_MESSAGE);
+            }else{
+                String campo = (String) cbBuscarClienteVentaNueva.getSelectedItem();
+
+                listarClientes2Filtro(campo, txtBuscarClienteVentaNueva.getText());
+            }
+        }
+    }//GEN-LAST:event_txtBuscarClienteVentaNuevaKeyReleased
+
+    private void cbBuscarClienteVentaModificarItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbBuscarClienteVentaModificarItemStateChanged
+        if(cbBuscarClienteVentaModificar.getSelectedIndex()!=0){
+            txtBuscarClienteVentaModificar.setEditable(true);
+            btnBuscarClienteVentaModificar.setEnabled(true);
+        }else{
+            txtBuscarClienteVentaModificar.setText("");
+            txtBuscarClienteVentaModificar.setEditable(false);
+            btnBuscarClienteVentaModificar.setEnabled(false);
+            listarClientes3();
+        }
+    }//GEN-LAST:event_cbBuscarClienteVentaModificarItemStateChanged
+
+    private void btnBuscarClienteVentaModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarClienteVentaModificarActionPerformed
+        if(txtBuscarClienteVentaModificar.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "El campo no puede estar vacío", "", JOptionPane.WARNING_MESSAGE);
+        }else{
+            String campo = (String) cbBuscarClienteVentaModificar.getSelectedItem();
+            
+            listarClientes3Filtro(campo, txtBuscarClienteVentaModificar.getText());
+        }
+    }//GEN-LAST:event_btnBuscarClienteVentaModificarActionPerformed
+
+    private void jTable2MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable2MouseReleased
+        if(jTable2.getSelectedRow()!=-1){
+            btnCargarClienteVentaModificar.setEnabled(true);
+        }
+    }//GEN-LAST:event_jTable2MouseReleased
+
+    private void cbBuscarCocheVentaModificarItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbBuscarCocheVentaModificarItemStateChanged
+        if(cbBuscarCocheVentaModificar.getSelectedIndex()!=0){
+            txtBuscarCocheVentaModificar.setEditable(true);
+            btnBuscarCocheVentaModificar.setEnabled(true);
+        }else{
+            txtBuscarCocheVentaModificar.setText("");
+            txtBuscarCocheVentaModificar.setEditable(false);
+            btnBuscarCocheVentaModificar.setEnabled(false);
+            listarCoches2();
+        }
+    }//GEN-LAST:event_cbBuscarCocheVentaModificarItemStateChanged
+
+    private void btnBuscarCocheVentaModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarCocheVentaModificarActionPerformed
+        if(txtBuscarCocheVentaModificar.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "El campo no puede estar vacío", "", JOptionPane.WARNING_MESSAGE);
+        }else{
+            String campo = (String) cbBuscarCocheVentaModificar.getSelectedItem();
+            if(campo.equals("Bastidor"))
+                campo = "N_Bastidor";
+
+            listarCoches2Filtro(campo, txtBuscarCocheVentaModificar.getText());
+        }
+    }//GEN-LAST:event_btnBuscarCocheVentaModificarActionPerformed
+
+    private void txtBuscarCocheVentaModificarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarCocheVentaModificarKeyReleased
+        if(evt.getKeyCode()==10){
+            if(txtBuscarCocheVentaModificar.getText().equals("")){
+                JOptionPane.showMessageDialog(null, "El campo no puede estar vacío", "", JOptionPane.WARNING_MESSAGE);
+            }else{
+                String campo = (String) cbBuscarCocheVentaModificar.getSelectedItem();
+                if(campo.equals("Bastidor"))
+                    campo = "N_Bastidor";
+
+                listarCoches2Filtro(campo, txtBuscarCocheVentaModificar.getText());
+            }
+        }
+    }//GEN-LAST:event_txtBuscarCocheVentaModificarKeyReleased
+
+    private void jTable3MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable3MouseReleased
+        if(jTable3.getSelectedRow()!=-1){
+            btnCargarCocheVentaModificar.setEnabled(true);
+        }
+    }//GEN-LAST:event_jTable3MouseReleased
 
     /**
      * @param args the command line arguments
