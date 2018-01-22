@@ -454,7 +454,64 @@ public class Main extends javax.swing.JFrame {
             e.printStackTrace();
         }
     }
-
+    
+    private void modificarCoche(){
+        modificarCoche.setLocationRelativeTo(null);
+        try {
+            
+            String bastidor = (String)tablaMain.getValueAt(tablaMain.getSelectedRow(), 0);
+            ResultSet rs;
+            PreparedStatement ps = this.con.dameconexion().prepareStatement("SELECT * FROM Coche WHERE N_Bastidor = ?;");
+            ps.setString(1,bastidor);
+            rs = ps.executeQuery();
+            txtBastidorCocheModificar.setText(rs.getString("N_Bastidor"));
+            txtMarcaCocheModificar.setText(rs.getString("Marca"));
+            txtModeloCocheModificar.setText(rs.getString("Modelo"));
+            txtTipoCocheModificar.setText(rs.getString("Tipo"));
+            txtMotorCocheModificar.setText(rs.getString("Motor"));
+            txtCVCocheModificar.setText(Integer.toString(rs.getInt("CV")));
+            txtColorCocheModificar.setText(rs.getString("Color"));
+            txtPrecioCocheModificar.setText(Float.toString(rs.getFloat("Precio")));
+            
+            pImagenCocheModificar.removeAll();
+            JPanel PanelImagen = new JPanel();
+            byte[] imagen_bytes=rs.getBytes("Img");//Toma el campo img de la base de datos en forma de bytes 
+            
+            JLabel picLabel;
+            picLabel = new JLabel(new ImageIcon(imagen_bytes));//Se reescala
+            PanelImagen.setBounds(5, 5, 180, 150);
+            PanelImagen.add(picLabel);//Se añade la imagen al Panel
+            PanelImagen.setName("IMAGEN"); //Se añade un NAME para luego poder buscarlo entre todos los componentes
+            pImagenCocheModificar.add(PanelImagen);//Se añade el Panel de la Imagen
+            modificarCoche.revalidate();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        btnImagenCocheModificar.setEnabled(false);
+        modificarCoche.setVisible(true);
+    }
+    
+    private void eliminarCoche(){
+        int opcion = JOptionPane.showConfirmDialog(null, "¿Desea eliminar el coche seleccionado?", "Eliminar coche", JOptionPane.OK_CANCEL_OPTION);
+        //System.out.println(opcion);
+        if(opcion==0){
+            try {
+                PreparedStatement ps = this.con.dameconexion().prepareStatement("DELETE FROM Coche WHERE N_Bastidor = ?;");
+                ps.setString(1, (String)tablaMain.getValueAt(tablaMain.getSelectedRow(), 0));
+                ps.executeUpdate();
+                listarCoches();
+                listarCoches2();
+                listarRevisiones();
+                listarVentas();
+                rellenarComboMarca();
+                rellenarComboMotor();
+                JOptionPane.showMessageDialog(null, "Coche eliminado correctamente", "", JOptionPane.INFORMATION_MESSAGE);
+            } catch (SQLException ex) {
+                Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -621,6 +678,10 @@ public class Main extends javax.swing.JFrame {
         acercaDe = new javax.swing.JDialog();
         jLabel79 = new javax.swing.JLabel();
         jFileChooser1 = new javax.swing.JFileChooser();
+        popupCoche = new javax.swing.JPopupMenu();
+        nuevocoche = new javax.swing.JMenuItem();
+        editarcoche = new javax.swing.JMenuItem();
+        borrarcoche = new javax.swing.JMenuItem();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         coches = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -2015,6 +2076,30 @@ public class Main extends javax.swing.JFrame {
                 .addGap(25, 25, 25))
         );
 
+        nuevocoche.setText("Nuevo");
+        nuevocoche.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nuevococheActionPerformed(evt);
+            }
+        });
+        popupCoche.add(nuevocoche);
+
+        editarcoche.setText("Editar");
+        editarcoche.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editarcocheActionPerformed(evt);
+            }
+        });
+        popupCoche.add(editarcoche);
+
+        borrarcoche.setText("Borrar");
+        borrarcoche.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                borrarcocheActionPerformed(evt);
+            }
+        });
+        popupCoche.add(borrarcoche);
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Concesionario");
         setResizable(false);
@@ -2103,6 +2188,9 @@ public class Main extends javax.swing.JFrame {
         });
         tablaMain.getTableHeader().setReorderingAllowed(false);
         tablaMain.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablaMainMouseClicked(evt);
+            }
             public void mouseReleased(java.awt.event.MouseEvent evt) {
                 tablaMainMouseReleased(evt);
             }
@@ -2769,38 +2857,7 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCocheNuevoActionPerformed
 
     private void btnCocheModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCocheModificarActionPerformed
-        modificarCoche.setLocationRelativeTo(null);
-        try {
-            String bastidor = (String)tablaMain.getValueAt(tablaMain.getSelectedRow(), 0);
-            ResultSet rs;
-            PreparedStatement ps = this.con.dameconexion().prepareStatement("SELECT * FROM Coche WHERE N_Bastidor = ?;");
-            ps.setString(1,bastidor);
-            rs = ps.executeQuery();
-            txtBastidorCocheModificar.setText(rs.getString("N_Bastidor"));
-            txtMarcaCocheModificar.setText(rs.getString("Marca"));
-            txtModeloCocheModificar.setText(rs.getString("Modelo"));
-            txtTipoCocheModificar.setText(rs.getString("Tipo"));
-            txtMotorCocheModificar.setText(rs.getString("Motor"));
-            txtCVCocheModificar.setText(Integer.toString(rs.getInt("CV")));
-            txtColorCocheModificar.setText(rs.getString("Color"));
-            txtPrecioCocheModificar.setText(Float.toString(rs.getFloat("Precio")));
-            
-            pImagenCocheModificar.removeAll();
-            JPanel PanelImagen = new JPanel();
-            byte[] imagen_bytes=rs.getBytes("Img");//Toma el campo img de la base de datos en forma de bytes 
-            
-            JLabel picLabel;
-            picLabel = new JLabel(new ImageIcon(imagen_bytes));//Se reescala
-            PanelImagen.setBounds(5, 5, 180, 150);
-            PanelImagen.add(picLabel);//Se añade la imagen al Panel
-            PanelImagen.setName("IMAGEN"); //Se añade un NAME para luego poder buscarlo entre todos los componentes
-            pImagenCocheModificar.add(PanelImagen);//Se añade el Panel de la Imagen
-            modificarCoche.revalidate();
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-        btnImagenCocheModificar.setEnabled(false);
-        modificarCoche.setVisible(true);
+        modificarCoche();
     }//GEN-LAST:event_btnCocheModificarActionPerformed
 
     private void btnVentaNuevaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVentaNuevaActionPerformed
@@ -3114,24 +3171,7 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_salirActionPerformed
 
     private void btnCocheBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCocheBorrarActionPerformed
-        int opcion = JOptionPane.showConfirmDialog(null, "¿Desea eliminar el coche seleccionado?", "Eliminar coche", JOptionPane.OK_CANCEL_OPTION);
-        //System.out.println(opcion);
-        if(opcion==0){
-            try {
-                PreparedStatement ps = this.con.dameconexion().prepareStatement("DELETE FROM Coche WHERE N_Bastidor = ?;");
-                ps.setString(1, (String)tablaMain.getValueAt(tablaMain.getSelectedRow(), 0));
-                ps.executeUpdate();
-                listarCoches();
-                listarCoches2();
-                listarRevisiones();
-                listarVentas();
-                rellenarComboMarca();
-                rellenarComboMotor();
-                JOptionPane.showMessageDialog(null, "Coche eliminado correctamente", "", JOptionPane.INFORMATION_MESSAGE);
-            } catch (SQLException ex) {
-                Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
+        eliminarCoche();
     }//GEN-LAST:event_btnCocheBorrarActionPerformed
 
     private void btnRevisionBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRevisionBorrarActionPerformed
@@ -3847,6 +3887,26 @@ public class Main extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jTable3MouseReleased
 
+    private void nuevococheActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nuevococheActionPerformed
+        btnCocheNuevoActionPerformed(evt);
+    }//GEN-LAST:event_nuevococheActionPerformed
+
+    private void tablaMainMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaMainMouseClicked
+        if(evt.getClickCount()==2)
+            modificarCoche();
+        
+        if(evt.getButton()==3)
+            this.popupCoche.show(evt.getComponent(),evt.getX(), evt.getY());
+    }//GEN-LAST:event_tablaMainMouseClicked
+
+    private void editarcocheActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarcocheActionPerformed
+        modificarCoche();
+    }//GEN-LAST:event_editarcocheActionPerformed
+
+    private void borrarcocheActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_borrarcocheActionPerformed
+        eliminarCoche();
+    }//GEN-LAST:event_borrarcocheActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -3892,6 +3952,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JDialog aniadirVenta;
     private javax.swing.JMenu archivo;
     private javax.swing.JMenu ayuda;
+    private javax.swing.JMenuItem borrarcoche;
     private javax.swing.JButton btnAceptarClienteModificar;
     private javax.swing.JButton btnAceptarCocheModificar;
     private javax.swing.JButton btnAceptarCocheNuevo;
@@ -3947,6 +4008,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JCheckBox chkFrenosRevisionNueva;
     private javax.swing.JPanel clientes;
     private javax.swing.JPanel coches;
+    private javax.swing.JMenuItem editarcoche;
     private com.toedter.calendar.JDateChooser jDateChooser;
     private javax.swing.JFileChooser jFileChooser1;
     private javax.swing.JLabel jLabel1;
@@ -4076,9 +4138,11 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JDialog modificarCoche;
     private javax.swing.JDialog modificarRevision;
     private javax.swing.JDialog modificarVenta;
+    private javax.swing.JMenuItem nuevocoche;
     private javax.swing.JPanel pImagenCocheModificar;
     private javax.swing.JPanel pImagenCocheNuevo;
     private javax.swing.JPanel pImagenRevisionMain;
+    private javax.swing.JPopupMenu popupCoche;
     private javax.swing.JMenuItem reiniciarbd;
     private javax.swing.JPanel revisiones;
     private javax.swing.JMenuItem salir;
