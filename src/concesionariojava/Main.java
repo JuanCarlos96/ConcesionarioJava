@@ -511,6 +511,180 @@ public class Main extends javax.swing.JFrame {
         }
     }
     
+    private void modificarRevision(){
+        modificarRevision.setLocationRelativeTo(null);
+        try {
+            ResultSet rs;
+            PreparedStatement ps = this.con.dameconexion().prepareStatement("SELECT r.N_Revision,r.Fecha,c.Marca,c.Modelo,r.N_Bastidor,r.Frenos,r.Filtro,r.Aceite FROM Revision AS r, Coche AS c WHERE r.N_Revision=? AND r.N_Bastidor=c.N_Bastidor;");
+            ps.setInt(1, (int)tablaRevisiones.getValueAt(tablaRevisiones.getSelectedRow(), 0));
+            rs = ps.executeQuery();
+            lblNumeroRevisionModificar.setText(Integer.toString(rs.getInt("N_Revision")));
+            lblFechaRevisionModificar.setText(rs.getString("Fecha"));
+            lblMarcaRevisionModificar.setText(rs.getString("Marca"));
+            lblModeloRevisionModificar.setText(rs.getString("Modelo"));
+            lblBastidorRevisionModificar.setText(rs.getString("N_Bastidor"));
+            String frenos = rs.getString("Frenos");
+            String filtro = rs.getString("Filtro");
+            String aceite = rs.getString("Aceite");
+            
+            if(frenos.equals("Sí")){
+                chkFrenosRevisionModificar.setSelected(true);
+            }else{
+                chkFrenosRevisionModificar.setSelected(false);
+            }
+            
+            if(filtro.equals("Sí")){
+                chkFiltroRevisionModificar.setSelected(true);
+            }else{
+                chkFiltroRevisionModificar.setSelected(false);
+            }
+            
+            if(aceite.equals("Sí")){
+                chkAceiteRevisionModificar.setSelected(true);
+            }else{
+                chkAceiteRevisionModificar.setSelected(false);
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        modificarRevision.setVisible(true);
+    }
+    
+    private void eliminarRevision(){
+        int opcion = JOptionPane.showConfirmDialog(null, "¿Desea eliminar la revisión seleccionada?", "Eliminar revision", JOptionPane.OK_CANCEL_OPTION);
+        if(opcion==0){
+            try {
+                PreparedStatement ps = this.con.dameconexion().prepareStatement("DELETE FROM Revision WHERE N_Revision = ?;");
+                ps.setInt(1,(int)tablaRevisiones.getValueAt(tablaRevisiones.getSelectedRow(), 0));
+                ps.executeUpdate();
+                listarRevisiones();
+                lblNumeroRevisionMain.setText("");
+                lblFechaRevisionMain.setText("");
+                lblBastidorRevisionMain.setText("");
+                lblMarcaRevisionMain.setText("");
+                lblModeloRevisionMain.setText("");
+                lblFiltroRevisionMain.setText("");
+                lblFrenosRevisionMain.setText("");
+                lblAceiteRevisionMain.setText("");
+                pImagenRevisionMain.removeAll();
+                JOptionPane.showMessageDialog(null, "Revisión eliminada correctamente", "", JOptionPane.INFORMATION_MESSAGE);
+            } catch (SQLException e) {
+                Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, e);
+            }
+        }
+    }
+    
+    private void modificarVenta(){
+        String[] options = new String[2];
+        options[0] = "Cliente";
+        options[1] = "Coche";
+        int respuesta = JOptionPane.showOptionDialog(null, "¿Qué desea modificar?", "Modificar venta", 0, JOptionPane.QUESTION_MESSAGE, null, options, null);
+        //System.out.println(respuesta);
+        if(respuesta==0){//MODIFICAR CLIENTE
+            modificarVenta.setLocationRelativeTo(null);
+            btnBuscarCoche.setEnabled(false);
+            btnBuscarCliente.setEnabled(true);
+            try {
+                ResultSet rs;
+                PreparedStatement ps = this.con.dameconexion().prepareStatement("SELECT * FROM Venta WHERE N_Bastidor = ? AND Dni = ?;");
+                ps.setString(1,(String)tablaVentas.getValueAt(tablaVentas.getSelectedRow(), 0));
+                ps.setString(2,(String)tablaVentas.getValueAt(tablaVentas.getSelectedRow(), 1));
+                rs = ps.executeQuery();
+                jDateChooser.setDate(dateFormat.parse(rs.getString("Fecha")));
+                txtBastidorVentaModificar.setText(rs.getString("N_Bastidor"));
+                txtDniVentaModificar.setText(rs.getString("Dni"));
+                txtPrecioVentaModificar.setText(rs.getString("Precio"));
+            } catch (SQLException e) {
+                Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, e);
+            } catch (ParseException ex) {
+                Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            modificarVenta.setVisible(true);
+        }else{//MODIFICAR COCHE
+            modificarVenta.setLocationRelativeTo(null);
+            btnBuscarCliente.setEnabled(false);
+            btnBuscarCoche.setEnabled(true);
+            try {
+                ResultSet rs;
+                PreparedStatement ps = this.con.dameconexion().prepareStatement("SELECT * FROM Venta WHERE N_Bastidor = ? AND Dni = ?;");
+                ps.setString(1,(String)tablaVentas.getValueAt(tablaVentas.getSelectedRow(), 0));
+                ps.setString(2,(String)tablaVentas.getValueAt(tablaVentas.getSelectedRow(), 1));
+                rs = ps.executeQuery();
+                jDateChooser.setDate(dateFormat.parse(rs.getString("Fecha")));
+                txtBastidorVentaModificar.setText(rs.getString("N_Bastidor"));
+                txtDniVentaModificar.setText(rs.getString("Dni"));
+                txtPrecioVentaModificar.setText(rs.getString("Precio"));
+            } catch (SQLException e) {
+                Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, e);
+            } catch (ParseException ex) {
+                Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            modificarVenta.setVisible(true);
+        }
+    }
+    
+    private void eliminarVenta(){
+        int opcion = JOptionPane.showConfirmDialog(null, "¿Desea eliminar la venta seleccionada?", "Eliminar venta", JOptionPane.OK_CANCEL_OPTION);
+        if(opcion==0){
+            try {
+                PreparedStatement ps = this.con.dameconexion().prepareStatement("DELETE FROM Venta WHERE N_Bastidor = ? AND Dni = ?;");
+                ps.setString(1,(String)tablaVentas.getValueAt(tablaVentas.getSelectedRow(), 0));
+                ps.setString(2,(String)tablaVentas.getValueAt(tablaVentas.getSelectedRow(), 1));
+                ps.executeUpdate();
+                listarVentas();
+                lblFechaVentaMain.setText("");
+                lblNombreVentaMain.setText("");
+                lblApellidosVentaMain.setText("");
+                lblCocheVentaMain.setText("");
+                lblDniVentaMain.setText("");
+                lblPrecioVentaMain.setText("");
+                JOptionPane.showMessageDialog(null, "Venta eliminada correctamente", "", JOptionPane.INFORMATION_MESSAGE);
+            } catch (SQLException e) {
+                Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, e);
+            }
+        }
+    }
+    
+    private void modificarCliente(){
+        modificarCliente.setLocationRelativeTo(null);
+        try {
+            ResultSet rs;
+            PreparedStatement ps = this.con.dameconexion().prepareStatement("SELECT * FROM Cliente WHERE Dni = ?;");
+            ps.setString(1,(String)tablaClientes.getValueAt(tablaClientes.getSelectedRow(), 0));
+            rs = ps.executeQuery();
+            txtDniClienteModificar.setText(rs.getString("Dni"));
+            txtNombreClienteModificar.setText(rs.getString("Nombre"));
+            txtApellidosClienteModificar.setText(rs.getString("Apellidos"));
+            txtTelefonoClienteModificar.setText(rs.getString("Telefono"));
+            txtDireccionClienteModificar.setText(rs.getString("Domicilio"));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        modificarCliente.setVisible(true);
+    }
+    
+    private void eliminarCliente(){
+        int opcion = JOptionPane.showConfirmDialog(null, "¿Desea eliminar el cliente seleccionado?", "Eliminar cliente", JOptionPane.OK_CANCEL_OPTION);
+        if(opcion==0){
+            try {
+                PreparedStatement ps = this.con.dameconexion().prepareStatement("DELETE FROM Cliente WHERE Dni=?;");
+                ps.setString(1,(String)tablaClientes.getValueAt(tablaClientes.getSelectedRow(), 0));
+                ps.executeUpdate();
+                listarClientes();
+                listarClientes2();
+                listarVentas();
+                lblDniClienteMain.setText("");
+                lblNombreClienteMain.setText("");
+                lblApellidosClienteMain.setText("");
+                lblTelefonoClienteMain.setText("");
+                lblDireccionClienteMain.setText("");
+                JOptionPane.showMessageDialog(null, "Cliente eliminado correctamente", "", JOptionPane.INFORMATION_MESSAGE);
+            } catch (SQLException e) {
+                Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, e);
+            }
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -681,6 +855,15 @@ public class Main extends javax.swing.JFrame {
         nuevocoche = new javax.swing.JMenuItem();
         editarcoche = new javax.swing.JMenuItem();
         borrarcoche = new javax.swing.JMenuItem();
+        popupRevision = new javax.swing.JPopupMenu();
+        editarRevision = new javax.swing.JMenuItem();
+        borrarRevision = new javax.swing.JMenuItem();
+        popupVenta = new javax.swing.JPopupMenu();
+        editarVenta = new javax.swing.JMenuItem();
+        borrarVenta = new javax.swing.JMenuItem();
+        popupCliente = new javax.swing.JPopupMenu();
+        editarCliente = new javax.swing.JMenuItem();
+        borrarCliente = new javax.swing.JMenuItem();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         coches = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -826,6 +1009,7 @@ public class Main extends javax.swing.JFrame {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        txtBastidorCocheNuevo.setToolTipText("<html>\n    <p><b>17 caracteres</b></p>\n    <p>3 letras, 8 números o letras y 6 números</p>\n</html>");
 
         javax.swing.GroupLayout aniadirCocheLayout = new javax.swing.GroupLayout(aniadirCoche.getContentPane());
         aniadirCoche.getContentPane().setLayout(aniadirCocheLayout);
@@ -2075,6 +2259,7 @@ public class Main extends javax.swing.JFrame {
                 .addGap(25, 25, 25))
         );
 
+        nuevocoche.setIcon(new javax.swing.ImageIcon(getClass().getResource("/toolbarButtonGraphics/general/New16.gif"))); // NOI18N
         nuevocoche.setText("Nuevo");
         nuevocoche.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -2083,6 +2268,7 @@ public class Main extends javax.swing.JFrame {
         });
         popupCoche.add(nuevocoche);
 
+        editarcoche.setIcon(new javax.swing.ImageIcon(getClass().getResource("/toolbarButtonGraphics/general/Edit16.gif"))); // NOI18N
         editarcoche.setText("Editar");
         editarcoche.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -2091,6 +2277,7 @@ public class Main extends javax.swing.JFrame {
         });
         popupCoche.add(editarcoche);
 
+        borrarcoche.setIcon(new javax.swing.ImageIcon(getClass().getResource("/toolbarButtonGraphics/general/Delete16.gif"))); // NOI18N
         borrarcoche.setText("Borrar");
         borrarcoche.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -2098,6 +2285,60 @@ public class Main extends javax.swing.JFrame {
             }
         });
         popupCoche.add(borrarcoche);
+
+        editarRevision.setIcon(new javax.swing.ImageIcon(getClass().getResource("/toolbarButtonGraphics/general/Edit16.gif"))); // NOI18N
+        editarRevision.setText("Editar");
+        editarRevision.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editarRevisionActionPerformed(evt);
+            }
+        });
+        popupRevision.add(editarRevision);
+
+        borrarRevision.setIcon(new javax.swing.ImageIcon(getClass().getResource("/toolbarButtonGraphics/general/Delete16.gif"))); // NOI18N
+        borrarRevision.setText("Borrar");
+        borrarRevision.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                borrarRevisionActionPerformed(evt);
+            }
+        });
+        popupRevision.add(borrarRevision);
+
+        editarVenta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/toolbarButtonGraphics/general/Edit16.gif"))); // NOI18N
+        editarVenta.setText("Editar");
+        editarVenta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editarVentaActionPerformed(evt);
+            }
+        });
+        popupVenta.add(editarVenta);
+
+        borrarVenta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/toolbarButtonGraphics/general/Delete16.gif"))); // NOI18N
+        borrarVenta.setText("Borrar");
+        borrarVenta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                borrarVentaActionPerformed(evt);
+            }
+        });
+        popupVenta.add(borrarVenta);
+
+        editarCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/toolbarButtonGraphics/general/Edit16.gif"))); // NOI18N
+        editarCliente.setText("Editar");
+        editarCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editarClienteActionPerformed(evt);
+            }
+        });
+        popupCliente.add(editarCliente);
+
+        borrarCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/toolbarButtonGraphics/general/Delete16.gif"))); // NOI18N
+        borrarCliente.setText("Borrar");
+        borrarCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                borrarClienteActionPerformed(evt);
+            }
+        });
+        popupCliente.add(borrarCliente);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Concesionario");
@@ -2402,6 +2643,9 @@ public class Main extends javax.swing.JFrame {
         });
         tablaRevisiones.getTableHeader().setReorderingAllowed(false);
         tablaRevisiones.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablaRevisionesMouseClicked(evt);
+            }
             public void mouseReleased(java.awt.event.MouseEvent evt) {
                 tablaRevisionesMouseReleased(evt);
             }
@@ -2543,6 +2787,9 @@ public class Main extends javax.swing.JFrame {
         });
         tablaVentas.getTableHeader().setReorderingAllowed(false);
         tablaVentas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablaVentasMouseClicked(evt);
+            }
             public void mouseReleased(java.awt.event.MouseEvent evt) {
                 tablaVentasMouseReleased(evt);
             }
@@ -2708,6 +2955,9 @@ public class Main extends javax.swing.JFrame {
         });
         tablaClientes.getTableHeader().setReorderingAllowed(false);
         tablaClientes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablaClientesMouseClicked(evt);
+            }
             public void mouseReleased(java.awt.event.MouseEvent evt) {
                 tablaClientesMouseReleased(evt);
             }
@@ -2897,43 +3147,7 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRevisionNuevaActionPerformed
 
     private void btnRevisionModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRevisionModificarActionPerformed
-        modificarRevision.setLocationRelativeTo(null);
-        try {
-            ResultSet rs;
-            PreparedStatement ps = this.con.dameconexion().prepareStatement("SELECT r.N_Revision,r.Fecha,c.Marca,c.Modelo,r.N_Bastidor,r.Frenos,r.Filtro,r.Aceite FROM Revision AS r, Coche AS c WHERE r.N_Revision=? AND r.N_Bastidor=c.N_Bastidor;");
-            ps.setInt(1, (int)tablaRevisiones.getValueAt(tablaRevisiones.getSelectedRow(), 0));
-            rs = ps.executeQuery();
-            lblNumeroRevisionModificar.setText(Integer.toString(rs.getInt("N_Revision")));
-            lblFechaRevisionModificar.setText(rs.getString("Fecha"));
-            lblMarcaRevisionModificar.setText(rs.getString("Marca"));
-            lblModeloRevisionModificar.setText(rs.getString("Modelo"));
-            lblBastidorRevisionModificar.setText(rs.getString("N_Bastidor"));
-            String frenos = rs.getString("Frenos");
-            String filtro = rs.getString("Filtro");
-            String aceite = rs.getString("Aceite");
-            
-            if(frenos.equals("Sí")){
-                chkFrenosRevisionModificar.setSelected(true);
-            }else{
-                chkFrenosRevisionModificar.setSelected(false);
-            }
-            
-            if(filtro.equals("Sí")){
-                chkFiltroRevisionModificar.setSelected(true);
-            }else{
-                chkFiltroRevisionModificar.setSelected(false);
-            }
-            
-            if(aceite.equals("Sí")){
-                chkAceiteRevisionModificar.setSelected(true);
-            }else{
-                chkAceiteRevisionModificar.setSelected(false);
-            }
-            
-        } catch (SQLException ex) {
-            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        modificarRevision.setVisible(true);
+        modificarRevision();
     }//GEN-LAST:event_btnRevisionModificarActionPerformed
 
     private void btnNuevoClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoClienteActionPerformed
@@ -3069,21 +3283,7 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCargarCocheVentaModificarActionPerformed
 
     private void btnClienteModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClienteModificarActionPerformed
-        modificarCliente.setLocationRelativeTo(null);
-        try {
-            ResultSet rs;
-            PreparedStatement ps = this.con.dameconexion().prepareStatement("SELECT * FROM Cliente WHERE Dni = ?;");
-            ps.setString(1,(String)tablaClientes.getValueAt(tablaClientes.getSelectedRow(), 0));
-            rs = ps.executeQuery();
-            txtDniClienteModificar.setText(rs.getString("Dni"));
-            txtNombreClienteModificar.setText(rs.getString("Nombre"));
-            txtApellidosClienteModificar.setText(rs.getString("Apellidos"));
-            txtTelefonoClienteModificar.setText(rs.getString("Telefono"));
-            txtDireccionClienteModificar.setText(rs.getString("Domicilio"));
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        modificarCliente.setVisible(true);
+        modificarCliente();
     }//GEN-LAST:event_btnClienteModificarActionPerformed
 
     private void acercadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_acercadeActionPerformed
@@ -3174,27 +3374,7 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCocheBorrarActionPerformed
 
     private void btnRevisionBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRevisionBorrarActionPerformed
-        int opcion = JOptionPane.showConfirmDialog(null, "¿Desea eliminar la revisión seleccionada?", "Eliminar revision", JOptionPane.OK_CANCEL_OPTION);
-        if(opcion==0){
-            try {
-                PreparedStatement ps = this.con.dameconexion().prepareStatement("DELETE FROM Revision WHERE N_Revision = ?;");
-                ps.setInt(1,(int)tablaRevisiones.getValueAt(tablaRevisiones.getSelectedRow(), 0));
-                ps.executeUpdate();
-                listarRevisiones();
-                lblNumeroRevisionMain.setText("");
-                lblFechaRevisionMain.setText("");
-                lblBastidorRevisionMain.setText("");
-                lblMarcaRevisionMain.setText("");
-                lblModeloRevisionMain.setText("");
-                lblFiltroRevisionMain.setText("");
-                lblFrenosRevisionMain.setText("");
-                lblAceiteRevisionMain.setText("");
-                pImagenRevisionMain.removeAll();
-                JOptionPane.showMessageDialog(null, "Revisión eliminada correctamente", "", JOptionPane.INFORMATION_MESSAGE);
-            } catch (SQLException e) {
-                Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, e);
-            }
-        }
+        eliminarRevision();
     }//GEN-LAST:event_btnRevisionBorrarActionPerformed
 
     private void btnVentaBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVentaBorrarActionPerformed
@@ -3220,25 +3400,7 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_btnVentaBorrarActionPerformed
 
     private void btnClienteBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClienteBorrarActionPerformed
-        int opcion = JOptionPane.showConfirmDialog(null, "¿Desea eliminar el cliente seleccionado?", "Eliminar cliente", JOptionPane.OK_CANCEL_OPTION);
-        if(opcion==0){
-            try {
-                PreparedStatement ps = this.con.dameconexion().prepareStatement("DELETE FROM Cliente WHERE Dni=?;");
-                ps.setString(1,(String)tablaClientes.getValueAt(tablaClientes.getSelectedRow(), 0));
-                ps.executeUpdate();
-                listarClientes();
-                listarClientes2();
-                listarVentas();
-                lblDniClienteMain.setText("");
-                lblNombreClienteMain.setText("");
-                lblApellidosClienteMain.setText("");
-                lblTelefonoClienteMain.setText("");
-                lblDireccionClienteMain.setText("");
-                JOptionPane.showMessageDialog(null, "Cliente eliminado correctamente", "", JOptionPane.INFORMATION_MESSAGE);
-            } catch (SQLException e) {
-                Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, e);
-            }
-        }
+        eliminarCliente();
     }//GEN-LAST:event_btnClienteBorrarActionPerformed
 
     private void reiniciarbdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reiniciarbdActionPerformed
@@ -3410,8 +3572,10 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAceptarCocheModificarActionPerformed
 
     private void tablaRevisionesMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaRevisionesMouseReleased
-        if(tablaRevisiones.getSelectedRow()!=-1){
+        int fila=this.tablaRevisiones.rowAtPoint(evt.getPoint());
+        if(fila!=-1){
             try {
+                tablaRevisiones.setRowSelectionInterval(fila,fila);
                 ResultSet rs;
                 PreparedStatement ps = this.con.dameconexion().prepareStatement("SELECT r.N_Revision,r.Fecha,r.N_Bastidor,c.Marca,c.Modelo,r.Frenos,r.Filtro,r.Aceite,c.Img FROM Revision AS r, Coche AS c WHERE N_Revision=? AND r.N_Bastidor=c.N_Bastidor;");
                 ps.setInt(1, (int)tablaRevisiones.getValueAt(tablaRevisiones.getSelectedRow(), 0));
@@ -3541,41 +3705,49 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAceptarRevisionModificarActionPerformed
 
     private void tablaVentasMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaVentasMouseReleased
-        try {
-            ResultSet rs;
-            PreparedStatement ps = this.con.dameconexion().prepareStatement("SELECT v.Fecha,cl.Nombre,cl.Apellidos,cl.Dni,co.Marca || ' ' || co.Modelo AS Coche,v.Precio FROM Venta AS v,Coche AS co,Cliente AS cl WHERE v.N_Bastidor=? AND v.Dni=? AND v.N_Bastidor=co.N_Bastidor AND v.Dni=cl.Dni;");
-            ps.setString(1, (String)tablaVentas.getValueAt(tablaVentas.getSelectedRow(), 0));
-            ps.setString(2, (String)tablaVentas.getValueAt(tablaVentas.getSelectedRow(), 1));
-            rs = ps.executeQuery();
-            lblFechaVentaMain.setText(rs.getString("Fecha"));
-            lblNombreVentaMain.setText(rs.getString("Nombre"));
-            lblApellidosVentaMain.setText(rs.getString("Apellidos"));
-            lblDniVentaMain.setText(rs.getString("Dni"));
-            lblCocheVentaMain.setText(rs.getString("Coche"));
-            lblPrecioVentaMain.setText(Float.toString(rs.getFloat("Precio")));
-        } catch (SQLException e) {
-            e.printStackTrace();
+        int fila=this.tablaVentas.rowAtPoint(evt.getPoint());
+        if(fila!=-1){
+            try {
+                tablaVentas.setRowSelectionInterval(fila, fila);
+                ResultSet rs;
+                PreparedStatement ps = this.con.dameconexion().prepareStatement("SELECT v.Fecha,cl.Nombre,cl.Apellidos,cl.Dni,co.Marca || ' ' || co.Modelo AS Coche,v.Precio FROM Venta AS v,Coche AS co,Cliente AS cl WHERE v.N_Bastidor=? AND v.Dni=? AND v.N_Bastidor=co.N_Bastidor AND v.Dni=cl.Dni;");
+                ps.setString(1, (String)tablaVentas.getValueAt(tablaVentas.getSelectedRow(), 0));
+                ps.setString(2, (String)tablaVentas.getValueAt(tablaVentas.getSelectedRow(), 1));
+                rs = ps.executeQuery();
+                lblFechaVentaMain.setText(rs.getString("Fecha"));
+                lblNombreVentaMain.setText(rs.getString("Nombre"));
+                lblApellidosVentaMain.setText(rs.getString("Apellidos"));
+                lblDniVentaMain.setText(rs.getString("Dni"));
+                lblCocheVentaMain.setText(rs.getString("Coche"));
+                lblPrecioVentaMain.setText(Float.toString(rs.getFloat("Precio")));
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            btnVentaModificar.setEnabled(true);
+            btnVentaBorrar.setEnabled(true);
         }
-        btnVentaModificar.setEnabled(true);
-        btnVentaBorrar.setEnabled(true);
     }//GEN-LAST:event_tablaVentasMouseReleased
 
     private void tablaClientesMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaClientesMouseReleased
-        try {
-            ResultSet rs;
-            PreparedStatement ps = this.con.dameconexion().prepareStatement("SELECT * FROM Cliente WHERE Dni=?;");
-            ps.setString(1, (String)tablaClientes.getValueAt(tablaClientes.getSelectedRow(), 0));
-            rs = ps.executeQuery();
-            lblNombreClienteMain.setText(rs.getString("Nombre"));
-            lblApellidosClienteMain.setText(rs.getString("Apellidos"));
-            lblDniClienteMain.setText(rs.getString("Dni"));
-            lblTelefonoClienteMain.setText(rs.getString("Telefono"));
-            lblDireccionClienteMain.setText(rs.getString("Domicilio"));
-        } catch (SQLException e) {
-            e.printStackTrace();
+        int fila = this.tablaClientes.rowAtPoint(evt.getPoint());
+        if(fila!=-1){
+            try {
+                tablaClientes.setRowSelectionInterval(fila, fila);
+                ResultSet rs;
+                PreparedStatement ps = this.con.dameconexion().prepareStatement("SELECT * FROM Cliente WHERE Dni=?;");
+                ps.setString(1, (String)tablaClientes.getValueAt(tablaClientes.getSelectedRow(), 0));
+                rs = ps.executeQuery();
+                lblNombreClienteMain.setText(rs.getString("Nombre"));
+                lblApellidosClienteMain.setText(rs.getString("Apellidos"));
+                lblDniClienteMain.setText(rs.getString("Dni"));
+                lblTelefonoClienteMain.setText(rs.getString("Telefono"));
+                lblDireccionClienteMain.setText(rs.getString("Domicilio"));
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            btnClienteModificar.setEnabled(true);
+            btnClienteBorrar.setEnabled(true);
         }
-        btnClienteModificar.setEnabled(true);
-        btnClienteBorrar.setEnabled(true);
     }//GEN-LAST:event_tablaClientesMouseReleased
 
     private void jTabbedPane1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jTabbedPane1StateChanged
@@ -3908,6 +4080,54 @@ public class Main extends javax.swing.JFrame {
         eliminarCoche();
     }//GEN-LAST:event_borrarcocheActionPerformed
 
+    private void tablaRevisionesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaRevisionesMouseClicked
+        if(evt.getClickCount()==2)
+            modificarRevision();
+        
+        if(evt.getButton()==3)
+            this.popupRevision.show(evt.getComponent(),evt.getX(), evt.getY());
+    }//GEN-LAST:event_tablaRevisionesMouseClicked
+
+    private void editarRevisionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarRevisionActionPerformed
+        modificarRevision();
+    }//GEN-LAST:event_editarRevisionActionPerformed
+
+    private void borrarRevisionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_borrarRevisionActionPerformed
+        eliminarRevision();
+    }//GEN-LAST:event_borrarRevisionActionPerformed
+
+    private void tablaVentasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaVentasMouseClicked
+        if(evt.getClickCount()==2)
+            modificarVenta();
+        
+        if(evt.getButton()==3)
+            this.popupVenta.show(evt.getComponent(),evt.getX(), evt.getY());
+    }//GEN-LAST:event_tablaVentasMouseClicked
+
+    private void editarVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarVentaActionPerformed
+        modificarVenta();
+    }//GEN-LAST:event_editarVentaActionPerformed
+
+    private void borrarVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_borrarVentaActionPerformed
+        eliminarVenta();
+    }//GEN-LAST:event_borrarVentaActionPerformed
+
+    private void tablaClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaClientesMouseClicked
+        if(evt.getClickCount()==2)
+            modificarCliente();
+        
+        if(evt.getButton()==3)
+            this.popupCliente.show(evt.getComponent(),evt.getX(), evt.getY());
+    }//GEN-LAST:event_tablaClientesMouseClicked
+
+    private void editarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarClienteActionPerformed
+        modificarCliente();
+    }//GEN-LAST:event_editarClienteActionPerformed
+
+    private void borrarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_borrarClienteActionPerformed
+        eliminarCliente();
+    }//GEN-LAST:event_borrarClienteActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -3953,6 +4173,9 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JDialog aniadirVenta;
     private javax.swing.JMenu archivo;
     private javax.swing.JMenu ayuda;
+    private javax.swing.JMenuItem borrarCliente;
+    private javax.swing.JMenuItem borrarRevision;
+    private javax.swing.JMenuItem borrarVenta;
     private javax.swing.JMenuItem borrarcoche;
     private javax.swing.JButton btnAceptarClienteModificar;
     private javax.swing.JButton btnAceptarCocheModificar;
@@ -4009,6 +4232,9 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JCheckBox chkFrenosRevisionNueva;
     private javax.swing.JPanel clientes;
     private javax.swing.JPanel coches;
+    private javax.swing.JMenuItem editarCliente;
+    private javax.swing.JMenuItem editarRevision;
+    private javax.swing.JMenuItem editarVenta;
     private javax.swing.JMenuItem editarcoche;
     private com.toedter.calendar.JDateChooser jDateChooser;
     private javax.swing.JFileChooser jFileChooser1;
@@ -4143,7 +4369,10 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JPanel pImagenCocheModificar;
     private javax.swing.JPanel pImagenCocheNuevo;
     private javax.swing.JPanel pImagenRevisionMain;
+    private javax.swing.JPopupMenu popupCliente;
     private javax.swing.JPopupMenu popupCoche;
+    private javax.swing.JPopupMenu popupRevision;
+    private javax.swing.JPopupMenu popupVenta;
     private javax.swing.JMenuItem reiniciarbd;
     private javax.swing.JPanel revisiones;
     private javax.swing.JMenuItem salir;
