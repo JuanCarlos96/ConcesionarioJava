@@ -419,6 +419,12 @@ public class Main extends javax.swing.JFrame {
         lblApellidosClienteMain.setText("");
         lblTelefonoClienteMain.setText("");
         lblDireccionClienteMain.setText("");
+        
+        //ELIMINAR SELECCIÓN DE LAS TABLAS
+        tablaMain.clearSelection();
+        tablaRevisiones.clearSelection();
+        tablaVentas.clearSelection();
+        tablaClientes.clearSelection();
     }
     
     private void rellenarComboMarca(){
@@ -685,6 +691,56 @@ public class Main extends javax.swing.JFrame {
             }
         }
     }
+    
+    private void cargarCliente1(){
+        buscarClienteVentaNueva.setVisible(false);
+        lblFechaVentaNueva.setText(dateFormat.format(date));
+        String dni = (String)jTable1.getValueAt(jTable1.getSelectedRow(), 0);
+        try {
+            DefaultTableModel modelo = (DefaultTableModel) tablaMain.getModel();
+            txtBastidorVentaNueva.setText((String)modelo.getValueAt(tablaMain.getSelectedRow(), 0));
+            txtMarcaVentaNueva.setText((String)modelo.getValueAt(tablaMain.getSelectedRow(), 1));
+            txtModeloVentaNueva.setText((String)modelo.getValueAt(tablaMain.getSelectedRow(), 2));
+            lblPrecioVentaNueva.setText(Float.toString((Float)modelo.getValueAt(tablaMain.getSelectedRow(), 7)));
+            ResultSet rs;
+            PreparedStatement ps = this.con.dameconexion().prepareStatement("SELECT * FROM Cliente WHERE Dni=?");
+            ps.setString(1, dni);
+            rs = ps.executeQuery();
+            txtNombreVentaNueva.setText(rs.getString("Nombre"));
+            txtNombreVentaNueva.setEditable(false);
+            txtApellidosVentaNueva.setText(rs.getString("Apellidos"));
+            txtApellidosVentaNueva.setEditable(false);
+            txtDniVentaNueva.setText(rs.getString("Dni"));
+            txtDniVentaNueva.setEditable(false);
+            txtTelefonoVentaNueva.setText(rs.getString("Telefono"));
+            txtTelefonoVentaNueva.setEditable(false);
+            txtDireccionVentaNueva.setText(rs.getString("Domicilio"));
+            txtDireccionVentaNueva.setEditable(false);
+        } catch (SQLException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        aniadirVenta.setLocationRelativeTo(null);
+        aniadirVenta.setVisible(true);
+    }
+    
+    private void cargarCliente2(){
+        txtDniVentaModificar.setText((String)jTable2.getValueAt(jTable2.getSelectedRow(), 0));
+        buscarClienteVentaModificar.setVisible(false);
+    }
+    
+    private void cargarCoche(){
+        txtBastidorVentaModificar.setText((String)jTable3.getValueAt(jTable3.getSelectedRow(), 0));
+        try {
+            ResultSet rs;
+            PreparedStatement ps = this.con.dameconexion().prepareStatement("SELECT Precio FROM Coche WHERE N_Bastidor=?;");
+            ps.setString(1,(String)jTable3.getValueAt(jTable3.getSelectedRow(), 0));
+            rs = ps.executeQuery();
+            txtPrecioVentaModificar.setText(Float.toString(rs.getFloat("Precio")));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        buscarCocheVentaModificar.setVisible(false);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -741,21 +797,21 @@ public class Main extends javax.swing.JFrame {
         buscarClienteVentaNueva = new javax.swing.JDialog();
         btnNuevoCliente = new javax.swing.JButton();
         jSeparator2 = new javax.swing.JSeparator();
-        cbBuscarClienteVentaNueva = new javax.swing.JComboBox<>();
+        cbBuscarClienteVentaNueva = new javax.swing.JComboBox<String>();
         txtBuscarClienteVentaNueva = new javax.swing.JTextField();
         btnBuscarClienteVentaNueva = new javax.swing.JButton();
         jScrollPane4 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         btnCargarClienteVentaNueva = new javax.swing.JButton();
         buscarClienteVentaModificar = new javax.swing.JDialog();
-        cbBuscarClienteVentaModificar = new javax.swing.JComboBox<>();
+        cbBuscarClienteVentaModificar = new javax.swing.JComboBox<String>();
         txtBuscarClienteVentaModificar = new javax.swing.JTextField();
         btnBuscarClienteVentaModificar = new javax.swing.JButton();
         jScrollPane6 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
         btnCargarClienteVentaModificar = new javax.swing.JButton();
         buscarCocheVentaModificar = new javax.swing.JDialog();
-        cbBuscarCocheVentaModificar = new javax.swing.JComboBox<>();
+        cbBuscarCocheVentaModificar = new javax.swing.JComboBox<String>();
         txtBuscarCocheVentaModificar = new javax.swing.JTextField();
         btnBuscarCocheVentaModificar = new javax.swing.JButton();
         jScrollPane7 = new javax.swing.JScrollPane();
@@ -868,10 +924,10 @@ public class Main extends javax.swing.JFrame {
         coches = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        cbMarcaMain = new javax.swing.JComboBox<>();
+        cbMarcaMain = new javax.swing.JComboBox<String>();
         jLabel3 = new javax.swing.JLabel();
-        cbMotorMain = new javax.swing.JComboBox<>();
-        cbBuscarMain = new javax.swing.JComboBox<>();
+        cbMotorMain = new javax.swing.JComboBox<String>();
+        cbBuscarMain = new javax.swing.JComboBox<String>();
         jSeparator1 = new javax.swing.JSeparator();
         txtBuscarMain = new javax.swing.JTextField();
         btnBuscarMain = new javax.swing.JButton();
@@ -1272,7 +1328,7 @@ public class Main extends javax.swing.JFrame {
 
         jSeparator2.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
-        cbBuscarClienteVentaNueva.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " ", "DNI", "Nombre", "Apellidos" }));
+        cbBuscarClienteVentaNueva.setModel(new javax.swing.DefaultComboBoxModel(new String[] { " ", "DNI", "Nombre", "Apellidos" }));
         cbBuscarClienteVentaNueva.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cbBuscarClienteVentaNuevaItemStateChanged(evt);
@@ -1321,6 +1377,9 @@ public class Main extends javax.swing.JFrame {
             }
         });
         jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
             public void mouseReleased(java.awt.event.MouseEvent evt) {
                 jTable1MouseReleased(evt);
             }
@@ -1389,7 +1448,7 @@ public class Main extends javax.swing.JFrame {
         buscarClienteVentaModificar.setResizable(false);
         buscarClienteVentaModificar.setSize(new java.awt.Dimension(426, 270));
 
-        cbBuscarClienteVentaModificar.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " ", "DNI", "Nombre", "Apellidos" }));
+        cbBuscarClienteVentaModificar.setModel(new javax.swing.DefaultComboBoxModel(new String[] { " ", "DNI", "Nombre", "Apellidos" }));
         cbBuscarClienteVentaModificar.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cbBuscarClienteVentaModificarItemStateChanged(evt);
@@ -1433,6 +1492,9 @@ public class Main extends javax.swing.JFrame {
             }
         });
         jTable2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable2MouseClicked(evt);
+            }
             public void mouseReleased(java.awt.event.MouseEvent evt) {
                 jTable2MouseReleased(evt);
             }
@@ -1493,7 +1555,7 @@ public class Main extends javax.swing.JFrame {
         buscarCocheVentaModificar.setResizable(false);
         buscarCocheVentaModificar.setSize(new java.awt.Dimension(426, 270));
 
-        cbBuscarCocheVentaModificar.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " ", "Bastidor", "Marca", "Modelo" }));
+        cbBuscarCocheVentaModificar.setModel(new javax.swing.DefaultComboBoxModel(new String[] { " ", "Bastidor", "Marca", "Modelo" }));
         cbBuscarCocheVentaModificar.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cbBuscarCocheVentaModificarItemStateChanged(evt);
@@ -1542,6 +1604,9 @@ public class Main extends javax.swing.JFrame {
             }
         });
         jTable3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable3MouseClicked(evt);
+            }
             public void mouseReleased(java.awt.event.MouseEvent evt) {
                 jTable3MouseReleased(evt);
             }
@@ -1656,7 +1721,11 @@ public class Main extends javax.swing.JFrame {
             ex.printStackTrace();
         }
 
-        txtTelefonoVentaNueva.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#########"))));
+        try {
+            txtTelefonoVentaNueva.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("#########")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
 
         javax.swing.GroupLayout aniadirVentaLayout = new javax.swing.GroupLayout(aniadirVenta.getContentPane());
         aniadirVenta.getContentPane().setLayout(aniadirVentaLayout);
@@ -2368,7 +2437,7 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
-        cbBuscarMain.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " ", "Bastidor", "Marca", "Modelo", "Motor", "CV", "Tipo", "Color", "Precio" }));
+        cbBuscarMain.setModel(new javax.swing.DefaultComboBoxModel(new String[] { " ", "Bastidor", "Marca", "Modelo", "Motor", "CV", "Tipo", "Color", "Precio" }));
         cbBuscarMain.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cbBuscarMainItemStateChanged(evt);
@@ -2433,6 +2502,11 @@ public class Main extends javax.swing.JFrame {
             }
             public void mouseReleased(java.awt.event.MouseEvent evt) {
                 tablaMainMouseReleased(evt);
+            }
+        });
+        tablaMain.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                tablaMainKeyReleased(evt);
             }
         });
         jScrollPane1.setViewportView(tablaMain);
@@ -2650,6 +2724,11 @@ public class Main extends javax.swing.JFrame {
                 tablaRevisionesMouseReleased(evt);
             }
         });
+        tablaRevisiones.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                tablaRevisionesKeyReleased(evt);
+            }
+        });
         jScrollPane9.setViewportView(tablaRevisiones);
 
         javax.swing.GroupLayout revisionesLayout = new javax.swing.GroupLayout(revisiones);
@@ -2792,6 +2871,11 @@ public class Main extends javax.swing.JFrame {
             }
             public void mouseReleased(java.awt.event.MouseEvent evt) {
                 tablaVentasMouseReleased(evt);
+            }
+        });
+        tablaVentas.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                tablaVentasKeyReleased(evt);
             }
         });
         jScrollPane5.setViewportView(tablaVentas);
@@ -2960,6 +3044,11 @@ public class Main extends javax.swing.JFrame {
             }
             public void mouseReleased(java.awt.event.MouseEvent evt) {
                 tablaClientesMouseReleased(evt);
+            }
+        });
+        tablaClientes.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                tablaClientesKeyReleased(evt);
             }
         });
         jScrollPane10.setViewportView(tablaClientes);
@@ -3173,34 +3262,7 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_btnNuevoClienteActionPerformed
 
     private void btnCargarClienteVentaNuevaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCargarClienteVentaNuevaActionPerformed
-        buscarClienteVentaNueva.setVisible(false);
-        lblFechaVentaNueva.setText(dateFormat.format(date));
-        String dni = (String)jTable1.getValueAt(jTable1.getSelectedRow(), 0);
-        try {
-            DefaultTableModel modelo = (DefaultTableModel) tablaMain.getModel();
-            txtBastidorVentaNueva.setText((String)modelo.getValueAt(tablaMain.getSelectedRow(), 0));
-            txtMarcaVentaNueva.setText((String)modelo.getValueAt(tablaMain.getSelectedRow(), 1));
-            txtModeloVentaNueva.setText((String)modelo.getValueAt(tablaMain.getSelectedRow(), 2));
-            lblPrecioVentaNueva.setText(Float.toString((Float)modelo.getValueAt(tablaMain.getSelectedRow(), 7)));
-            ResultSet rs;
-            PreparedStatement ps = this.con.dameconexion().prepareStatement("SELECT * FROM Cliente WHERE Dni=?");
-            ps.setString(1, dni);
-            rs = ps.executeQuery();
-            txtNombreVentaNueva.setText(rs.getString("Nombre"));
-            txtNombreVentaNueva.setEditable(false);
-            txtApellidosVentaNueva.setText(rs.getString("Apellidos"));
-            txtApellidosVentaNueva.setEditable(false);
-            txtDniVentaNueva.setText(rs.getString("Dni"));
-            txtDniVentaNueva.setEditable(false);
-            txtTelefonoVentaNueva.setText(rs.getString("Telefono"));
-            txtTelefonoVentaNueva.setEditable(false);
-            txtDireccionVentaNueva.setText(rs.getString("Domicilio"));
-            txtDireccionVentaNueva.setEditable(false);
-        } catch (SQLException ex) {
-            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        aniadirVenta.setLocationRelativeTo(null);
-        aniadirVenta.setVisible(true);
+        cargarCliente1();
     }//GEN-LAST:event_btnCargarClienteVentaNuevaActionPerformed
 
     private void btnVentaModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVentaModificarActionPerformed
@@ -3264,22 +3326,11 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBuscarCocheActionPerformed
 
     private void btnCargarClienteVentaModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCargarClienteVentaModificarActionPerformed
-        txtDniVentaModificar.setText((String)jTable2.getValueAt(jTable2.getSelectedRow(), 0));
-        buscarClienteVentaModificar.setVisible(false);
+        cargarCliente2();
     }//GEN-LAST:event_btnCargarClienteVentaModificarActionPerformed
 
     private void btnCargarCocheVentaModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCargarCocheVentaModificarActionPerformed
-        txtBastidorVentaModificar.setText((String)jTable3.getValueAt(jTable3.getSelectedRow(), 0));
-        try {
-            ResultSet rs;
-            PreparedStatement ps = this.con.dameconexion().prepareStatement("SELECT Precio FROM Coche WHERE N_Bastidor=?;");
-            ps.setString(1,(String)jTable3.getValueAt(jTable3.getSelectedRow(), 0));
-            rs = ps.executeQuery();
-            txtPrecioVentaModificar.setText(Float.toString(rs.getFloat("Precio")));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        buscarCocheVentaModificar.setVisible(false);
+        cargarCoche();
     }//GEN-LAST:event_btnCargarCocheVentaModificarActionPerformed
 
     private void btnClienteModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClienteModificarActionPerformed
@@ -4127,6 +4178,55 @@ public class Main extends javax.swing.JFrame {
     private void borrarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_borrarClienteActionPerformed
         eliminarCliente();
     }//GEN-LAST:event_borrarClienteActionPerformed
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        if(evt.getClickCount()==2)
+            cargarCliente1();
+    }//GEN-LAST:event_jTable1MouseClicked
+
+    private void jTable2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable2MouseClicked
+        if(evt.getClickCount()==2)
+            cargarCliente2();
+    }//GEN-LAST:event_jTable2MouseClicked
+
+    private void jTable3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable3MouseClicked
+        if(evt.getClickCount()==2)
+            cargarCoche();
+    }//GEN-LAST:event_jTable3MouseClicked
+
+    private void tablaMainKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tablaMainKeyReleased
+        //66='b'    69='e'  127='suprimir'
+        //System.out.println(evt.getKeyCode());
+        if(evt.getKeyCode()==66 || evt.getKeyCode()==127)
+            eliminarCoche();
+        
+        if(evt.getKeyCode()==69)
+            modificarCoche();
+    }//GEN-LAST:event_tablaMainKeyReleased
+
+    private void tablaRevisionesKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tablaRevisionesKeyReleased
+        if(evt.getKeyCode()==66 || evt.getKeyCode()==127)
+            eliminarRevision();
+        
+        if(evt.getKeyCode()==69)
+            modificarRevision();
+    }//GEN-LAST:event_tablaRevisionesKeyReleased
+
+    private void tablaVentasKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tablaVentasKeyReleased
+        if(evt.getKeyCode()==66 || evt.getKeyCode()==127)
+            eliminarVenta();
+        
+        if(evt.getKeyCode()==69)
+            modificarVenta();
+    }//GEN-LAST:event_tablaVentasKeyReleased
+
+    private void tablaClientesKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tablaClientesKeyReleased
+        if(evt.getKeyCode()==66 || evt.getKeyCode()==127)
+            eliminarCliente();
+        
+        if(evt.getKeyCode()==69)
+            modificarCliente();
+    }//GEN-LAST:event_tablaClientesKeyReleased
 
     /**
      * @param args the command line arguments
