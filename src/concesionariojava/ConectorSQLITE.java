@@ -92,9 +92,7 @@ public class ConectorSQLITE {
                 "PRIMARY KEY(N_Bastidor,Dni))";
             this.consulta.executeUpdate(creatablaVenta);
             //this.consulta.executeUpdate("INSERT INTO Venta VALUES ('324AER57G4ED349GX', '05983762J', '08/01/2018', 1000)");
-            
-            this.consulta.execute("PRAGMA foreign_keys = 1");
-            
+                        
             System.out.println("BBDD Creada");//Si llega aqui es que ha creado la BBDD
         }catch (SQLException e){
             System.out.println("ERROR "+e.getMessage());

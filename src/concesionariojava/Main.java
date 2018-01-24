@@ -40,6 +40,13 @@ public class Main extends javax.swing.JFrame {
         initComponents();
         con = new ConectorSQLITE("concesionario.db");
         con.connect();
+        PreparedStatement ps;
+        try {
+            ps = con.dameconexion().prepareStatement("PRAGMA foreign_keys = 1");
+            ps.execute();
+        } catch (SQLException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
         listarCoches();
         listarCoches2();
         listarRevisiones();
