@@ -1,7 +1,9 @@
 package concesionariojava;
 
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.RenderingHints;
+import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
@@ -18,6 +20,7 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
+import javax.swing.ComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -37,6 +40,12 @@ public class Main extends javax.swing.JFrame {
      * Creates new form Main
      */
     public Main() {
+        try{
+            Splash sp=new Splash("/imagenes/coche.png",new JFrame(), 5000);//5 segundos de fondo, en cuanto la APP aparezca lo tapará
+            Thread.sleep(500);//Espera para que se vea el logo antes de pasar a cargar la GUI
+        }catch ( InterruptedException e) {
+            e.printStackTrace();
+        }
         initComponents();
         con = new ConectorSQLITE("concesionario.db");
         con.connect();
@@ -57,6 +66,12 @@ public class Main extends javax.swing.JFrame {
         rellenarComboMarca();
         rellenarComboMotor();
         cerrar_app();
+    }
+
+    @Override
+    public Image getIconImage() {
+        Image imagen = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("imagenes/coche.png"));
+        return imagen;
     }
     
     private void cerrar_app(){
@@ -334,30 +349,30 @@ public class Main extends javax.swing.JFrame {
     
     private void insertarCoche(){
         Boolean inserta = true;
-        String bastidor = txtBastidorCocheNuevo.getText().toUpperCase();
-        String marca = txtMarcaCocheNuevo.getText();
-        String modelo = txtModeloCocheNuevo.getText();
-        String tipo = txtTipoCocheNuevo.getText();
-        String motor = txtMotorCocheNuevo.getText();
+        String bastidor = txtBastidorCocheNuevo.getText().trim().toUpperCase();
+        String marca = txtMarcaCocheNuevo.getText().toUpperCase();
+        String modelo = txtModeloCocheNuevo.getText().toUpperCase();
+        String tipo = (String)cbTipoCocheNuevo.getSelectedItem();
+        String motor = txtMotorCocheNuevo.getText().toUpperCase();
         int cv = 0;
-        String color = txtColorCocheNuevo.getText();
+        String color = txtColorCocheNuevo.getText().toUpperCase();
         float precio = 0;
         
-        if(bastidor.equals("") || marca.equals("") || modelo.equals("") || tipo.equals("") || motor.equals("") || txtCVCocheNuevo.getText().equals("") || color.equals("") || txtPrecioCocheNuevo.getText().equals("") || this.imagenblob==null){
-            JOptionPane.showMessageDialog(null, "Ningún campo debe estar vacío", "", JOptionPane.WARNING_MESSAGE);
+        if(bastidor.equals("") || marca.equals("") || modelo.equals("") || cbTipoCocheNuevo.getSelectedIndex()==0 || motor.equals("") || txtCVCocheNuevo.getText().equals("") || color.equals("") || txtPrecioCocheNuevo.getText().equals("") || this.imagenblob==null){
+            JOptionPane.showMessageDialog(null, "Ningún campo debe estar vacío", "Aviso", JOptionPane.WARNING_MESSAGE);
         }else{
             try {
                 cv = Integer.parseInt(txtCVCocheNuevo.getText());
             } catch (NumberFormatException e) {
                 inserta = false;
-                JOptionPane.showMessageDialog(null, "Los CV deben ser un número entero", "", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Los CV deben ser un número entero", "Aviso", JOptionPane.WARNING_MESSAGE);
             }
 
             try {
                 precio = Float.parseFloat(txtPrecioCocheNuevo.getText());
             } catch (NumberFormatException e) {
                 inserta = false;
-                JOptionPane.showMessageDialog(null, "El precio debe ser un número real", "", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(null, "El precio debe ser un número real", "Aviso", JOptionPane.WARNING_MESSAGE);
             }
             
             if(inserta){
@@ -378,11 +393,11 @@ public class Main extends javax.swing.JFrame {
                     listarCoches2();
                     rellenarComboMarca();
                     rellenarComboMotor();
-                    JOptionPane.showMessageDialog(null, "Coche nuevo introducido correctamente", "", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Coche nuevo introducido correctamente", "Información", JOptionPane.INFORMATION_MESSAGE);
                     this.aniadirCoche.setVisible(false);
                 } catch (SQLException ex) {
                     if(ex.getErrorCode()==19){
-                        JOptionPane.showMessageDialog(null, "Ya existe un coche con estos datos", "", JOptionPane.INFORMATION_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "Ya existe un coche con estos datos", "Información", JOptionPane.INFORMATION_MESSAGE);
                     }
                 }
             }
@@ -479,7 +494,15 @@ public class Main extends javax.swing.JFrame {
             txtBastidorCocheModificar.setText(rs.getString("N_Bastidor"));
             txtMarcaCocheModificar.setText(rs.getString("Marca"));
             txtModeloCocheModificar.setText(rs.getString("Modelo"));
-            txtTipoCocheModificar.setText(rs.getString("Tipo"));
+            
+            String tipo = rs.getString("Tipo");
+            ComboBoxModel cbm = cbTipoCocheModificar.getModel();
+            for(int i=0; i<cbm.getSize(); i++){
+                if(tipo.equals((String)cbm.getElementAt(i))){
+                    cbm.setSelectedItem(tipo);
+                }
+            }
+            
             txtMotorCocheModificar.setText(rs.getString("Motor"));
             txtCVCocheModificar.setText(Integer.toString(rs.getInt("CV")));
             txtColorCocheModificar.setText(rs.getString("Color"));
@@ -517,7 +540,7 @@ public class Main extends javax.swing.JFrame {
                 listarVentas();
                 rellenarComboMarca();
                 rellenarComboMotor();
-                JOptionPane.showMessageDialog(null, "Coche eliminado correctamente", "", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Coche eliminado correctamente", "Información", JOptionPane.INFORMATION_MESSAGE);
             } catch (SQLException ex) {
                 Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -581,7 +604,7 @@ public class Main extends javax.swing.JFrame {
                 lblFrenosRevisionMain.setText("");
                 lblAceiteRevisionMain.setText("");
                 pImagenRevisionMain.removeAll();
-                JOptionPane.showMessageDialog(null, "Revisión eliminada correctamente", "", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Revisión eliminada correctamente", "Información", JOptionPane.INFORMATION_MESSAGE);
             } catch (SQLException e) {
                 Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, e);
             }
@@ -652,7 +675,7 @@ public class Main extends javax.swing.JFrame {
                 lblCocheVentaMain.setText("");
                 lblDniVentaMain.setText("");
                 lblPrecioVentaMain.setText("");
-                JOptionPane.showMessageDialog(null, "Venta eliminada correctamente", "", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Venta eliminada correctamente", "Información", JOptionPane.INFORMATION_MESSAGE);
             } catch (SQLException e) {
                 Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, e);
             }
@@ -692,7 +715,7 @@ public class Main extends javax.swing.JFrame {
                 lblApellidosClienteMain.setText("");
                 lblTelefonoClienteMain.setText("");
                 lblDireccionClienteMain.setText("");
-                JOptionPane.showMessageDialog(null, "Cliente eliminado correctamente", "", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Cliente eliminado correctamente", "Información", JOptionPane.INFORMATION_MESSAGE);
             } catch (SQLException e) {
                 Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, e);
             }
@@ -768,7 +791,6 @@ public class Main extends javax.swing.JFrame {
         jLabel48 = new javax.swing.JLabel();
         txtMarcaCocheNuevo = new javax.swing.JTextField();
         jLabel49 = new javax.swing.JLabel();
-        txtTipoCocheNuevo = new javax.swing.JTextField();
         jLabel50 = new javax.swing.JLabel();
         jLabel51 = new javax.swing.JLabel();
         jLabel52 = new javax.swing.JLabel();
@@ -779,6 +801,7 @@ public class Main extends javax.swing.JFrame {
         txtBastidorCocheNuevo = new javax.swing.JFormattedTextField();
         txtCVCocheNuevo = new javax.swing.JFormattedTextField();
         txtPrecioCocheNuevo = new javax.swing.JFormattedTextField();
+        cbTipoCocheNuevo = new javax.swing.JComboBox<>();
         modificarCoche = new javax.swing.JDialog();
         jLabel53 = new javax.swing.JLabel();
         txtBastidorCocheModificar = new javax.swing.JTextField();
@@ -791,7 +814,6 @@ public class Main extends javax.swing.JFrame {
         jLabel57 = new javax.swing.JLabel();
         txtMarcaCocheModificar = new javax.swing.JTextField();
         jLabel58 = new javax.swing.JLabel();
-        txtTipoCocheModificar = new javax.swing.JTextField();
         jLabel59 = new javax.swing.JLabel();
         jLabel60 = new javax.swing.JLabel();
         jLabel61 = new javax.swing.JLabel();
@@ -801,24 +823,25 @@ public class Main extends javax.swing.JFrame {
         btnAceptarCocheModificar = new javax.swing.JButton();
         txtCVCocheModificar = new javax.swing.JFormattedTextField();
         txtPrecioCocheModificar = new javax.swing.JFormattedTextField();
+        cbTipoCocheModificar = new javax.swing.JComboBox<>();
         buscarClienteVentaNueva = new javax.swing.JDialog();
         btnNuevoCliente = new javax.swing.JButton();
         jSeparator2 = new javax.swing.JSeparator();
-        cbBuscarClienteVentaNueva = new javax.swing.JComboBox<String>();
+        cbBuscarClienteVentaNueva = new javax.swing.JComboBox<>();
         txtBuscarClienteVentaNueva = new javax.swing.JTextField();
         btnBuscarClienteVentaNueva = new javax.swing.JButton();
         jScrollPane4 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         btnCargarClienteVentaNueva = new javax.swing.JButton();
         buscarClienteVentaModificar = new javax.swing.JDialog();
-        cbBuscarClienteVentaModificar = new javax.swing.JComboBox<String>();
+        cbBuscarClienteVentaModificar = new javax.swing.JComboBox<>();
         txtBuscarClienteVentaModificar = new javax.swing.JTextField();
         btnBuscarClienteVentaModificar = new javax.swing.JButton();
         jScrollPane6 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
         btnCargarClienteVentaModificar = new javax.swing.JButton();
         buscarCocheVentaModificar = new javax.swing.JDialog();
-        cbBuscarCocheVentaModificar = new javax.swing.JComboBox<String>();
+        cbBuscarCocheVentaModificar = new javax.swing.JComboBox<>();
         txtBuscarCocheVentaModificar = new javax.swing.JTextField();
         btnBuscarCocheVentaModificar = new javax.swing.JButton();
         jScrollPane7 = new javax.swing.JScrollPane();
@@ -931,10 +954,10 @@ public class Main extends javax.swing.JFrame {
         coches = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        cbMarcaMain = new javax.swing.JComboBox<String>();
+        cbMarcaMain = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
-        cbMotorMain = new javax.swing.JComboBox<String>();
-        cbBuscarMain = new javax.swing.JComboBox<String>();
+        cbMotorMain = new javax.swing.JComboBox<>();
+        cbBuscarMain = new javax.swing.JComboBox<>();
         jSeparator1 = new javax.swing.JSeparator();
         txtBuscarMain = new javax.swing.JTextField();
         btnBuscarMain = new javax.swing.JButton();
@@ -1033,6 +1056,7 @@ public class Main extends javax.swing.JFrame {
 
         jLabel52.setText("IMAGEN");
 
+        btnImagenCocheNuevo.setMnemonic('S');
         btnImagenCocheNuevo.setText("Seleccionar imagen");
         btnImagenCocheNuevo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1053,6 +1077,7 @@ public class Main extends javax.swing.JFrame {
             .addGap(0, 160, Short.MAX_VALUE)
         );
 
+        btnCancelarCocheNuevo.setMnemonic('C');
         btnCancelarCocheNuevo.setText("Cancelar");
         btnCancelarCocheNuevo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1060,6 +1085,7 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
+        btnAceptarCocheNuevo.setMnemonic('A');
         btnAceptarCocheNuevo.setText("Aceptar");
         btnAceptarCocheNuevo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1073,6 +1099,13 @@ public class Main extends javax.swing.JFrame {
             ex.printStackTrace();
         }
         txtBastidorCocheNuevo.setToolTipText("<html>\n    <p><b>17 caracteres</b></p>\n    <p>3 letras, 8 números o letras y 6 números</p>\n</html>");
+        txtBastidorCocheNuevo.setFocusLostBehavior(javax.swing.JFormattedTextField.COMMIT);
+
+        txtCVCocheNuevo.setFocusLostBehavior(javax.swing.JFormattedTextField.COMMIT);
+
+        txtPrecioCocheNuevo.setFocusLostBehavior(javax.swing.JFormattedTextField.COMMIT);
+
+        cbTipoCocheNuevo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " ", "TURISMO", "SEDÁN", "COMPACTO", "DEPORTIVO", "COMERCIAL", "FAMILIAR", "TODOTERRENO" }));
 
         javax.swing.GroupLayout aniadirCocheLayout = new javax.swing.GroupLayout(aniadirCoche.getContentPane());
         aniadirCoche.getContentPane().setLayout(aniadirCocheLayout);
@@ -1099,14 +1132,14 @@ public class Main extends javax.swing.JFrame {
                                     .addComponent(txtBastidorCocheNuevo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(0, 32, Short.MAX_VALUE)))
                         .addGroup(aniadirCocheLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(txtTipoCocheNuevo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
                             .addComponent(jLabel48, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel49, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel50, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel51, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtMarcaCocheNuevo, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtMarcaCocheNuevo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
                             .addComponent(txtCVCocheNuevo)
-                            .addComponent(txtPrecioCocheNuevo))
+                            .addComponent(txtPrecioCocheNuevo)
+                            .addComponent(cbTipoCocheNuevo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(32, 32, 32)
                         .addGroup(aniadirCocheLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel52)
@@ -1141,7 +1174,7 @@ public class Main extends javax.swing.JFrame {
                         .addGap(8, 8, 8)
                         .addGroup(aniadirCocheLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtModeloCocheNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtTipoCocheNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(cbTipoCocheNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(aniadirCocheLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel46)
@@ -1193,6 +1226,7 @@ public class Main extends javax.swing.JFrame {
 
         jLabel61.setText("IMAGEN");
 
+        btnImagenCocheModificar.setMnemonic('S');
         btnImagenCocheModificar.setText("Seleccionar imagen");
         btnImagenCocheModificar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1213,6 +1247,7 @@ public class Main extends javax.swing.JFrame {
             .addGap(0, 160, Short.MAX_VALUE)
         );
 
+        btnCancelarCocheModificar.setMnemonic('C');
         btnCancelarCocheModificar.setText("Cancelar");
         btnCancelarCocheModificar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1220,12 +1255,15 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
+        btnAceptarCocheModificar.setMnemonic('A');
         btnAceptarCocheModificar.setText("Aceptar");
         btnAceptarCocheModificar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAceptarCocheModificarActionPerformed(evt);
             }
         });
+
+        cbTipoCocheModificar.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "TURISMO", "SEDÁN", "COMPACTO", "DEPORTIVO", "COMERCIAL", "FAMILIAR", "TODOTERRENO" }));
 
         javax.swing.GroupLayout modificarCocheLayout = new javax.swing.GroupLayout(modificarCoche.getContentPane());
         modificarCoche.getContentPane().setLayout(modificarCocheLayout);
@@ -1252,14 +1290,14 @@ public class Main extends javax.swing.JFrame {
                                         .addComponent(txtBastidorCocheModificar, javax.swing.GroupLayout.Alignment.LEADING)))
                                 .addGap(0, 32, Short.MAX_VALUE)))
                         .addGroup(modificarCocheLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(txtTipoCocheModificar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
                             .addComponent(jLabel57, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel58, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel59, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel60, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtMarcaCocheModificar, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtMarcaCocheModificar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
                             .addComponent(txtCVCocheModificar)
-                            .addComponent(txtPrecioCocheModificar))
+                            .addComponent(txtPrecioCocheModificar)
+                            .addComponent(cbTipoCocheModificar, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(32, 32, 32)
                         .addGroup(modificarCocheLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel61)
@@ -1294,7 +1332,7 @@ public class Main extends javax.swing.JFrame {
                         .addGap(8, 8, 8)
                         .addGroup(modificarCocheLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtModeloCocheModificar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtTipoCocheModificar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(cbTipoCocheModificar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(modificarCocheLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel55)
@@ -1326,6 +1364,7 @@ public class Main extends javax.swing.JFrame {
         buscarClienteVentaNueva.setResizable(false);
         buscarClienteVentaNueva.setSize(new java.awt.Dimension(426, 270));
 
+        btnNuevoCliente.setMnemonic('N');
         btnNuevoCliente.setText("Nuevo cliente");
         btnNuevoCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1335,7 +1374,7 @@ public class Main extends javax.swing.JFrame {
 
         jSeparator2.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
-        cbBuscarClienteVentaNueva.setModel(new javax.swing.DefaultComboBoxModel(new String[] { " ", "DNI", "Nombre", "Apellidos" }));
+        cbBuscarClienteVentaNueva.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " ", "DNI", "Nombre", "Apellidos" }));
         cbBuscarClienteVentaNueva.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cbBuscarClienteVentaNuevaItemStateChanged(evt);
@@ -1349,6 +1388,7 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
+        btnBuscarClienteVentaNueva.setMnemonic('B');
         btnBuscarClienteVentaNueva.setText("Buscar");
         btnBuscarClienteVentaNueva.setEnabled(false);
         btnBuscarClienteVentaNueva.addActionListener(new java.awt.event.ActionListener() {
@@ -1398,6 +1438,7 @@ public class Main extends javax.swing.JFrame {
             jTable1.getColumnModel().getColumn(2).setResizable(false);
         }
 
+        btnCargarClienteVentaNueva.setMnemonic('C');
         btnCargarClienteVentaNueva.setText("Cargar cliente");
         btnCargarClienteVentaNueva.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1455,7 +1496,7 @@ public class Main extends javax.swing.JFrame {
         buscarClienteVentaModificar.setResizable(false);
         buscarClienteVentaModificar.setSize(new java.awt.Dimension(426, 270));
 
-        cbBuscarClienteVentaModificar.setModel(new javax.swing.DefaultComboBoxModel(new String[] { " ", "DNI", "Nombre", "Apellidos" }));
+        cbBuscarClienteVentaModificar.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " ", "DNI", "Nombre", "Apellidos" }));
         cbBuscarClienteVentaModificar.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cbBuscarClienteVentaModificarItemStateChanged(evt);
@@ -1464,6 +1505,7 @@ public class Main extends javax.swing.JFrame {
 
         txtBuscarClienteVentaModificar.setEditable(false);
 
+        btnBuscarClienteVentaModificar.setMnemonic('B');
         btnBuscarClienteVentaModificar.setText("Buscar");
         btnBuscarClienteVentaModificar.setEnabled(false);
         btnBuscarClienteVentaModificar.addActionListener(new java.awt.event.ActionListener() {
@@ -1513,6 +1555,7 @@ public class Main extends javax.swing.JFrame {
             jTable2.getColumnModel().getColumn(2).setResizable(false);
         }
 
+        btnCargarClienteVentaModificar.setMnemonic('C');
         btnCargarClienteVentaModificar.setText("Cargar cliente");
         btnCargarClienteVentaModificar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1562,7 +1605,7 @@ public class Main extends javax.swing.JFrame {
         buscarCocheVentaModificar.setResizable(false);
         buscarCocheVentaModificar.setSize(new java.awt.Dimension(426, 270));
 
-        cbBuscarCocheVentaModificar.setModel(new javax.swing.DefaultComboBoxModel(new String[] { " ", "Bastidor", "Marca", "Modelo" }));
+        cbBuscarCocheVentaModificar.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " ", "Bastidor", "Marca", "Modelo" }));
         cbBuscarCocheVentaModificar.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cbBuscarCocheVentaModificarItemStateChanged(evt);
@@ -1576,6 +1619,7 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
+        btnBuscarCocheVentaModificar.setMnemonic('B');
         btnBuscarCocheVentaModificar.setText("Buscar");
         btnBuscarCocheVentaModificar.setEnabled(false);
         btnBuscarCocheVentaModificar.addActionListener(new java.awt.event.ActionListener() {
@@ -1626,6 +1670,7 @@ public class Main extends javax.swing.JFrame {
             jTable3.getColumnModel().getColumn(2).setResizable(false);
         }
 
+        btnCargarCocheVentaModificar.setMnemonic('C');
         btnCargarCocheVentaModificar.setText("Cargar coche");
         btnCargarCocheVentaModificar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1708,6 +1753,7 @@ public class Main extends javax.swing.JFrame {
 
         jLabel40.setText("€");
 
+        btnCancelarVentaNueva.setMnemonic('C');
         btnCancelarVentaNueva.setText("Cancelar");
         btnCancelarVentaNueva.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1715,6 +1761,7 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
+        btnAceptarVentaNueva.setMnemonic('A');
         btnAceptarVentaNueva.setText("Aceptar");
         btnAceptarVentaNueva.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1880,6 +1927,7 @@ public class Main extends javax.swing.JFrame {
 
         chkAceiteRevisionNueva.setText("CAMBIO DE ACEITE");
 
+        btnCancelarRevisionNueva.setMnemonic('C');
         btnCancelarRevisionNueva.setText("Cancelar");
         btnCancelarRevisionNueva.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1887,6 +1935,7 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
+        btnAceptarRevisionNueva.setMnemonic('A');
         btnAceptarRevisionNueva.setText("Aceptar");
         btnAceptarRevisionNueva.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1998,6 +2047,7 @@ public class Main extends javax.swing.JFrame {
 
         chkAceiteRevisionModificar.setText("CAMBIO DE ACEITE");
 
+        btnCancelarRevisionModificar.setMnemonic('C');
         btnCancelarRevisionModificar.setText("Cancelar");
         btnCancelarRevisionModificar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -2005,6 +2055,7 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
+        btnAceptarRevisionModificar.setMnemonic('A');
         btnAceptarRevisionModificar.setText("Aceptar");
         btnAceptarRevisionModificar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -2110,6 +2161,7 @@ public class Main extends javax.swing.JFrame {
 
         txtPrecioVentaModificar.setEditable(false);
 
+        btnBuscarCliente.setMnemonic('B');
         btnBuscarCliente.setText("Buscar cliente");
         btnBuscarCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -2117,6 +2169,7 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
+        btnBuscarCoche.setMnemonic('B');
         btnBuscarCoche.setText("Buscar coche");
         btnBuscarCoche.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -2126,6 +2179,7 @@ public class Main extends javax.swing.JFrame {
 
         jLabel73.setText("€");
 
+        btnCancelarVentaModificar.setMnemonic('C');
         btnCancelarVentaModificar.setText("Cancelar");
         btnCancelarVentaModificar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -2133,6 +2187,7 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
+        btnAceptarVentaModificar.setMnemonic('A');
         btnAceptarVentaModificar.setText("Aceptar");
         btnAceptarVentaModificar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -2231,6 +2286,7 @@ public class Main extends javax.swing.JFrame {
 
         jLabel78.setText("DIRECCIÓN");
 
+        btnCancelarClienteModificar.setMnemonic('C');
         btnCancelarClienteModificar.setText("Cancelar");
         btnCancelarClienteModificar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -2238,6 +2294,7 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
+        btnAceptarClienteModificar.setMnemonic('A');
         btnAceptarClienteModificar.setText("Aceptar");
         btnAceptarClienteModificar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -2418,6 +2475,7 @@ public class Main extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Concesionario");
+        setIconImage(getIconImage());
         setResizable(false);
 
         jTabbedPane1.addChangeListener(new javax.swing.event.ChangeListener() {
@@ -2430,6 +2488,7 @@ public class Main extends javax.swing.JFrame {
 
         jLabel2.setText("Marca");
 
+        cbMarcaMain.setToolTipText("Realiza una búsqueda filtrando por marca");
         cbMarcaMain.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cbMarcaMainItemStateChanged(evt);
@@ -2438,13 +2497,15 @@ public class Main extends javax.swing.JFrame {
 
         jLabel3.setText("Motor");
 
+        cbMotorMain.setToolTipText("Realiza una búsqueda filtrando por motor");
         cbMotorMain.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cbMotorMainItemStateChanged(evt);
             }
         });
 
-        cbBuscarMain.setModel(new javax.swing.DefaultComboBoxModel(new String[] { " ", "Bastidor", "Marca", "Modelo", "Motor", "CV", "Tipo", "Color", "Precio" }));
+        cbBuscarMain.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecciona un campo", "Bastidor", "Marca", "Modelo", "Motor", "CV", "Tipo", "Color", "Precio" }));
+        cbBuscarMain.setToolTipText("Realiza una búsqueda filtrando por el campo seleccionado");
         cbBuscarMain.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cbBuscarMainItemStateChanged(evt);
@@ -2469,7 +2530,9 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
+        btnReiniciarBusqueda.setMnemonic('B');
         btnReiniciarBusqueda.setText("Reiniciar Búsqueda");
+        btnReiniciarBusqueda.setToolTipText("Reinicia todas las búsquedas y lista todos los coches");
         btnReiniciarBusqueda.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnReiniciarBusquedaActionPerformed(evt);
@@ -2502,6 +2565,7 @@ public class Main extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tablaMain.setToolTipText("<html>\n    <p>Para añadir un <b>nuevo</b> coche haga click derecho o utilice el botón \"Nuevo\"</p>\n    <p>Para <b>editar</b> haga doble click, click derecho, pulse la tecla 'e' o utilice el botón \"Modificar\"</p>\n    <p>Para <b>borrar</b> haga click derecho, pulse las teclas 'b' o \"Suprimir\" o utiliza el botón \"Eliminar\"</p>\n</html>");
         tablaMain.getTableHeader().setReorderingAllowed(false);
         tablaMain.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -2530,7 +2594,9 @@ public class Main extends javax.swing.JFrame {
             tablaMain.getColumnModel().getColumn(7).setResizable(false);
         }
 
+        btnVentaNueva.setMnemonic('V');
         btnVentaNueva.setText("VENTA");
+        btnVentaNueva.setToolTipText("Realiza una venta del coche seleccionado");
         btnVentaNueva.setEnabled(false);
         btnVentaNueva.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -2538,7 +2604,9 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
+        btnRevisionNueva.setMnemonic('R');
         btnRevisionNueva.setText("REVISIÓN");
+        btnRevisionNueva.setToolTipText("Realiza una revisión al coche seleccionado");
         btnRevisionNueva.setEnabled(false);
         btnRevisionNueva.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -2546,7 +2614,9 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
+        btnCocheBorrar.setMnemonic('E');
         btnCocheBorrar.setText("ELIMINAR");
+        btnCocheBorrar.setToolTipText("Elimina el coche seleccionado");
         btnCocheBorrar.setEnabled(false);
         btnCocheBorrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -2554,7 +2624,9 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
+        btnCocheModificar.setMnemonic('M');
         btnCocheModificar.setText("MODIFICAR");
+        btnCocheModificar.setToolTipText("Modifica el coche seleccionado");
         btnCocheModificar.setEnabled(false);
         btnCocheModificar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -2562,7 +2634,9 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
+        btnCocheNuevo.setMnemonic('N');
         btnCocheNuevo.setText("NUEVO");
+        btnCocheNuevo.setToolTipText("Añade un nuevo coche");
         btnCocheNuevo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCocheNuevoActionPerformed(evt);
@@ -2592,27 +2666,27 @@ public class Main extends javax.swing.JFrame {
                                 .addGap(8, 8, 8)
                                 .addComponent(btnCocheBorrar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(cochesLayout.createSequentialGroup()
-                                .addGroup(cochesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(cochesLayout.createSequentialGroup()
-                                        .addComponent(jLabel1)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jLabel2)
-                                        .addGap(8, 8, 8)
-                                        .addComponent(cbMarcaMain, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jLabel3)
-                                        .addGap(8, 8, 8)
-                                        .addComponent(cbMotorMain, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(8, 8, 8)
-                                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(8, 8, 8)
-                                        .addComponent(cbBuscarMain, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txtBuscarMain, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(btnBuscarMain))
-                                    .addComponent(btnReiniciarBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(0, 60, Short.MAX_VALUE)))))
+                                .addComponent(btnReiniciarBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 527, Short.MAX_VALUE))
+                            .addGroup(cochesLayout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel2)
+                                .addGap(8, 8, 8)
+                                .addComponent(cbMarcaMain, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel3)
+                                .addGap(8, 8, 8)
+                                .addComponent(cbMotorMain, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(8, 8, 8)
+                                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(8, 8, 8)
+                                .addComponent(cbBuscarMain, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtBuscarMain, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnBuscarMain)
+                                .addGap(26, 26, 26)))))
                 .addGap(8, 8, 8))
         );
         cochesLayout.setVerticalGroup(
@@ -2680,7 +2754,9 @@ public class Main extends javax.swing.JFrame {
             .addGap(0, 160, Short.MAX_VALUE)
         );
 
+        btnRevisionBorrar.setMnemonic('E');
         btnRevisionBorrar.setText("ELIMINAR");
+        btnRevisionBorrar.setToolTipText("Elimina la revisión seleccionada");
         btnRevisionBorrar.setEnabled(false);
         btnRevisionBorrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -2688,7 +2764,9 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
+        btnRevisionModificar.setMnemonic('M');
         btnRevisionModificar.setText("MODIFICAR");
+        btnRevisionModificar.setToolTipText("Modifica la revisión seleccionada");
         btnRevisionModificar.setEnabled(false);
         btnRevisionModificar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -2722,6 +2800,7 @@ public class Main extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tablaRevisiones.setToolTipText("<html>\n    <p>Para <b>editar</b> haga doble click, click derecho, pulse la tecla 'e' o utilice el botón \"Modificar\"</p>\n    <p>Para <b>borrar</b> haga click derecho, pulse las teclas 'b' o \"Suprimir\" o utiliza el botón \"Eliminar\"</p>\n</html>");
         tablaRevisiones.getTableHeader().setReorderingAllowed(false);
         tablaRevisiones.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -2871,6 +2950,7 @@ public class Main extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tablaVentas.setToolTipText("<html>\n    <p>Para <b>editar</b> haga doble click, click derecho, pulse la tecla 'e' o utilice el botón \"Modificar\"</p>\n    <p>Para <b>borrar</b> haga click derecho, pulse las teclas 'b' o \"Suprimir\" o utiliza el botón \"Eliminar\"</p>\n</html>");
         tablaVentas.getTableHeader().setReorderingAllowed(false);
         tablaVentas.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -2904,7 +2984,9 @@ public class Main extends javax.swing.JFrame {
 
         jLabel24.setText("PRECIO");
 
+        btnVentaBorrar.setMnemonic('E');
         btnVentaBorrar.setText("ELIMINAR");
+        btnVentaBorrar.setToolTipText("Elimina la venta seleccionada");
         btnVentaBorrar.setEnabled(false);
         btnVentaBorrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -2912,7 +2994,9 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
+        btnVentaModificar.setMnemonic('M');
         btnVentaModificar.setText("MODIFICAR");
+        btnVentaModificar.setToolTipText("Modifica la venta seleccionada");
         btnVentaModificar.setEnabled(false);
         btnVentaModificar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -3002,7 +3086,9 @@ public class Main extends javax.swing.JFrame {
 
         jLabel29.setText("Dirección");
 
+        btnClienteBorrar.setMnemonic('E');
         btnClienteBorrar.setText("ELIMINAR");
+        btnClienteBorrar.setToolTipText("Elimina el cliente seleccionado");
         btnClienteBorrar.setEnabled(false);
         btnClienteBorrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -3010,7 +3096,9 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
+        btnClienteModificar.setMnemonic('M');
         btnClienteModificar.setText("MODIFICAR");
+        btnClienteModificar.setToolTipText("Modifica el cliente seleccionado");
         btnClienteModificar.setEnabled(false);
         btnClienteModificar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -3044,6 +3132,7 @@ public class Main extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tablaClientes.setToolTipText("<html>\n    <p>Para <b>editar</b> haga doble click, click derecho, pulse la tecla 'e' o utilice el botón \"Modificar\"</p>\n    <p>Para <b>borrar</b> haga click derecho, pulse las teclas 'b' o \"Suprimir\" o utiliza el botón \"Eliminar\"</p>\n</html>");
         tablaClientes.getTableHeader().setReorderingAllowed(false);
         tablaClientes.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -3126,11 +3215,13 @@ public class Main extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("CLIENTES", null, clientes, "");
 
+        archivo.setMnemonic('A');
         archivo.setText("Archivo");
 
         reiniciarbd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/toolbarButtonGraphics/general/Refresh24.gif"))); // NOI18N
+        reiniciarbd.setMnemonic('R');
         reiniciarbd.setText("Reiniciar BBDD");
-        reiniciarbd.setToolTipText("");
+        reiniciarbd.setToolTipText("Borra todos los datos del concesionario");
         reiniciarbd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 reiniciarbdActionPerformed(evt);
@@ -3139,8 +3230,9 @@ public class Main extends javax.swing.JFrame {
         archivo.add(reiniciarbd);
 
         salir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/toolbarButtonGraphics/general/Stop24.gif"))); // NOI18N
+        salir.setMnemonic('S');
         salir.setText("Salir");
-        salir.setToolTipText("");
+        salir.setToolTipText("Sal de la aplicación");
         salir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 salirActionPerformed(evt);
@@ -3150,12 +3242,14 @@ public class Main extends javax.swing.JFrame {
 
         menu.add(archivo);
 
+        ayuda.setMnemonic('u');
         ayuda.setText("Ayuda");
         ayuda.setToolTipText("");
 
         acercade.setIcon(new javax.swing.ImageIcon(getClass().getResource("/toolbarButtonGraphics/general/About24.gif"))); // NOI18N
+        acercade.setMnemonic('A');
         acercade.setText("Acerca de");
-        acercade.setToolTipText("");
+        acercade.setToolTipText("Muestra información sobre la aplicación");
         acercade.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 acercadeActionPerformed(evt);
@@ -3164,8 +3258,9 @@ public class Main extends javax.swing.JFrame {
         ayuda.add(acercade);
 
         manual.setIcon(new javax.swing.ImageIcon(getClass().getResource("/toolbarButtonGraphics/general/Help24.gif"))); // NOI18N
+        manual.setMnemonic('M');
         manual.setText("Manual");
-        manual.setToolTipText("");
+        manual.setToolTipText("Muestra el manual de usuario");
         ayuda.add(manual);
 
         menu.add(ayuda);
@@ -3191,7 +3286,7 @@ public class Main extends javax.swing.JFrame {
         txtBastidorCocheNuevo.setText("");
         txtMarcaCocheNuevo.setText("");
         txtModeloCocheNuevo.setText("");
-        txtTipoCocheNuevo.setText("");
+        cbTipoCocheNuevo.setSelectedIndex(0);
         txtMotorCocheNuevo.setText("");
         txtCVCocheNuevo.setText("");
         txtColorCocheNuevo.setText("");
@@ -3450,7 +3545,7 @@ public class Main extends javax.swing.JFrame {
                 lblCocheVentaMain.setText("");
                 lblDniVentaMain.setText("");
                 lblPrecioVentaMain.setText("");
-                JOptionPane.showMessageDialog(null, "Venta eliminada correctamente", "", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Venta eliminada correctamente", "Información", JOptionPane.INFORMATION_MESSAGE);
             } catch (SQLException e) {
                 Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, e);
             }
@@ -3462,18 +3557,20 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_btnClienteBorrarActionPerformed
 
     private void reiniciarbdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reiniciarbdActionPerformed
-        con.ReiniciaBBDD();
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {}
-        listarCoches();
-        listarCoches2();
-        listarVentas();
-        listarRevisiones();
-        listarClientes();
-        listarClientes2();
-        listarClientes3();
-        limpiarTodo();
+        int respuesta = JOptionPane.showConfirmDialog(null, "Esto borrará todos los datos, ¿está seguro?", "Reiniciar base de datos", JOptionPane.WARNING_MESSAGE);
+        //System.out.println(respuesta);
+        
+        if(respuesta==0){
+            con.ReiniciaBBDD();
+            listarCoches();
+            listarCoches2();
+            listarVentas();
+            listarRevisiones();
+            listarClientes();
+            listarClientes2();
+            listarClientes3();
+            limpiarTodo();
+        }
     }//GEN-LAST:event_reiniciarbdActionPerformed
 
     private void btnAceptarCocheNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarCocheNuevoActionPerformed
@@ -3499,7 +3596,7 @@ public class Main extends javax.swing.JFrame {
 
     private void btnAceptarVentaNuevaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarVentaNuevaActionPerformed
         if(txtNombreVentaNueva.getText().equals("") || txtApellidosVentaNueva.getText().equals("") || txtDniVentaNueva.getText().equals("") || txtTelefonoVentaNueva.getText().equals("") || txtDireccionVentaNueva.getText().equals("")){
-            JOptionPane.showMessageDialog(null, "No puede haber ningún campo vacío", "", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "No puede haber ningún campo vacío", "Aviso", JOptionPane.WARNING_MESSAGE);
         }else{
             try {//INSERCIÓN DEL CLIENTE
                 String dni2 = txtDniVentaNueva.getText();
@@ -3517,7 +3614,7 @@ public class Main extends javax.swing.JFrame {
                 listarClientes();
                 listarClientes2();
                 listarClientes3();
-                JOptionPane.showMessageDialog(null, "Nuevo cliente introducido correctamente", "", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Nuevo cliente introducido correctamente", "Información", JOptionPane.INFORMATION_MESSAGE);
             } catch (SQLException ex) {
                 //System.out.println(ex.getErrorCode());
                 if(ex.getErrorCode()==19){}else
@@ -3532,10 +3629,10 @@ public class Main extends javax.swing.JFrame {
                 ps.setFloat(4, Float.parseFloat(lblPrecioVentaNueva.getText()));
                 ps.executeUpdate();
                 listarVentas();
-                JOptionPane.showMessageDialog(null, "Nueva venta introducida correctamente", "", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Nueva venta introducida correctamente", "Información", JOptionPane.INFORMATION_MESSAGE);
             } catch (SQLException ex) {
                 if(ex.getErrorCode()==19){
-                    JOptionPane.showMessageDialog(null, "Ya existe una venta con estos datos", "", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Ya existe una venta con estos datos", "Información", JOptionPane.INFORMATION_MESSAGE);
                 }else
                     Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -3545,7 +3642,7 @@ public class Main extends javax.swing.JFrame {
 
     private void btnAceptarRevisionNuevaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarRevisionNuevaActionPerformed
         if(!chkAceiteRevisionNueva.isSelected() && !chkFiltroRevisionNueva.isSelected() && !chkFrenosRevisionNueva.isSelected()){
-            JOptionPane.showMessageDialog(null, "Debe haber algún campo seleccionado", "", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Debe haber algún campo seleccionado", "Aviso", JOptionPane.WARNING_MESSAGE);
         }else{
             try {
                 PreparedStatement ps = this.con.dameconexion().prepareStatement("INSERT INTO Revision VALUES (?,?,?,?,?,?);");
@@ -3568,12 +3665,12 @@ public class Main extends javax.swing.JFrame {
                 
                 ps.setString(6,lblBastidorRevisionNueva.getText());
                 ps.executeUpdate();
-                JOptionPane.showMessageDialog(null, "Revisión introducida correctamente", "", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Revisión introducida correctamente", "Información", JOptionPane.INFORMATION_MESSAGE);
                 listarRevisiones();
                 aniadirRevision.setVisible(false);
             } catch (SQLException ex) {
                 if(ex.getErrorCode()==19)
-                    JOptionPane.showMessageDialog(null, "Ya existe una revisión con estos datos", "", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Ya existe una revisión con estos datos", "Información", JOptionPane.INFORMATION_MESSAGE);
                 else
                     Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -3581,8 +3678,8 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAceptarRevisionNuevaActionPerformed
 
     private void btnAceptarCocheModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarCocheModificarActionPerformed
-        if(txtMarcaCocheModificar.getText().equals("") || txtModeloCocheModificar.getText().equals("") || txtTipoCocheModificar.getText().equals("") || txtMotorCocheModificar.getText().equals("") || txtCVCocheModificar.getText().equals("") || txtColorCocheModificar.getText().equals("") || txtPrecioCocheModificar.getText().equals("")){
-            JOptionPane.showMessageDialog(null, "Ningún campo debe estar vacío", "", JOptionPane.WARNING_MESSAGE);
+        if(txtMarcaCocheModificar.getText().equals("") || txtModeloCocheModificar.getText().equals("") || txtMotorCocheModificar.getText().equals("") || txtCVCocheModificar.getText().equals("") || txtColorCocheModificar.getText().equals("") || txtPrecioCocheModificar.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Ningún campo debe estar vacío", "Aviso", JOptionPane.WARNING_MESSAGE);
         }else{
             int cv = 0;
             float precio = 0;
@@ -3592,14 +3689,14 @@ public class Main extends javax.swing.JFrame {
                 cv = Integer.parseInt(txtCVCocheModificar.getText());
             } catch (NumberFormatException e) {
                 inserta = false;
-                JOptionPane.showMessageDialog(null, "Los CV deben ser un número entero", "", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Los CV deben ser un número entero", "Aviso", JOptionPane.WARNING_MESSAGE);
             }
 
             try {
                 precio = Float.parseFloat(txtPrecioCocheModificar.getText());
             } catch (NumberFormatException e) {
                 inserta = false;
-                JOptionPane.showMessageDialog(null, "El precio debe ser un número real", "", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(null, "El precio debe ser un número real", "Aviso", JOptionPane.WARNING_MESSAGE);
             }
             
             if(inserta){
@@ -3609,7 +3706,7 @@ public class Main extends javax.swing.JFrame {
                     ps.setString(2,txtModeloCocheModificar.getText());
                     ps.setString(3, txtMotorCocheModificar.getText());
                     ps.setInt(4, cv);
-                    ps.setString(5,txtTipoCocheModificar.getText());
+                    ps.setString(5,(String)cbTipoCocheModificar.getSelectedItem());
                     ps.setString(6,txtColorCocheModificar.getText());
                     ps.setFloat(7, precio);
                     ps.setString(8,txtBastidorCocheModificar.getText());
@@ -3620,7 +3717,7 @@ public class Main extends javax.swing.JFrame {
                     listarVentas();
                     rellenarComboMarca();
                     rellenarComboMotor();
-                    JOptionPane.showMessageDialog(null, "Coche modificado correctamente", "", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Coche modificado correctamente", "Información", JOptionPane.INFORMATION_MESSAGE);
                     modificarCoche.setVisible(false);
                 } catch (SQLException ex) {
                     Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
@@ -3683,7 +3780,7 @@ public class Main extends javax.swing.JFrame {
             lblCocheVentaMain.setText("");
             lblDniVentaMain.setText("");
             lblPrecioVentaMain.setText("");
-            JOptionPane.showMessageDialog(null, "Venta modificada correctamente", "", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Venta modificada correctamente", "Información", JOptionPane.INFORMATION_MESSAGE);
             modificarVenta.setVisible(false);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -3692,7 +3789,7 @@ public class Main extends javax.swing.JFrame {
 
     private void btnAceptarClienteModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarClienteModificarActionPerformed
         if(txtNombreClienteModificar.getText().equals("") || txtApellidosClienteModificar.getText().equals("") || txtTelefonoClienteModificar.getText().equals("") || txtDireccionClienteModificar.getText().equals("")){
-            JOptionPane.showMessageDialog(null, "No puede haber ningún campo vacío", "", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "No puede haber ningún campo vacío", "Aviso", JOptionPane.WARNING_MESSAGE);
         }else{
             try {
                 PreparedStatement ps = this.con.dameconexion().prepareStatement("UPDATE Cliente SET Nombre=?,Apellidos=?, Telefono=?, Domicilio=? WHERE Dni=?;");
@@ -3711,7 +3808,7 @@ public class Main extends javax.swing.JFrame {
                 lblApellidosClienteMain.setText("");
                 lblTelefonoClienteMain.setText("");
                 lblDireccionClienteMain.setText("");
-                JOptionPane.showMessageDialog(null, "Cliente modificado correctamente", "", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Cliente modificado correctamente", "Información", JOptionPane.INFORMATION_MESSAGE);
                 modificarCliente.setVisible(false);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -3721,7 +3818,7 @@ public class Main extends javax.swing.JFrame {
 
     private void btnAceptarRevisionModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarRevisionModificarActionPerformed
         if(!chkAceiteRevisionModificar.isSelected() && !chkFiltroRevisionModificar.isSelected() && !chkFrenosRevisionModificar.isSelected()){
-            JOptionPane.showMessageDialog(null, "Debe haber algún campo seleccionado", "", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Debe haber algún campo seleccionado", "Aviso", JOptionPane.WARNING_MESSAGE);
         }else{
             try {
                 PreparedStatement ps = this.con.dameconexion().prepareStatement("UPDATE Revision SET Frenos=?,Aceite=?,Filtro=? WHERE N_Revision=?;");
@@ -3744,7 +3841,7 @@ public class Main extends javax.swing.JFrame {
                 ps.setInt(4, Integer.parseInt(lblNumeroRevisionModificar.getText()));
                 
                 ps.executeUpdate();
-                JOptionPane.showMessageDialog(null, "Revisión modificada correctamente", "", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Revisión modificada correctamente", "Información", JOptionPane.INFORMATION_MESSAGE);
                 listarRevisiones();
                 lblNumeroRevisionMain.setText("");
                 lblFechaRevisionMain.setText("");
@@ -3826,7 +3923,7 @@ public class Main extends javax.swing.JFrame {
 
     private void btnBuscarMainActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarMainActionPerformed
         if(txtBuscarMain.getText().equals("")){
-            JOptionPane.showMessageDialog(null, "El campo no puede estar vacío", "", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "El campo no puede estar vacío", "Aviso", JOptionPane.WARNING_MESSAGE);
         }else{
             String campo = (String) cbBuscarMain.getSelectedItem();
             if(campo.equals("Bastidor"))
@@ -3840,7 +3937,7 @@ public class Main extends javax.swing.JFrame {
         //System.out.println(evt.getKeyCode());
         if(evt.getKeyCode()==10){
             if(txtBuscarMain.getText().equals("")){
-                JOptionPane.showMessageDialog(null, "El campo no puede estar vacío", "", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(null, "El campo no puede estar vacío", "Aviso", JOptionPane.WARNING_MESSAGE);
             }else{
                 String campo = (String) cbBuscarMain.getSelectedItem();
                 if(campo.equals("Bastidor"))
@@ -4014,7 +4111,7 @@ public class Main extends javax.swing.JFrame {
 
     private void btnBuscarClienteVentaNuevaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarClienteVentaNuevaActionPerformed
         if(txtBuscarClienteVentaNueva.getText().equals("")){
-            JOptionPane.showMessageDialog(null, "El campo no puede estar vacío", "", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "El campo no puede estar vacío", "Aviso", JOptionPane.WARNING_MESSAGE);
         }else{
             String campo = (String) cbBuscarClienteVentaNueva.getSelectedItem();
             
@@ -4037,7 +4134,7 @@ public class Main extends javax.swing.JFrame {
     private void txtBuscarClienteVentaNuevaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarClienteVentaNuevaKeyReleased
         if(evt.getKeyCode()==10){
             if(txtBuscarClienteVentaNueva.getText().equals("")){
-                JOptionPane.showMessageDialog(null, "El campo no puede estar vacío", "", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(null, "El campo no puede estar vacío", "Aviso", JOptionPane.WARNING_MESSAGE);
             }else{
                 String campo = (String) cbBuscarClienteVentaNueva.getSelectedItem();
 
@@ -4060,7 +4157,7 @@ public class Main extends javax.swing.JFrame {
 
     private void btnBuscarClienteVentaModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarClienteVentaModificarActionPerformed
         if(txtBuscarClienteVentaModificar.getText().equals("")){
-            JOptionPane.showMessageDialog(null, "El campo no puede estar vacío", "", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "El campo no puede estar vacío", "Aviso", JOptionPane.WARNING_MESSAGE);
         }else{
             String campo = (String) cbBuscarClienteVentaModificar.getSelectedItem();
             
@@ -4088,7 +4185,7 @@ public class Main extends javax.swing.JFrame {
 
     private void btnBuscarCocheVentaModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarCocheVentaModificarActionPerformed
         if(txtBuscarCocheVentaModificar.getText().equals("")){
-            JOptionPane.showMessageDialog(null, "El campo no puede estar vacío", "", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "El campo no puede estar vacío", "Aviso", JOptionPane.WARNING_MESSAGE);
         }else{
             String campo = (String) cbBuscarCocheVentaModificar.getSelectedItem();
             if(campo.equals("Bastidor"))
@@ -4101,7 +4198,7 @@ public class Main extends javax.swing.JFrame {
     private void txtBuscarCocheVentaModificarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarCocheVentaModificarKeyReleased
         if(evt.getKeyCode()==10){
             if(txtBuscarCocheVentaModificar.getText().equals("")){
-                JOptionPane.showMessageDialog(null, "El campo no puede estar vacío", "", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(null, "El campo no puede estar vacío", "Aviso", JOptionPane.WARNING_MESSAGE);
             }else{
                 String campo = (String) cbBuscarCocheVentaModificar.getSelectedItem();
                 if(campo.equals("Bastidor"))
@@ -4331,6 +4428,8 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cbBuscarMain;
     private javax.swing.JComboBox<String> cbMarcaMain;
     private javax.swing.JComboBox<String> cbMotorMain;
+    private javax.swing.JComboBox<String> cbTipoCocheModificar;
+    private javax.swing.JComboBox<String> cbTipoCocheNuevo;
     private javax.swing.JCheckBox chkAceiteRevisionModificar;
     private javax.swing.JCheckBox chkAceiteRevisionNueva;
     private javax.swing.JCheckBox chkFiltroRevisionModificar;
@@ -4521,8 +4620,6 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JTextField txtPrecioVentaModificar;
     private javax.swing.JFormattedTextField txtTelefonoClienteModificar;
     private javax.swing.JFormattedTextField txtTelefonoVentaNueva;
-    private javax.swing.JTextField txtTipoCocheModificar;
-    private javax.swing.JTextField txtTipoCocheNuevo;
     private javax.swing.JPanel ventas;
     // End of variables declaration//GEN-END:variables
 }
