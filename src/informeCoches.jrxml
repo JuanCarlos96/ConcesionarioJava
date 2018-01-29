@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report2" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="baa25f28-fac8-4fb6-94ea-7053a34105a7">
+	<property name="ireport.zoom" value="1.2100000000000006"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="56"/>
+	<style name="Title" fontName="Arial" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
+	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT * FROM Coche;]]>
+	</queryString>
+	<field name="N_Bastidor" class="java.lang.Object"/>
+	<field name="Marca" class="java.lang.Object"/>
+	<field name="Modelo" class="java.lang.Object"/>
+	<field name="Motor" class="java.lang.Object"/>
+	<field name="CV" class="java.lang.Object"/>
+	<field name="Tipo" class="java.lang.Object"/>
+	<field name="Color" class="java.lang.Object"/>
+	<field name="Precio" class="java.lang.Object"/>
+	<field name="Img" class="java.lang.Object"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="99" splitType="Stretch">
+			<image>
+				<reportElement x="0" y="4" width="553" height="95" uuid="60eb36a6-8c4f-42e5-8f5d-4e72eb6a9054"/>
+				<imageExpression><![CDATA["coche.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement style="Title" x="114" y="24" width="263" height="33" uuid="caf31228-16aa-4c1c-96a2-c78176150d60"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[INFORME]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="SubTitle" x="114" y="57" width="157" height="22" uuid="99d5148e-da4e-4a05-8d83-8a140fde0d4a"/>
+				<text><![CDATA[Lista de Coches]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="52" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="51" width="555" height="1" uuid="95281d98-2a39-49ac-827b-b4d63e632619"/>
+				<graphicElement>
+					<pen lineWidth="1.0" lineColor="#000000"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="0" y="31" width="175" height="20" uuid="d40bc2ea-1f38-46e1-800d-de2c774b5bfa"/>
+				<textElement>
+					<font size="13" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Datos de los coches]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="122" splitType="Stretch">
+			<textField>
+				<reportElement style="Detail" x="61" y="1" width="154" height="15" uuid="271618e1-3490-4109-9de4-03abc86361f5"/>
+				<textFieldExpression><![CDATA[""+$F{N_Bastidor}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="61" y="16" width="154" height="15" uuid="ecb59d73-b75b-42fa-8691-761eb8f63aa8"/>
+				<textFieldExpression><![CDATA[""+$F{Marca}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="61" y="31" width="154" height="15" uuid="a9452c47-c41d-4549-8225-b47cd5b849e3"/>
+				<textFieldExpression><![CDATA[""+$F{Modelo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="61" y="46" width="154" height="15" uuid="c2370b9c-c8a2-451c-a5b6-d145ead7cb6b"/>
+				<textFieldExpression><![CDATA[""+$F{Motor}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="61" y="61" width="154" height="15" uuid="ef40770b-4048-40dd-99d6-5a05e8a4ed03"/>
+				<textFieldExpression><![CDATA[""+$F{CV}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="61" y="76" width="154" height="15" uuid="2122b019-f411-4558-938b-c234bf2cd242"/>
+				<textFieldExpression><![CDATA[""+$F{Tipo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="61" y="91" width="154" height="15" uuid="5417956c-98a0-446a-9f0d-90053fcbf2f5"/>
+				<textFieldExpression><![CDATA[""+$F{Color}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="61" y="106" width="154" height="15" uuid="2d3193fe-0992-4dce-a85b-da0328bc314f"/>
+				<textFieldExpression><![CDATA[""+$F{Precio}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement style="Column header" x="0" y="1" width="61" height="15" uuid="35952a9f-21ae-49db-9782-4fb5771f46ba"/>
+				<text><![CDATA[Bastidor]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="0" y="16" width="61" height="15" uuid="d5326b94-28a6-45fe-929f-94622c5ab65a"/>
+				<text><![CDATA[Marca]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="0" y="31" width="61" height="15" uuid="c50ab123-fbe6-43fd-85a7-555328a6c9c3"/>
+				<text><![CDATA[Modelo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="0" y="46" width="61" height="15" uuid="3d047bb8-85cb-4795-8c54-b667af1ef942"/>
+				<text><![CDATA[Motor]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="0" y="61" width="61" height="15" uuid="8aeed830-63b9-4646-a722-f4a0f2bc57f1"/>
+				<text><![CDATA[CV]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="0" y="76" width="61" height="15" uuid="b4f6df5a-c831-4363-8161-5d65e4005350"/>
+				<text><![CDATA[Tipo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="0" y="91" width="61" height="15" uuid="65d91ab9-f279-46e5-8348-64402f80c14a"/>
+				<text><![CDATA[Color]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="0" y="106" width="61" height="15" uuid="2004d485-b603-4dcb-bbb2-f352ba5a9cae"/>
+				<text><![CDATA[Precio]]></text>
+			</staticText>
+			<image>
+				<reportElement x="433" y="1" width="120" height="119" uuid="5da22da3-e486-488c-aef8-ff51f81721a2"/>
+				<imageExpression><![CDATA[net.sf.jasperreports.engine.util.JRImageLoader.loadImage((byte[]) $F{Img})]]></imageExpression>
+			</image>
+			<line>
+				<reportElement x="0" y="121" width="553" height="1" uuid="b8a30329-73f1-4d73-b2b8-eb1a330b79f5"/>
+			</line>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="150" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1" uuid="085debee-12f6-4254-9a2e-f80ad2751457"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<pie3DChart>
+				<chart>
+					<reportElement x="127" y="24" width="290" height="126" uuid="5759108d-4e86-4e6b-ae15-df93f780d4c4"/>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<pieDataset>
+					<keyExpression><![CDATA[$F{Marca}+" "+$F{Modelo}]]></keyExpression>
+					<valueExpression><![CDATA[$F{CV}]]></valueExpression>
+					<labelExpression><![CDATA[$F{CV}.toString()]]></labelExpression>
+				</pieDataset>
+				<pie3DPlot>
+					<plot/>
+					<itemLabel/>
+				</pie3DPlot>
+			</pie3DChart>
+			<staticText>
+				<reportElement x="0" y="4" width="228" height="20" uuid="f50b6d75-878d-469c-a212-98aa3c20f141"/>
+				<textElement>
+					<font size="13" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Resumen de los CV de llos coches]]></text>
+			</staticText>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement style="Column header" x="433" y="0" width="80" height="20" uuid="697ba547-1bda-4ede-8689-f752bb0fa66e"/>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement style="Column header" x="513" y="0" width="40" height="20" uuid="ae047d89-54cf-41dc-b4bb-fe467d536d6e"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement style="Column header" x="0" y="0" width="197" height="20" uuid="1d30cc28-7973-42e2-96d1-3c9a3190c20a"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

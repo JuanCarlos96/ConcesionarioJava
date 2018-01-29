@@ -10,6 +10,8 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -17,6 +19,8 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
@@ -29,6 +33,13 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.view.JasperViewer;
 
 public class Main extends javax.swing.JFrame {
     private final ConectorSQLITE con;
@@ -128,7 +139,7 @@ public class Main extends javax.swing.JFrame {
             rs = consulta.executeQuery();
             
             while (rs.next()){ 
-                modeloCoches.addRow(new Object[]{rs.getString("N_Bastidor"), rs.getString("Marca"), rs.getString("Modelo"), rs.getString("Motor"), rs.getInt("CV"), rs.getString("Tipo"), rs.getString("Color"), rs.getFloat("Precio")});
+                modeloCoches.addRow(new Object[]{rs.getString("N_Bastidor"), rs.getString("Marca"), rs.getString("Modelo"), rs.getString("Motor"), rs.getInt("CV"), rs.getString("Tipo"), rs.getString("Color"), Float.toString(rs.getFloat("Precio"))});
             }
             rs.close();
             btnVentaNueva.setEnabled(false);
@@ -285,7 +296,7 @@ public class Main extends javax.swing.JFrame {
                 modeloClientes.addRow(new Object[]{rs.getString("Dni"),rs.getString("Nombre"),rs.getString("Apellidos")});
             }
             rs.close();
-            btnCargarClienteVentaNueva.setEnabled(false);
+            btnCargarClienteVentaModificar.setEnabled(false);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -378,7 +389,7 @@ public class Main extends javax.swing.JFrame {
             if(inserta){
                 try {
                     PreparedStatement ps;
-                    ps=this.con.dameconexion().prepareStatement("INSERT INTO Coche VALUES (?,?,?,?,?,?,?,?,?);");
+                    ps=this.con.dameconexion().prepareStatement("INSERT INTO Coche VALUES (?,?,?,?,?,?,?,ROUND(?,2),?);");
                     ps.setString(1,bastidor);
                     ps.setString(2,marca);
                     ps.setString(3,modelo);
@@ -771,6 +782,21 @@ public class Main extends javax.swing.JFrame {
         }
         buscarCocheVentaModificar.setVisible(false);
     }
+    
+    private void genera_informe(String tipo, String nombre){
+       Connection conBD = con.dameconexion();
+       InputStream jasperStream = (InputStream) getClass().getResourceAsStream(nombre);
+       Map parametros = new HashMap();
+       parametros.put("CONDICION", tipo);
+       try {
+            JasperReport informeCompilado = JasperCompileManager.compileReport(jasperStream);//Compila
+            JasperPrint informeRelleno = JasperFillManager.fillReport(informeCompilado, parametros, conBD );//Rellena
+            JasperViewer.viewReport(informeRelleno, false);
+            JasperExportManager.exportReportToPdfFile(informeRelleno, "./prueba.pdf");
+        } catch (JRException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -1028,6 +1054,8 @@ public class Main extends javax.swing.JFrame {
         archivo = new javax.swing.JMenu();
         reiniciarbd = new javax.swing.JMenuItem();
         salir = new javax.swing.JMenuItem();
+        informes = new javax.swing.JMenu();
+        generaInformeCoches = new javax.swing.JMenuItem();
         ayuda = new javax.swing.JMenu();
         acercade = new javax.swing.JMenuItem();
         manual = new javax.swing.JMenuItem();
@@ -1717,6 +1745,7 @@ public class Main extends javax.swing.JFrame {
 
         aniadirVenta.setTitle("Añadir venta");
         aniadirVenta.setModal(true);
+        aniadirVenta.setResizable(false);
         aniadirVenta.setSize(new java.awt.Dimension(358, 528));
 
         jLabel16.setText("Fecha:");
@@ -2551,7 +2580,7 @@ public class Main extends javax.swing.JFrame {
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Float.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
                 false, false, false, false, false, false, false, false
@@ -3242,6 +3271,19 @@ public class Main extends javax.swing.JFrame {
 
         menu.add(archivo);
 
+        informes.setText("Informes");
+
+        generaInformeCoches.setIcon(new javax.swing.ImageIcon(getClass().getResource("/toolbarButtonGraphics/general/History24.gif"))); // NOI18N
+        generaInformeCoches.setText("Informe de coches");
+        generaInformeCoches.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                generaInformeCochesActionPerformed(evt);
+            }
+        });
+        informes.add(generaInformeCoches);
+
+        menu.add(informes);
+
         ayuda.setMnemonic('u');
         ayuda.setText("Ayuda");
         ayuda.setToolTipText("");
@@ -3302,6 +3344,9 @@ public class Main extends javax.swing.JFrame {
 
     private void btnVentaNuevaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVentaNuevaActionPerformed
         buscarClienteVentaNueva.setLocationRelativeTo(null);
+        cbBuscarClienteVentaNueva.setSelectedIndex(0);
+        txtBuscarClienteVentaNueva.setText("");
+        txtBuscarClienteVentaNueva.setEditable(false);
         btnCargarClienteVentaNueva.setEnabled(false);
         buscarClienteVentaNueva.setVisible(true);
     }//GEN-LAST:event_btnVentaNuevaActionPerformed
@@ -3386,7 +3431,7 @@ public class Main extends javax.swing.JFrame {
                 jDateChooser.setDate(dateFormat.parse(rs.getString("Fecha")));
                 txtBastidorVentaModificar.setText(rs.getString("N_Bastidor"));
                 txtDniVentaModificar.setText(rs.getString("Dni"));
-                txtPrecioVentaModificar.setText(rs.getString("Precio"));
+                txtPrecioVentaModificar.setText(Float.toString(rs.getFloat("Precio")));
             } catch (SQLException e) {
                 Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, e);
             } catch (ParseException ex) {
@@ -3406,7 +3451,7 @@ public class Main extends javax.swing.JFrame {
                 jDateChooser.setDate(dateFormat.parse(rs.getString("Fecha")));
                 txtBastidorVentaModificar.setText(rs.getString("N_Bastidor"));
                 txtDniVentaModificar.setText(rs.getString("Dni"));
-                txtPrecioVentaModificar.setText(rs.getString("Precio"));
+                txtPrecioVentaModificar.setText(Float.toString(rs.getFloat("Precio")));
             } catch (SQLException e) {
                 Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, e);
             } catch (ParseException ex) {
@@ -3418,11 +3463,18 @@ public class Main extends javax.swing.JFrame {
 
     private void btnBuscarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarClienteActionPerformed
         buscarClienteVentaModificar.setLocationRelativeTo(null);
+        cbBuscarClienteVentaModificar.setSelectedIndex(0);
+        txtBuscarClienteVentaModificar.setText("");
+        txtBuscarClienteVentaModificar.setEditable(false);
+        btnCargarClienteVentaModificar.setEnabled(false);
         buscarClienteVentaModificar.setVisible(true);
     }//GEN-LAST:event_btnBuscarClienteActionPerformed
 
     private void btnBuscarCocheActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarCocheActionPerformed
         buscarCocheVentaModificar.setLocationRelativeTo(null);
+        cbBuscarCocheVentaModificar.setSelectedIndex(0);
+        txtBuscarCocheVentaModificar.setText("");
+        txtBuscarCocheVentaModificar.setEditable(false);
         btnCargarCocheVentaModificar.setEnabled(false);
         buscarCocheVentaModificar.setVisible(true);
     }//GEN-LAST:event_btnBuscarCocheActionPerformed
@@ -3701,13 +3753,16 @@ public class Main extends javax.swing.JFrame {
             
             if(inserta){
                 try {
-                    PreparedStatement ps = this.con.dameconexion().prepareStatement("UPDATE Coche SET Marca=?,Modelo=?,Motor=?,CV=?,Tipo=?,Color=?,Precio=? WHERE N_Bastidor = ?;");
+                    PreparedStatement ps = this.con.dameconexion().prepareStatement("UPDATE Coche SET Marca=?,Modelo=?,Motor=?,CV=?,Tipo=?,Color=?,Precio=ROUND(?,2) WHERE N_Bastidor = ?;");
                     ps.setString(1,txtMarcaCocheModificar.getText());
                     ps.setString(2,txtModeloCocheModificar.getText());
                     ps.setString(3, txtMotorCocheModificar.getText());
                     ps.setInt(4, cv);
                     ps.setString(5,(String)cbTipoCocheModificar.getSelectedItem());
                     ps.setString(6,txtColorCocheModificar.getText());
+                    
+                    
+                    
                     ps.setFloat(7, precio);
                     ps.setString(8,txtBastidorCocheModificar.getText());
                     ps.executeUpdate();
@@ -3782,8 +3837,11 @@ public class Main extends javax.swing.JFrame {
             lblPrecioVentaMain.setText("");
             JOptionPane.showMessageDialog(null, "Venta modificada correctamente", "Información", JOptionPane.INFORMATION_MESSAGE);
             modificarVenta.setVisible(false);
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch (SQLException ex) {
+            if(ex.getErrorCode()==19){
+                JOptionPane.showMessageDialog(null, "Ya existe una venta con estos datos", "Información", JOptionPane.INFORMATION_MESSAGE);
+            }else
+                Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnAceptarVentaModificarActionPerformed
 
@@ -4332,6 +4390,10 @@ public class Main extends javax.swing.JFrame {
             modificarCliente();
     }//GEN-LAST:event_tablaClientesKeyReleased
 
+    private void generaInformeCochesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generaInformeCochesActionPerformed
+        genera_informe("%", "informeCoches.jrxml");
+    }//GEN-LAST:event_generaInformeCochesActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -4360,13 +4422,9 @@ public class Main extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                JFrame concesionario = new Main();
-                concesionario.setLocationRelativeTo(null);
-                concesionario.setVisible(true);
-            }
-        });
+        JFrame concesionario = new Main();
+        concesionario.setLocationRelativeTo(null);
+        concesionario.setVisible(true);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -4442,6 +4500,8 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JMenuItem editarRevision;
     private javax.swing.JMenuItem editarVenta;
     private javax.swing.JMenuItem editarcoche;
+    private javax.swing.JMenuItem generaInformeCoches;
+    private javax.swing.JMenu informes;
     private com.toedter.calendar.JDateChooser jDateChooser;
     private javax.swing.JFileChooser jFileChooser1;
     private javax.swing.JLabel jLabel1;
