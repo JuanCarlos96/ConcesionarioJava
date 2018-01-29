@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report2" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="baa25f28-fac8-4fb6-94ea-7053a34105a7">
-	<property name="ireport.zoom" value="1.2100000000000006"/>
+	<property name="ireport.zoom" value="1.464100000000001"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="56"/>
+	<property name="ireport.y" value="0"/>
 	<style name="Title" fontName="Arial" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
 	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
 	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
@@ -24,10 +24,6 @@
 	</background>
 	<title>
 		<band height="99" splitType="Stretch">
-			<image>
-				<reportElement x="0" y="4" width="553" height="95" uuid="60eb36a6-8c4f-42e5-8f5d-4e72eb6a9054"/>
-				<imageExpression><![CDATA["coche.png"]]></imageExpression>
-			</image>
 			<staticText>
 				<reportElement style="Title" x="114" y="24" width="263" height="33" uuid="caf31228-16aa-4c1c-96a2-c78176150d60"/>
 				<textElement verticalAlignment="Middle"/>
@@ -37,6 +33,10 @@
 				<reportElement style="SubTitle" x="114" y="57" width="157" height="22" uuid="99d5148e-da4e-4a05-8d83-8a140fde0d4a"/>
 				<text><![CDATA[Lista de Coches]]></text>
 			</staticText>
+			<image>
+				<reportElement x="0" y="0" width="114" height="99" uuid="bc8d6dc3-5333-4b26-a5c1-775118e14f03"/>
+				<imageExpression><![CDATA["coche.png"]]></imageExpression>
+			</image>
 		</band>
 	</title>
 	<pageHeader>
@@ -164,7 +164,7 @@
 				<textElement>
 					<font size="13" isBold="true" isUnderline="false"/>
 				</textElement>
-				<text><![CDATA[Resumen de los CV de llos coches]]></text>
+				<text><![CDATA[Resumen de los CV de los coches]]></text>
 			</staticText>
 		</band>
 	</columnFooter>

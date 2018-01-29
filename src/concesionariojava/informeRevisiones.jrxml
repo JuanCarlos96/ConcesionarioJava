@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="informeRevisiones" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c3b94e60-bd6f-4be0-8039-767913dd5f86">
+	<property name="ireport.zoom" value="1.4641000000000008"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" fontName="Arial" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
+	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT r.N_Revision,r.Fecha,r.N_Bastidor,c.Marca,c.Modelo,r.Frenos,r.Filtro,r.Aceite,c.Img FROM Revision AS r, Coche AS c WHERE r.N_Bastidor=c.N_Bastidor;]]>
+	</queryString>
+	<field name="N_Revision" class="java.lang.Object"/>
+	<field name="Fecha" class="java.lang.Object"/>
+	<field name="N_Bastidor" class="java.lang.Object"/>
+	<field name="Marca" class="java.lang.Object"/>
+	<field name="Modelo" class="java.lang.Object"/>
+	<field name="Frenos" class="java.lang.Object"/>
+	<field name="Filtro" class="java.lang.Object"/>
+	<field name="Aceite" class="java.lang.Object"/>
+	<field name="Img" class="java.lang.Object"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="98" splitType="Stretch">
+			<staticText>
+				<reportElement style="Title" x="114" y="23" width="263" height="33" uuid="f720b6fc-1cf4-472b-a35d-3ae8ce527bcf"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[INFORME]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="SubTitle" x="114" y="56" width="157" height="22" uuid="3898da59-f84e-4289-9944-d0468c6c4693"/>
+				<text><![CDATA[Lista de Revisiones]]></text>
+			</staticText>
+			<image>
+				<reportElement x="0" y="0" width="114" height="98" uuid="a3cab051-f7c1-4817-84ad-a77ce351906a"/>
+				<imageExpression><![CDATA["coche.png"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="37" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="34" width="555" height="1" uuid="deddf174-105b-4ae9-ba9c-fe0319f1fd0e"/>
+				<graphicElement>
+					<pen lineWidth="1.0" lineColor="#000000"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="0" y="15" width="175" height="20" uuid="c5c6b583-4378-46f1-bab8-11bd04fe4658"/>
+				<textElement>
+					<font size="13" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Datos de las revisiones]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch">
+			<textField>
+				<reportElement style="Detail" x="126" y="1" width="156" height="15" uuid="de0de55b-7aa2-4466-b34d-09553e23e71f"/>
+				<textFieldExpression><![CDATA[""+$F{N_Revision}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="126" y="16" width="156" height="15" uuid="d66d9258-f5ea-46c9-87d9-9bef019acafa"/>
+				<textFieldExpression><![CDATA[""+$F{Fecha}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="126" y="31" width="156" height="15" uuid="d145e871-d206-400c-a69b-5c049d542176"/>
+				<textFieldExpression><![CDATA[""+$F{N_Bastidor}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="126" y="46" width="156" height="15" uuid="e4d9d5e3-bc7c-4fab-a7a0-b74a9099cc9c"/>
+				<textFieldExpression><![CDATA[""+$F{Marca}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="126" y="61" width="156" height="15" uuid="4fdba55c-f4ab-4c7d-8061-e2e57fb1c677"/>
+				<textFieldExpression><![CDATA[""+$F{Modelo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="126" y="76" width="156" height="15" uuid="dc40a8f2-f11e-4d62-94c6-199c04bf65c4"/>
+				<textFieldExpression><![CDATA[""+$F{Frenos}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="126" y="91" width="156" height="15" uuid="96d97c1b-0e3c-4d41-bb9d-6be77c53834c"/>
+				<textFieldExpression><![CDATA[""+$F{Filtro}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="126" y="106" width="156" height="15" uuid="3dd132c6-2724-4bcb-9379-0efdca3d166c"/>
+				<textFieldExpression><![CDATA[""+$F{Aceite}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement style="Column header" x="0" y="1" width="126" height="15" uuid="f6000490-545b-4c82-8992-1b47aeb1a5a1"/>
+				<text><![CDATA[Nº Revisión]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="0" y="16" width="126" height="15" uuid="afa52d6f-0e36-49b2-8397-1cdd169a5aea"/>
+				<text><![CDATA[Fecha]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="0" y="31" width="126" height="15" uuid="140a652f-d957-4722-8810-55c87212a9eb"/>
+				<text><![CDATA[Bastidor]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="0" y="46" width="126" height="15" uuid="b9f1c337-dff3-4c6e-9315-7c3171d2d9c8"/>
+				<text><![CDATA[Marca]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="0" y="61" width="126" height="15" uuid="cb0ed334-182d-4c45-ad73-b5cc006c7401"/>
+				<text><![CDATA[Modelo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="0" y="76" width="126" height="15" uuid="8e9f4769-6223-4dfb-ad59-3be90dcde311"/>
+				<text><![CDATA[Revisión de frenos]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="0" y="91" width="126" height="15" uuid="69a5b904-a8ef-448c-95ba-4a5b65781b06"/>
+				<text><![CDATA[Revisión de filtro]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="0" y="106" width="126" height="15" uuid="f4999fea-31c6-450e-8422-9744976ab2f7"/>
+				<text><![CDATA[Revisión de aceite]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="124" width="553" height="1" uuid="ae1ea801-6202-416d-b1f9-262b57d9dd7a"/>
+			</line>
+			<image>
+				<reportElement x="433" y="1" width="120" height="120" uuid="bf2c6205-6537-4cb5-9a75-658bf2b58490"/>
+				<imageExpression><![CDATA[net.sf.jasperreports.engine.util.JRImageLoader.loadImage((byte[]) $F{Img})]]></imageExpression>
+			</image>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1" uuid="545cab23-29df-4c94-87a2-9ebda33c963b"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement style="Column header" x="433" y="0" width="80" height="20" uuid="0986e8bf-3a93-47fb-b842-019e5950f441"/>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement style="Column header" x="513" y="0" width="40" height="20" uuid="d1209e28-1d7b-4575-8887-2034710e73ef"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement style="Column header" x="0" y="0" width="197" height="20" uuid="839ee693-27f6-4873-9238-fdfbaaba77e1"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

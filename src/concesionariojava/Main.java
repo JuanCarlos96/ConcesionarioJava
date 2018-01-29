@@ -792,7 +792,10 @@ public class Main extends javax.swing.JFrame {
             JasperReport informeCompilado = JasperCompileManager.compileReport(jasperStream);//Compila
             JasperPrint informeRelleno = JasperFillManager.fillReport(informeCompilado, parametros, conBD );//Rellena
             JasperViewer.viewReport(informeRelleno, false);
-            JasperExportManager.exportReportToPdfFile(informeRelleno, "./prueba.pdf");
+            String tipoInforme = nombre.replaceAll("informe","");
+            tipoInforme = tipoInforme.replaceAll(".jrxml", "");
+            //System.out.println(tipoInforme);
+            JasperExportManager.exportReportToPdfFile(informeRelleno, "./Informe "+tipoInforme+".pdf");
         } catch (JRException ex) {
             System.out.println(ex.getMessage());
         }
@@ -1056,6 +1059,9 @@ public class Main extends javax.swing.JFrame {
         salir = new javax.swing.JMenuItem();
         informes = new javax.swing.JMenu();
         generaInformeCoches = new javax.swing.JMenuItem();
+        generaInformeRevisiones = new javax.swing.JMenuItem();
+        generaInformeVentas = new javax.swing.JMenuItem();
+        generaInformeClientes = new javax.swing.JMenuItem();
         ayuda = new javax.swing.JMenu();
         acercade = new javax.swing.JMenuItem();
         manual = new javax.swing.JMenuItem();
@@ -3282,6 +3288,33 @@ public class Main extends javax.swing.JFrame {
         });
         informes.add(generaInformeCoches);
 
+        generaInformeRevisiones.setIcon(new javax.swing.ImageIcon(getClass().getResource("/toolbarButtonGraphics/general/History24.gif"))); // NOI18N
+        generaInformeRevisiones.setText("Informe de revisiones");
+        generaInformeRevisiones.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                generaInformeRevisionesActionPerformed(evt);
+            }
+        });
+        informes.add(generaInformeRevisiones);
+
+        generaInformeVentas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/toolbarButtonGraphics/general/History24.gif"))); // NOI18N
+        generaInformeVentas.setText("Informe de ventas");
+        generaInformeVentas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                generaInformeVentasActionPerformed(evt);
+            }
+        });
+        informes.add(generaInformeVentas);
+
+        generaInformeClientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/toolbarButtonGraphics/general/History24.gif"))); // NOI18N
+        generaInformeClientes.setText("Informe de clientes");
+        generaInformeClientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                generaInformeClientesActionPerformed(evt);
+            }
+        });
+        informes.add(generaInformeClientes);
+
         menu.add(informes);
 
         ayuda.setMnemonic('u');
@@ -3674,7 +3707,7 @@ public class Main extends javax.swing.JFrame {
             }
             
             try {//INSERCIÓN DE LA VENTA
-                PreparedStatement ps = this.con.dameconexion().prepareStatement("INSERT INTO Venta VALUES (?,?,?,?);");
+                PreparedStatement ps = this.con.dameconexion().prepareStatement("INSERT INTO Venta VALUES (?,?,?,ROUND(?,2));");
                 ps.setString(1,txtBastidorVentaNueva.getText());
                 ps.setString(2,txtDniVentaNueva.getText());
                 ps.setString(3,lblFechaVentaNueva.getText());
@@ -4394,6 +4427,18 @@ public class Main extends javax.swing.JFrame {
         genera_informe("%", "informeCoches.jrxml");
     }//GEN-LAST:event_generaInformeCochesActionPerformed
 
+    private void generaInformeRevisionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generaInformeRevisionesActionPerformed
+        genera_informe("%", "informeRevisiones.jrxml");
+    }//GEN-LAST:event_generaInformeRevisionesActionPerformed
+
+    private void generaInformeVentasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generaInformeVentasActionPerformed
+        genera_informe("%", "informeVentas.jrxml");
+    }//GEN-LAST:event_generaInformeVentasActionPerformed
+
+    private void generaInformeClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generaInformeClientesActionPerformed
+        genera_informe("%", "informeClientes.jrxml");
+    }//GEN-LAST:event_generaInformeClientesActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -4500,7 +4545,10 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JMenuItem editarRevision;
     private javax.swing.JMenuItem editarVenta;
     private javax.swing.JMenuItem editarcoche;
+    private javax.swing.JMenuItem generaInformeClientes;
     private javax.swing.JMenuItem generaInformeCoches;
+    private javax.swing.JMenuItem generaInformeRevisiones;
+    private javax.swing.JMenuItem generaInformeVentas;
     private javax.swing.JMenu informes;
     private com.toedter.calendar.JDateChooser jDateChooser;
     private javax.swing.JFileChooser jFileChooser1;
