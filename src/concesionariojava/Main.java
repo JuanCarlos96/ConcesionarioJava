@@ -1,5 +1,6 @@
 package concesionariojava;
 
+import java.awt.Desktop;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.RenderingHints;
@@ -2541,10 +2542,11 @@ public class Main extends javax.swing.JFrame {
         seleccionMarca.setTitle("Generar informe de una marca");
         seleccionMarca.setModal(true);
         seleccionMarca.setResizable(false);
-        seleccionMarca.setSize(new java.awt.Dimension(320, 150));
+        seleccionMarca.setSize(new java.awt.Dimension(320, 158));
 
         jLabel4.setText("Seleccione la marca de la que quiere hacer el informe:");
 
+        btnAceptarInforme.setMnemonic('A');
         btnAceptarInforme.setText("Aceptar");
         btnAceptarInforme.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -2552,6 +2554,7 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
+        btnCancelarInforme.setMnemonic('C');
         btnCancelarInforme.setText("Cancelar");
         btnCancelarInforme.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -3361,12 +3364,15 @@ public class Main extends javax.swing.JFrame {
 
         menu.add(archivo);
 
+        informes.setMnemonic('I');
         informes.setText("Informes");
 
         jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/toolbarButtonGraphics/general/History24.gif"))); // NOI18N
+        jMenu1.setMnemonic('c');
         jMenu1.setText("Informes de coches");
 
         generaInformeCoches.setIcon(new javax.swing.ImageIcon(getClass().getResource("/toolbarButtonGraphics/general/History24.gif"))); // NOI18N
+        generaInformeCoches.setMnemonic('I');
         generaInformeCoches.setText("Informe de coches");
         generaInformeCoches.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -3376,6 +3382,7 @@ public class Main extends javax.swing.JFrame {
         jMenu1.add(generaInformeCoches);
 
         generaInformeCochesMarca.setIcon(new javax.swing.ImageIcon(getClass().getResource("/toolbarButtonGraphics/general/History24.gif"))); // NOI18N
+        generaInformeCochesMarca.setMnemonic('m');
         generaInformeCochesMarca.setText("Informe de coches por marca");
         generaInformeCochesMarca.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -3387,6 +3394,7 @@ public class Main extends javax.swing.JFrame {
         informes.add(jMenu1);
 
         generaInformeRevisiones.setIcon(new javax.swing.ImageIcon(getClass().getResource("/toolbarButtonGraphics/general/History24.gif"))); // NOI18N
+        generaInformeRevisiones.setMnemonic('r');
         generaInformeRevisiones.setText("Informe de revisiones");
         generaInformeRevisiones.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -3396,6 +3404,7 @@ public class Main extends javax.swing.JFrame {
         informes.add(generaInformeRevisiones);
 
         generaInformeVentas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/toolbarButtonGraphics/general/History24.gif"))); // NOI18N
+        generaInformeVentas.setMnemonic('v');
         generaInformeVentas.setText("Informe de ventas");
         generaInformeVentas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -3405,6 +3414,7 @@ public class Main extends javax.swing.JFrame {
         informes.add(generaInformeVentas);
 
         generaInformeClientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/toolbarButtonGraphics/general/History24.gif"))); // NOI18N
+        generaInformeClientes.setMnemonic('l');
         generaInformeClientes.setText("Informe de clientes");
         generaInformeClientes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -3434,6 +3444,11 @@ public class Main extends javax.swing.JFrame {
         manual.setMnemonic('M');
         manual.setText("Manual");
         manual.setToolTipText("Muestra el manual de usuario");
+        manual.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                manualActionPerformed(evt);
+            }
+        });
         ayuda.add(manual);
 
         menu.add(ayuda);
@@ -4540,8 +4555,9 @@ public class Main extends javax.swing.JFrame {
 
     private void btnAceptarInformeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarInformeActionPerformed
         int seleccion = cbMarcasInforme.getSelectedIndex();
-        if(seleccion!=-1){
+        if(seleccion>0){
             genera_informe((String)cbMarcasInforme.getSelectedItem(),"informeCoches.jrxml");
+            seleccionMarca.setVisible(false);
         }else{
             JOptionPane.showMessageDialog(null, "Debe seleccionar una marca", "Advertencia", JOptionPane.WARNING_MESSAGE);
         }
@@ -4556,6 +4572,15 @@ public class Main extends javax.swing.JFrame {
         cbMarcasInforme.setSelectedIndex(0);
         seleccionMarca.setVisible(true);
     }//GEN-LAST:event_generaInformeCochesMarcaActionPerformed
+
+    private void manualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manualActionPerformed
+        try {
+            File manual = new File("MANUAL.pdf");
+            Desktop.getDesktop().open(manual);
+        }catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }//GEN-LAST:event_manualActionPerformed
 
     /**
      * @param args the command line arguments

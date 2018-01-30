@@ -20,10 +20,6 @@
 	</background>
 	<title>
 		<band height="105" splitType="Stretch">
-			<image>
-				<reportElement x="0" y="0" width="111" height="105" uuid="fec54412-86b8-4947-a726-1979748ad7ab"/>
-				<imageExpression><![CDATA["coche.png"]]></imageExpression>
-			</image>
 			<staticText>
 				<reportElement style="Title" x="111" y="28" width="263" height="33" uuid="f9519cf1-1ebe-4d03-868b-a2004a7dca91"/>
 				<textElement verticalAlignment="Middle"/>

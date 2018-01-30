@@ -2185,7 +2185,7 @@
         <Property name="modal" type="boolean" value="true"/>
         <Property name="resizable" type="boolean" value="false"/>
         <Property name="size" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[320, 150]"/>
+          <Dimension value="[320, 158]"/>
         </Property>
       </Properties>
 
@@ -2243,6 +2243,7 @@
         </Component>
         <Component class="javax.swing.JButton" name="btnAceptarInforme">
           <Properties>
+            <Property name="mnemonic" type="int" value="65"/>
             <Property name="text" type="java.lang.String" value="Aceptar"/>
           </Properties>
           <Events>
@@ -2251,6 +2252,7 @@
         </Component>
         <Component class="javax.swing.JButton" name="btnCancelarInforme">
           <Properties>
+            <Property name="mnemonic" type="int" value="67"/>
             <Property name="text" type="java.lang.String" value="Cancelar"/>
           </Properties>
           <Events>
@@ -2297,6 +2299,7 @@
         </Menu>
         <Menu class="javax.swing.JMenu" name="informes">
           <Properties>
+            <Property name="mnemonic" type="int" value="73"/>
             <Property name="text" type="java.lang.String" value="Informes"/>
           </Properties>
           <SubComponents>
@@ -2305,6 +2308,7 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/toolbarButtonGraphics/general/History24.gif"/>
                 </Property>
+                <Property name="mnemonic" type="int" value="99"/>
                 <Property name="text" type="java.lang.String" value="Informes de coches"/>
               </Properties>
               <SubComponents>
@@ -2313,6 +2317,7 @@
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/toolbarButtonGraphics/general/History24.gif"/>
                     </Property>
+                    <Property name="mnemonic" type="int" value="73"/>
                     <Property name="text" type="java.lang.String" value="Informe de coches"/>
                   </Properties>
                   <Events>
@@ -2324,6 +2329,7 @@
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/toolbarButtonGraphics/general/History24.gif"/>
                     </Property>
+                    <Property name="mnemonic" type="int" value="109"/>
                     <Property name="text" type="java.lang.String" value="Informe de coches por marca"/>
                   </Properties>
                   <Events>
@@ -2337,6 +2343,7 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/toolbarButtonGraphics/general/History24.gif"/>
                 </Property>
+                <Property name="mnemonic" type="int" value="114"/>
                 <Property name="text" type="java.lang.String" value="Informe de revisiones"/>
               </Properties>
               <Events>
@@ -2348,6 +2355,7 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/toolbarButtonGraphics/general/History24.gif"/>
                 </Property>
+                <Property name="mnemonic" type="int" value="118"/>
                 <Property name="text" type="java.lang.String" value="Informe de ventas"/>
               </Properties>
               <Events>
@@ -2359,6 +2367,7 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/toolbarButtonGraphics/general/History24.gif"/>
                 </Property>
+                <Property name="mnemonic" type="int" value="108"/>
                 <Property name="text" type="java.lang.String" value="Informe de clientes"/>
               </Properties>
               <Events>
@@ -2396,6 +2405,9 @@
                 <Property name="text" type="java.lang.String" value="Manual"/>
                 <Property name="toolTipText" type="java.lang.String" value="Muestra el manual de usuario"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="manualActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>

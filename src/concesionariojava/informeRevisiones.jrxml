@@ -33,10 +33,6 @@
 				<reportElement style="SubTitle" x="114" y="56" width="157" height="22" uuid="3898da59-f84e-4289-9944-d0468c6c4693"/>
 				<text><![CDATA[Lista de Revisiones]]></text>
 			</staticText>
-			<image>
-				<reportElement x="0" y="0" width="114" height="98" uuid="a3cab051-f7c1-4817-84ad-a77ce351906a"/>
-				<imageExpression><![CDATA["coche.png"]]></imageExpression>
-			</image>
 		</band>
 	</title>
 	<pageHeader>
