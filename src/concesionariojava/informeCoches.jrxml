@@ -7,8 +7,9 @@
 	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
 	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
 	<style name="Detail" fontName="Arial" fontSize="12"/>
-	<queryString language="SQL">
-		<![CDATA[SELECT * FROM Coche;]]>
+	<parameter name="CONDICION" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT * FROM Coche WHERE Marca LIKE $P{CONDICION};]]>
 	</queryString>
 	<field name="N_Bastidor" class="java.lang.Object"/>
 	<field name="Marca" class="java.lang.Object"/>

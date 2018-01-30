@@ -75,6 +75,7 @@ public class Main extends javax.swing.JFrame {
         listarClientes2();
         listarClientes3();
         rellenarComboMarca();
+        rellenarComboMarcaInformes();
         rellenarComboMotor();
         cerrar_app();
     }
@@ -403,6 +404,7 @@ public class Main extends javax.swing.JFrame {
                     listarCoches();
                     listarCoches2();
                     rellenarComboMarca();
+                    rellenarComboMarcaInformes();
                     rellenarComboMotor();
                     JOptionPane.showMessageDialog(null, "Coche nuevo introducido correctamente", "Información", JOptionPane.INFORMATION_MESSAGE);
                     this.aniadirCoche.setVisible(false);
@@ -470,6 +472,23 @@ public class Main extends javax.swing.JFrame {
             
             while(rs.next()){
                 cbMarcaMain.addItem(rs.getString("Marca"));
+            }
+            rs.close();
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+    
+    private void rellenarComboMarcaInformes(){
+        cbMarcasInforme.removeAllItems();
+        cbMarcasInforme.addItem("");
+        try {
+            ResultSet rs;
+            PreparedStatement ps = this.con.dameconexion().prepareStatement("SELECT DISTINCT Marca FROM Coche;");
+            rs = ps.executeQuery();
+            
+            while(rs.next()){
+                cbMarcasInforme.addItem(rs.getString("Marca"));
             }
             rs.close();
         } catch (Exception e){
@@ -550,6 +569,7 @@ public class Main extends javax.swing.JFrame {
                 listarRevisiones();
                 listarVentas();
                 rellenarComboMarca();
+                rellenarComboMarcaInformes();
                 rellenarComboMotor();
                 JOptionPane.showMessageDialog(null, "Coche eliminado correctamente", "Información", JOptionPane.INFORMATION_MESSAGE);
             } catch (SQLException ex) {
@@ -794,7 +814,10 @@ public class Main extends javax.swing.JFrame {
             JasperViewer.viewReport(informeRelleno, false);
             String tipoInforme = nombre.replaceAll("informe","");
             tipoInforme = tipoInforme.replaceAll(".jrxml", "");
-            //System.out.println(tipoInforme);
+            if(!tipo.equals("%")){
+                tipoInforme = tipoInforme+" "+tipo;
+            }
+            System.out.println(tipoInforme);
             JasperExportManager.exportReportToPdfFile(informeRelleno, "./Informe "+tipoInforme+".pdf");
         } catch (JRException ex) {
             System.out.println(ex.getMessage());
@@ -979,6 +1002,11 @@ public class Main extends javax.swing.JFrame {
         popupCliente = new javax.swing.JPopupMenu();
         editarCliente = new javax.swing.JMenuItem();
         borrarCliente = new javax.swing.JMenuItem();
+        seleccionMarca = new javax.swing.JDialog();
+        cbMarcasInforme = new javax.swing.JComboBox<>();
+        jLabel4 = new javax.swing.JLabel();
+        btnAceptarInforme = new javax.swing.JButton();
+        btnCancelarInforme = new javax.swing.JButton();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         coches = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -1058,7 +1086,9 @@ public class Main extends javax.swing.JFrame {
         reiniciarbd = new javax.swing.JMenuItem();
         salir = new javax.swing.JMenuItem();
         informes = new javax.swing.JMenu();
+        jMenu1 = new javax.swing.JMenu();
         generaInformeCoches = new javax.swing.JMenuItem();
+        generaInformeCochesMarca = new javax.swing.JMenuItem();
         generaInformeRevisiones = new javax.swing.JMenuItem();
         generaInformeVentas = new javax.swing.JMenuItem();
         generaInformeClientes = new javax.swing.JMenuItem();
@@ -2508,6 +2538,60 @@ public class Main extends javax.swing.JFrame {
         });
         popupCliente.add(borrarCliente);
 
+        seleccionMarca.setTitle("Generar informe de una marca");
+        seleccionMarca.setModal(true);
+        seleccionMarca.setResizable(false);
+        seleccionMarca.setSize(new java.awt.Dimension(320, 150));
+
+        jLabel4.setText("Seleccione la marca de la que quiere hacer el informe:");
+
+        btnAceptarInforme.setText("Aceptar");
+        btnAceptarInforme.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAceptarInformeActionPerformed(evt);
+            }
+        });
+
+        btnCancelarInforme.setText("Cancelar");
+        btnCancelarInforme.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarInformeActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout seleccionMarcaLayout = new javax.swing.GroupLayout(seleccionMarca.getContentPane());
+        seleccionMarca.getContentPane().setLayout(seleccionMarcaLayout);
+        seleccionMarcaLayout.setHorizontalGroup(
+            seleccionMarcaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(seleccionMarcaLayout.createSequentialGroup()
+                .addGroup(seleccionMarcaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(seleccionMarcaLayout.createSequentialGroup()
+                        .addGap(87, 87, 87)
+                        .addComponent(cbMarcasInforme, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(seleccionMarcaLayout.createSequentialGroup()
+                        .addGap(73, 73, 73)
+                        .addComponent(btnAceptarInforme)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnCancelarInforme))
+                    .addGroup(seleccionMarcaLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel4)))
+                .addContainerGap(42, Short.MAX_VALUE))
+        );
+        seleccionMarcaLayout.setVerticalGroup(
+            seleccionMarcaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(seleccionMarcaLayout.createSequentialGroup()
+                .addGap(31, 31, 31)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(cbMarcasInforme, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 67, Short.MAX_VALUE)
+                .addGroup(seleccionMarcaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnAceptarInforme)
+                    .addComponent(btnCancelarInforme))
+                .addContainerGap())
+        );
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Concesionario");
         setIconImage(getIconImage());
@@ -3279,6 +3363,9 @@ public class Main extends javax.swing.JFrame {
 
         informes.setText("Informes");
 
+        jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/toolbarButtonGraphics/general/History24.gif"))); // NOI18N
+        jMenu1.setText("Informes de coches");
+
         generaInformeCoches.setIcon(new javax.swing.ImageIcon(getClass().getResource("/toolbarButtonGraphics/general/History24.gif"))); // NOI18N
         generaInformeCoches.setText("Informe de coches");
         generaInformeCoches.addActionListener(new java.awt.event.ActionListener() {
@@ -3286,7 +3373,18 @@ public class Main extends javax.swing.JFrame {
                 generaInformeCochesActionPerformed(evt);
             }
         });
-        informes.add(generaInformeCoches);
+        jMenu1.add(generaInformeCoches);
+
+        generaInformeCochesMarca.setIcon(new javax.swing.ImageIcon(getClass().getResource("/toolbarButtonGraphics/general/History24.gif"))); // NOI18N
+        generaInformeCochesMarca.setText("Informe de coches por marca");
+        generaInformeCochesMarca.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                generaInformeCochesMarcaActionPerformed(evt);
+            }
+        });
+        jMenu1.add(generaInformeCochesMarca);
+
+        informes.add(jMenu1);
 
         generaInformeRevisiones.setIcon(new javax.swing.ImageIcon(getClass().getResource("/toolbarButtonGraphics/general/History24.gif"))); // NOI18N
         generaInformeRevisiones.setText("Informe de revisiones");
@@ -3804,6 +3902,7 @@ public class Main extends javax.swing.JFrame {
                     listarRevisiones();
                     listarVentas();
                     rellenarComboMarca();
+                    rellenarComboMarcaInformes();
                     rellenarComboMotor();
                     JOptionPane.showMessageDialog(null, "Coche modificado correctamente", "Información", JOptionPane.INFORMATION_MESSAGE);
                     modificarCoche.setVisible(false);
@@ -4439,6 +4538,25 @@ public class Main extends javax.swing.JFrame {
         genera_informe("%", "informeClientes.jrxml");
     }//GEN-LAST:event_generaInformeClientesActionPerformed
 
+    private void btnAceptarInformeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarInformeActionPerformed
+        int seleccion = cbMarcasInforme.getSelectedIndex();
+        if(seleccion!=-1){
+            genera_informe((String)cbMarcasInforme.getSelectedItem(),"informeCoches.jrxml");
+        }else{
+            JOptionPane.showMessageDialog(null, "Debe seleccionar una marca", "Advertencia", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_btnAceptarInformeActionPerformed
+
+    private void btnCancelarInformeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarInformeActionPerformed
+        seleccionMarca.setVisible(false);
+    }//GEN-LAST:event_btnCancelarInformeActionPerformed
+
+    private void generaInformeCochesMarcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generaInformeCochesMarcaActionPerformed
+        seleccionMarca.setLocationRelativeTo(null);
+        cbMarcasInforme.setSelectedIndex(0);
+        seleccionMarca.setVisible(true);
+    }//GEN-LAST:event_generaInformeCochesMarcaActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -4487,6 +4605,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JButton btnAceptarClienteModificar;
     private javax.swing.JButton btnAceptarCocheModificar;
     private javax.swing.JButton btnAceptarCocheNuevo;
+    private javax.swing.JButton btnAceptarInforme;
     private javax.swing.JButton btnAceptarRevisionModificar;
     private javax.swing.JButton btnAceptarRevisionNueva;
     private javax.swing.JButton btnAceptarVentaModificar;
@@ -4500,6 +4619,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JButton btnCancelarClienteModificar;
     private javax.swing.JButton btnCancelarCocheModificar;
     private javax.swing.JButton btnCancelarCocheNuevo;
+    private javax.swing.JButton btnCancelarInforme;
     private javax.swing.JButton btnCancelarRevisionModificar;
     private javax.swing.JButton btnCancelarRevisionNueva;
     private javax.swing.JButton btnCancelarVentaModificar;
@@ -4530,6 +4650,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cbBuscarCocheVentaModificar;
     private javax.swing.JComboBox<String> cbBuscarMain;
     private javax.swing.JComboBox<String> cbMarcaMain;
+    private javax.swing.JComboBox<String> cbMarcasInforme;
     private javax.swing.JComboBox<String> cbMotorMain;
     private javax.swing.JComboBox<String> cbTipoCocheModificar;
     private javax.swing.JComboBox<String> cbTipoCocheNuevo;
@@ -4547,6 +4668,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JMenuItem editarcoche;
     private javax.swing.JMenuItem generaInformeClientes;
     private javax.swing.JMenuItem generaInformeCoches;
+    private javax.swing.JMenuItem generaInformeCochesMarca;
     private javax.swing.JMenuItem generaInformeRevisiones;
     private javax.swing.JMenuItem generaInformeVentas;
     private javax.swing.JMenu informes;
@@ -4585,6 +4707,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel37;
     private javax.swing.JLabel jLabel38;
     private javax.swing.JLabel jLabel39;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel40;
     private javax.swing.JLabel jLabel41;
     private javax.swing.JLabel jLabel42;
@@ -4629,6 +4752,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel78;
     private javax.swing.JLabel jLabel79;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JMenu jMenu1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane10;
     private javax.swing.JScrollPane jScrollPane4;
@@ -4690,6 +4814,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JMenuItem reiniciarbd;
     private javax.swing.JPanel revisiones;
     private javax.swing.JMenuItem salir;
+    private javax.swing.JDialog seleccionMarca;
     private javax.swing.JTable tablaClientes;
     private javax.swing.JTable tablaMain;
     private javax.swing.JTable tablaRevisiones;
