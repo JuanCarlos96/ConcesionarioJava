@@ -31,6 +31,10 @@
 				<reportElement style="SubTitle" x="114" y="57" width="157" height="22" uuid="77225fe0-996c-4ce9-969a-12a21f488d04"/>
 				<text><![CDATA[Lista de Ventas]]></text>
 			</staticText>
+			<image>
+				<reportElement x="0" y="0" width="114" height="99" uuid="040419b1-1326-4c24-82d2-6b57279d04a6"/>
+				<imageExpression><![CDATA["coche.png"]]></imageExpression>
+			</image>
 		</band>
 	</title>
 	<pageHeader>

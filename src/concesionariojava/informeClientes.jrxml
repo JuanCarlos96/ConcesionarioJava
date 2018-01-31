@@ -29,6 +29,10 @@
 				<reportElement style="SubTitle" x="111" y="61" width="157" height="22" uuid="f233faae-5ae5-4869-b931-85159de053e9"/>
 				<text><![CDATA[Lista de Clientes]]></text>
 			</staticText>
+			<image>
+				<reportElement x="0" y="0" width="111" height="105" uuid="8e7152f6-e8ae-476b-8e72-bc68300780f0"/>
+				<imageExpression><![CDATA["coche.png"]]></imageExpression>
+			</image>
 		</band>
 	</title>
 	<pageHeader>

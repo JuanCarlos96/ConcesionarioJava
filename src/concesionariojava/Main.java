@@ -818,7 +818,7 @@ public class Main extends javax.swing.JFrame {
             if(!tipo.equals("%")){
                 tipoInforme = tipoInforme+" "+tipo;
             }
-            System.out.println(tipoInforme);
+            //System.out.println(tipoInforme);
             JasperExportManager.exportReportToPdfFile(informeRelleno, "./Informe "+tipoInforme+".pdf");
         } catch (JRException ex) {
             System.out.println(ex.getMessage());
